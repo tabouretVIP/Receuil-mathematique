@@ -1,8 +1,8 @@
-# Recueil Mathématique - Template LaTeX
+# Recueil Mathématique
 
 ## Description
 
-Ce template LaTeX est conçu pour créer des documents mathématiques de grande ampleur, inspiré par "An Infinitely Large Napkin" d'Evan Chen. Il offre une mise en page élégante et professionnelle avec de nombreuses fonctionnalités adaptées aux mathématiques.
+Ce t LaTeX est conçu pour créer des mathématiques de grande ampleur, inspiré par "An Infinitely Large Napkin" d'Evan Chen. Il offre une mise en page élégante et professionnelle avec de nombreuses fonctionnalités adaptées aux mathématiques.
 
 ## Caractéristiques principales
 
