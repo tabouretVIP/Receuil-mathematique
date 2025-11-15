@@ -1,0 +1,327 @@
+\chapter{Ordinaux}
+
+\section{Ensembles transitifs}
+
+\begin{definition}[Ensemble transitif]
+	Un ensemble $x$ est \textbf{transitif} si tout élément d'un élément de $x$ est encore élément de $x$ :
+	$$\forall y \in x, \forall z \in y,\quad  z \in x$$
+	Autrement dit : $\forall y \in x, y \subseteq x$.
+\end{definition}
+
+\begin{exemple}
+	Pour illustrer la définition ci-dessus voici quelques exemples :
+	\begin{itemize}
+		\item $\varnothing$ est transitif (vacuité)
+		\item $\{\varnothing\}$ est transitif
+		\item $\{\varnothing, \{\varnothing\}\}$ est transitif
+		\item Les naturels de Von Neumann sont transitifs : $0 = \varnothing$, $1 = \{\varnothing\}$, $2 = \{\varnothing, \{\varnothing\}\}$, etc.
+		\item $\{\{\varnothing\}\}$ n'est PAS transitif car $\varnothing \in \{\varnothing\} \in \{\{\varnothing\}\}$ mais $\varnothing \notin \{\{\varnothing\}\}$
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:trans_reunion}
+	Si $\mathcal{F}$ est une famille d'ensembles transitifs, alors $\bigcup \mathcal{F}$ est transitif.
+\end{proposition}
+
+\begin{proof}
+	Soient $z \in y \in \bigcup \mathcal{F}$. Il existe $t \in \mathcal{F}$ tel que $y \in t$. Puisque $t$ est transitif, on a $y \subseteq t$, donc $z \in t \subseteq \bigcup \mathcal{F}$.
+\end{proof}
+
+\begin{proposition}\label{prop:trans_intersection}
+	Si $\mathcal{F}$ est une famille non vide d'ensembles transitifs, alors $\bigcap \mathcal{F}$ est transitif.
+\end{proposition}
+
+\begin{proof}
+	Soient $z \in y \in \bigcap \mathcal{F}$. Pour tout $t \in \mathcal{F}$, on a $y \in t$, donc $z \in t$ par transitivité de $t$. Ainsi $z \in \bigcap \mathcal{F}$.
+\end{proof}
+
+\section{Définition des ordinaux}
+
+\begin{definition}[Ordinal]
+	Un ensemble $\alpha$ est un \textbf{ordinal} si :
+	\begin{enumerate}
+		\item $\alpha$ est transitif
+		\item $\alpha$ est totalement ordonné par $\in$
+	\end{enumerate}
+	On note $\mathrm{Ord}$ la collection de tous les ordinaux.
+\end{definition}
+
+\begin{remarque}
+	La condition « totalement ordonné par $\in$ » signifie que pour tous $x, y \in \alpha$, on a $x \in y$ ou $y \in x$ ou $x = y$.
+\end{remarque}
+
+\begin{exemple}
+	Nous avons que :
+	\begin{itemize}
+		\item $\varnothing = 0$ est un ordinal
+		\item $\{\varnothing\} = 1$ est un ordinal
+		\item $\{\varnothing, \{\varnothing\}\} = 2$ est un ordinal
+		\item Tous les naturels de Von Neumann $n \in \mathbb{N}$ sont des ordinaux
+		\item $\mathbb{N} = \omega$ est un ordinal (le premier ordinal infini)
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:ordinal_bien_ordonne}
+	Si $\alpha$ est un ordinal, alors $(\alpha, \in)$ est bien ordonné.
+\end{proposition}
+
+\begin{proof}
+	Nous savons déjà que $\in$ est un ordre total sur $\alpha$. Soit $A \subseteq \alpha$ non vide. Par l'axiome de fondation, $A$ possède un élément $\in$-minimal $m$, c'est-à-dire qu'il n'existe pas $x \in A$ tel que $x \in m$.
+
+	Montrons que $m$ est le minimum de $A$ pour l'ordre $\in$. Soit $a \in A$ quelconque. Puisque $\alpha$ est totalement ordonné par $\in$, on a $m \in a$, $a \in m$, ou $m = a$. Si $a \in m$, cela contredirait la minimalité $\in$-minimale de $m$ dans $A$. Donc nécessairement $m \in a$ ou $m = a$, ce qui signifie $m \leqslant a$ pour tout $a \in A$. Ainsi $m$ est le plus petit élément de $A$.
+\end{proof}
+
+\begin{theoreme}\label{thm:ordinal_caracterisation}
+	Un ensemble $\alpha$ est un ordinal si et seulement si $\alpha$ est transitif et bien ordonné par $\in$.
+\end{theoreme}
+
+\begin{proof}
+	Le sens direct découle de la proposition \ref{prop:ordinal_bien_ordonne}. Réciproquement, si $\alpha$ est bien ordonné par $\in$, alors $\in$ est en particulier un ordre total sur $\alpha$.
+\end{proof}
+
+\section{Propriétés fondamentales des ordinaux}
+
+\begin{lemme}\label{lem:ordinal_element}
+	Si $\alpha$ est un ordinal et $\beta \in \alpha$, alors $\beta$ est un ordinal et $\beta = \{x \in \alpha \mid x \in \beta\}$.
+\end{lemme}
+
+\begin{proof}
+	Puisque $\alpha$ est transitif et $\beta \in \alpha$, on a $\beta \subseteq \alpha$.
+
+	Montrons que $\beta$ est transitif. Soit $\gamma \in \delta \in \beta$. Alors $\delta \in \alpha$, donc par transitivité de $\alpha$, on a $\gamma \in \alpha$. Puisque l'ordre sur $\alpha$ est total et que $\gamma \in \delta \in \beta \subseteq \alpha$, avec la transitivité de $\alpha$, on obtient $\gamma \in \beta$. Donc $\beta$ est transitif.
+
+	L'ordre induit par $\in$ sur $\beta$ est total car $\beta \subseteq \alpha$ et $\in$ est total sur $\alpha$. Donc $\beta$ est un ordinal.
+
+	Enfin, $\beta = \{x \in \alpha \mid x \in \beta\}$ découle de $\beta \subseteq \alpha$.
+\end{proof}
+
+\begin{theoreme}[Trichotomie des ordinaux]\label{thm:comparaison_ordinaux}
+	Soient $\alpha$ et $\beta$ deux ordinaux. Alors exactement une des trois relations suivantes est vraie :
+	$$\alpha \in \beta \quad \text{ou} \quad \alpha = \beta \quad \text{ou} \quad \beta \in \alpha$$
+\end{theoreme}
+
+\begin{proof}
+	Considérons $\gamma = \alpha \cap \beta$.
+
+	Montrons d'abord que $\gamma$ est un ordinal. Si $x \in y \in \gamma$, alors $y \in \alpha$ et $y \in \beta$, donc par transitivité de $\alpha$ et $\beta$, on a $x \in \alpha$ et $x \in \beta$, d'où $x \in \gamma$. Donc $\gamma$ est transitif. De plus, pour tous $x, y \in \gamma$, puisque $x, y \in \alpha$ et $\alpha$ est totalement ordonné par $\in$, les éléments $x$ et $y$ sont comparables. Donc $\gamma$ est un ordinal.
+
+	Par définition, $\gamma \subseteq \alpha$ et $\gamma \subseteq \beta$. Supposons que $\gamma \neq \alpha$. Alors $\alpha \setminus \gamma \neq \varnothing$. Soit $\delta$ le plus petit élément de $\alpha \setminus \gamma$ (qui existe car $\alpha$ est bien ordonné).
+
+	Montrons que $\delta = \gamma$. Pour tout $x \in \delta$, on a $x \in \alpha$. De plus, $x < \delta$ dans $\alpha$, donc $x \notin \alpha \setminus \gamma$ par minimalité de $\delta$. Ainsi $x \in \gamma$, ce qui prouve $\delta \subseteq \gamma$. Réciproquement, pour tout $x \in \gamma$, on a $x \in \alpha$. Si $\delta < x$ dans $\alpha$, alors $\delta \in x$, et puisque $x \in \beta$ (car $x \in \gamma \subseteq \beta$) et $\beta$ est transitif, on aurait $\delta \in \beta$, donc $\delta \in \gamma$, contradiction. Si $x < \delta$, c'est bon. Si $x = \delta$, alors $\delta \in \gamma$, contradiction. Donc $x \in \delta$ pour tout $x \in \gamma$, d'où $\gamma \subseteq \delta$. Par double inclusion, $\gamma = \delta \in \alpha$.
+
+	Par un raisonnement symétrique, si $\gamma \neq \beta$, alors $\gamma \in \beta$.
+
+	Ainsi, soit $\gamma = \alpha = \beta$, soit $\gamma = \alpha \in \beta$, soit $\gamma = \beta \in \alpha$. Ces trois cas sont mutuellement exclusifs par l'axiome de fondation (qui interdit $\alpha \in \alpha$ et $\alpha \in \beta \in \alpha$).
+\end{proof}
+
+\begin{corollaire}\label{cor:ordinal_trichotomie}
+	La collection ( classe ) $\mathrm{Ord}$ des ordinaux est totalement ordonnée par $\in$.
+\end{corollaire}
+
+\begin{corollaire}\label{cor:ordinal_sous_ensemble}
+	Si $\alpha$ et $\beta$ sont des ordinaux avec $\alpha \subseteq \beta$, alors $\alpha \in \beta$ ou $\alpha = \beta$.
+\end{corollaire}
+
+\begin{proof}
+	Par trichotomie, on a $\alpha \in \beta$, $\alpha = \beta$, ou $\beta \in \alpha$. Si $\beta \in \alpha$ et $\alpha \subseteq \beta$, alors $\beta \in \beta$, ce qui contredit l'axiome de fondation.
+\end{proof}
+
+\section{Successeur et ordinaux limites}
+
+\begin{definition}[Successeur]
+	Pour tout ordinal $\alpha$, on définit son \textbf{successeur} par :
+	$$\alpha^+ = \alpha \cup \{\alpha\}$$
+	On note aussi $\alpha + 1 = \alpha^+$.
+\end{definition}
+
+\begin{proposition}\label{prop:successeur_ordinal}
+	Si $\alpha$ est un ordinal, alors $\alpha^+$ est un ordinal, et c'est le plus petit ordinal strictement plus grand que $\alpha$.
+\end{proposition}
+
+\begin{proof}
+	Montrons que $\alpha^+$ est transitif. Soit $x \in y \in \alpha^+$. Si $y \in \alpha$, alors par transitivité de $\alpha$, on a $y \subseteq \alpha \subseteq \alpha^+$, donc $x \in \alpha^+$. Si $y = \alpha$, alors $x \in \alpha \subseteq \alpha^+$.
+
+	Pour l'ordre total, soient $x, y \in \alpha^+$. Si $x, y \in \alpha$, ils sont comparables car $\alpha$ est totalement ordonné. Si $x = \alpha$, alors pour tout $y \in \alpha$, on a $y \in \alpha = x$. Le cas $y = \alpha$ est symétrique.
+
+	Donc $\alpha^+$ est un ordinal. De plus, $\alpha \in \alpha^+$ par définition. Si $\beta$ est un ordinal avec $\alpha \in \beta$, alors $\alpha \subseteq \beta$ (car $\beta$ est transitif), donc $\alpha^+ = \alpha \cup \{\alpha\} \subseteq \beta$, d'où $\alpha^+ \subseteq \beta$, et par le corollaire \ref{cor:ordinal_sous_ensemble}, $\alpha^+ \in \beta$ ou $\alpha^+ = \beta$. Ainsi $\alpha^+$ est le plus petit ordinal strictement plus grand que $\alpha$.
+\end{proof}
+
+\begin{definition}[Ordinal successeur et ordinal limite]
+	Un ordinal $\lambda \neq 0$ est appelé :
+	\begin{itemize}
+		\item \textbf{Ordinal successeur} s'il existe un ordinal $\beta$ tel que $\lambda = \beta^+$
+		\item \textbf{Ordinal limite} s'il n'est pas un successeur, i.e. $\lambda = \bigcup \lambda = \bigcup_{\alpha \in \lambda} \alpha$
+	\end{itemize}
+\end{definition}
+
+\begin{exemple}
+	\begin{itemize}
+		\item $1 = 0^+$, $2 = 1^+$, $3 = 2^+$, \ldots sont des ordinaux successeurs
+		\item $\omega = \mathbb{N}$ est un ordinal limite (le plus petit ordinal limite non nul)
+		\item $\omega + \omega = \omega \cdot 2$ est un ordinal limite
+		\item $\omega^2$, $\omega^\omega$, $\epsilon_0$ sont des ordinaux limites
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:limite_reunion}
+	Un ordinal $\lambda \neq 0$ est limite si et seulement si pour tout $\alpha \in \lambda$, on a $\alpha^+ \in \lambda$.
+\end{proposition}
+
+\begin{proof}
+	Si $\lambda$ est limite et $\alpha \in \lambda$, supposons $\alpha^+ \notin \lambda$. Par trichotomie, $\lambda \in \alpha^+$ ou $\lambda = \alpha^+$. Si $\lambda = \alpha^+$, alors $\lambda$ est un successeur, contradiction. Si $\lambda \in \alpha^+$, alors $\lambda \in \alpha$ ou $\lambda = \alpha$. Dans les deux cas, $\alpha \in \lambda$ et $\lambda \in \alpha^+$ avec $\alpha \in \alpha^+$ donnent une contradiction avec la fondation ou la transitivité. Donc $\alpha^+ \in \lambda$.
+
+	Réciproquement, si pour tout $\alpha \in \lambda$, on a $\alpha^+ \in \lambda$, et si $\lambda = \beta^+$ pour un certain $\beta$, alors $\beta \in \lambda$, donc $\beta^+ \in \lambda$, i.e. $\lambda \in \lambda$, contradiction.
+\end{proof}
+
+\section{Principe de récurrence et d'induction transfinie}
+
+\begin{theoreme}[Principe de récurrence transfinie]\label{thm:recurrence_transfinie}
+	Soit $P(\alpha)$ une propriété définie pour les ordinaux (donnée par une formule du langage de ZFC). Si :
+	\begin{enumerate}
+		\item $P(0)$ est vraie
+		\item Pour tout ordinal $\alpha$, si $P(\alpha)$ est vraie, alors $P(\alpha^+)$ est vraie
+		\item Pour tout ordinal limite $\lambda$, si $P(\beta)$ est vraie pour tout $\beta < \lambda$, alors $P(\lambda)$ est vraie
+	\end{enumerate}
+	Alors $P(\alpha)$ est vraie pour tout ordinal $\alpha$.
+\end{theoreme}
+
+\begin{proof}
+	Supposons par l'absurde qu'il existe un ordinal pour lequel $P$ est fausse. Considérons la classe $C = \{\alpha \in \mathrm{Ord} \mid \neg P(\alpha)\}$. Puisque cette classe est non vide, elle contient au moins un élément.
+
+	Fixons un ordinal $\gamma$ tel que $\neg P(\gamma)$ (dont l'existence est garantie par notre hypothèse). L'ensemble $A = \{\alpha \in \gamma^+ \mid \neg P(\alpha)\}$ est non vide (car il contient un ordinal $\leqslant \gamma$ ne satisfaisant pas $P$, si ce n'est $\gamma$ lui-même). Puisque $\gamma^+$ est bien ordonné, $A$ possède un plus petit élément $\delta$.
+
+	On a $\neg P(\delta)$, mais $P(\beta)$ est vraie pour tout $\beta < \delta$ (par minimalité de $\delta$ dans $A$).
+
+	Si $\delta = 0$, cela contredit (1).
+	Si $\delta = \beta^+$ pour un certain $\beta < \delta$, alors $P(\beta)$ est vraie, donc $P(\delta) = P(\beta^+)$ est vraie par (2), contradiction.
+	Si $\delta$ est un ordinal limite, alors $P(\beta)$ est vraie pour tout $\beta < \delta$, donc $P(\delta)$ est vraie par (3), contradiction.
+
+	Ainsi, aucun ordinal ne satisfait $\neg P$, donc $P(\alpha)$ est vraie pour tout ordinal $\alpha$.
+\end{proof}
+
+\begin{theoreme}[Principe d'induction transfinie]\label{thm:induction_transfinie}
+	Soit $P(\alpha)$ une propriété sur les ordinaux. Si pour tout ordinal $\alpha$,
+	$$\left(\forall \beta < \alpha, P(\beta)\right) \Rightarrow P(\alpha)$$
+	alors $P(\alpha)$ est vraie pour tout ordinal $\alpha$.
+\end{theoreme}
+
+\begin{proof}
+	On procède comme dans la preuve précédente. Si $P$ n'est pas vraie partout, il existe un plus petit ordinal $\delta$ tel que $\neg P(\delta)$. Mais alors $P(\beta)$ est vraie pour tout $\beta < \delta$ par minimalité de $\delta$, donc $P(\delta)$ devrait être vraie par hypothèse, contradiction.
+\end{proof}
+
+\section{Arithmétique ordinale}
+
+\subsection{Addition}
+
+\begin{definition}[Addition ordinale]
+	On définit l'addition $\alpha + \beta$ par récurrence transfinie sur $\beta$ :
+	\begin{align*}
+		\alpha + 0       & = \alpha                                                                                     \\
+		\alpha + \beta^+ & = (\alpha + \beta)^+                                                                         \\
+		\alpha + \lambda & = \bigcup_{\beta < \lambda} (\alpha + \beta) \quad \text{si $\lambda$ est un ordinal limite}
+	\end{align*}
+\end{definition}
+
+\begin{exemple}
+	On a
+	\begin{itemize}
+		\item $1 + 1 = 1^+ = 2$
+		\item $2 + 3 = 5$
+		\item $\omega + 1 = \omega^+$ (le successeur de $\omega$, distinct de $\omega$)
+		\item $1 + \omega = \bigcup_{n < \omega} (1 + n) = \bigcup_{n < \omega} (n + 1) = \omega$ (car chaque $n+1$ est dans $\omega$, et leur réunion donne $\omega$)
+		\item $\omega + \omega = \bigcup_{n < \omega} (\omega + n)$, qui est un ordinal limite distinct de $\omega$
+	\end{itemize}
+\end{exemple}
+
+\begin{remarque}
+	L'addition ordinale n'est PAS commutative : $1 + \omega = \omega \neq \omega + 1$.
+\end{remarque}
+
+\begin{proposition}\label{prop:addition_associative}
+	L'addition ordinale est associative : pour tous ordinaux $\alpha, \beta, \gamma$,
+	$$(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$$
+\end{proposition}
+
+\begin{proof}[Idée de preuve]
+	Par récurrence transfinie sur $\gamma$. Le cas $\gamma = 0$ est immédiat. Le cas successeur découle de la définition. Le cas limite utilise le fait que la réunion est associative.
+\end{proof}
+
+\subsection{Multiplication}
+
+\begin{definition}[Multiplication ordinale]
+	On définit la multiplication $\alpha \cdot \beta$ par récurrence transfinie sur $\beta$ :
+	\begin{align*}
+		\alpha \cdot 0       & = 0                                                                                              \\
+		\alpha \cdot \beta^+ & = \alpha \cdot \beta + \alpha                                                                    \\
+		\alpha \cdot \lambda & = \bigcup_{\beta < \lambda} (\alpha \cdot \beta) \quad \text{si $\lambda$ est un ordinal limite}
+	\end{align*}
+\end{definition}
+
+\begin{exemple}
+	On a
+	\begin{itemize}
+		\item $2 \cdot 3 = 2 + 2 + 2 = 6$
+		\item $2 \cdot \omega = \bigcup_{n < \omega} (2 \cdot n) = \bigcup_{n < \omega} 2n = \omega$ (car tout entier pair est dans $\omega$)
+		\item $\omega \cdot 2 = \omega \cdot 1^+ = \omega \cdot 1 + \omega = \omega + \omega$ (distinct de $\omega$)
+		\item $\omega \cdot \omega = \omega^2$ est un ordinal limite
+	\end{itemize}
+\end{exemple}
+
+\begin{remarque}
+	La multiplication ordinale n'est PAS commutative : $2 \cdot \omega = \omega \neq \omega \cdot 2 = \omega + \omega$.
+\end{remarque}
+
+\begin{proposition}
+	La multiplication ordinale est associative et distributive à gauche :
+	\begin{itemize}
+		\item $(\alpha \cdot \beta) \cdot \gamma = \alpha \cdot (\beta \cdot \gamma)$
+		\item $\alpha \cdot (\beta + \gamma) = \alpha \cdot \beta + \alpha \cdot \gamma$
+	\end{itemize}
+	Mais elle n'est pas distributive à droite en général.
+\end{proposition}
+
+\begin{exemple}[Non-distributivité à droite]
+	$(\omega + 1) \cdot \omega = \omega \cdot \omega = \omega^2$, mais $\omega \cdot \omega + 1 \cdot \omega = \omega^2 + \omega \neq \omega^2$.
+\end{exemple}
+
+\subsection{Exponentiation}
+
+\begin{definition}[Exponentiation ordinale]
+	On définit l'exponentiation $\alpha^\beta$ par récurrence transfinie sur $\beta$ :
+	\begin{align*}
+		\alpha^0         & = 1                                                                                      \\
+		\alpha^{\beta^+} & = \alpha^\beta \cdot \alpha                                                              \\
+		\alpha^\lambda   & = \bigcup_{\beta < \lambda} \alpha^\beta \quad \text{si $\lambda$ est un ordinal limite}
+	\end{align*}
+\end{definition}
+
+\begin{exemple}
+	On a
+	\begin{itemize}
+		\item $2^3 = 8$
+		\item $2^\omega = \bigcup_{n < \omega} 2^n = \omega$ (car tout $2^n$ est fini)
+		\item $\omega^2 = \omega \cdot \omega$
+		\item $\omega^\omega$ est un ordinal limite
+	\end{itemize}
+\end{exemple}
+
+\section{La hiérarchie des ordinaux}
+
+Au-delà de $\omega$, on construit une hiérarchie infinie d'ordinaux :
+\begin{align*}
+	 & 0, 1, 2, \ldots, \omega, \omega + 1, \omega + 2, \ldots                 \\
+	 & \omega + \omega = \omega \cdot 2, \omega \cdot 2 + 1, \ldots            \\
+	 & \omega \cdot 3, \ldots, \omega \cdot \omega = \omega^2, \ldots          \\
+	 & \omega^3, \ldots, \omega^\omega, \ldots, \omega^{\omega^\omega}, \ldots
+\end{align*}
+
+\begin{definition}[Nombres epsilon]
+	Un ordinal $\epsilon$ est appelé \textbf{nombre epsilon} si $\omega^\epsilon = \epsilon$.
+
+	Le plus petit tel ordinal est noté $\epsilon_0$. On définit ensuite $\epsilon_1, \epsilon_2, \ldots$ par récurrence.
+\end{definition}
+
+\begin{remarque}
+	$\epsilon_0$ est le plus petit ordinal qui ne peut s'exprimer avec $0, 1, \omega$ et les opérations $+, \cdot, \text{exp}$ de manière finie.
+\end{remarque}
+

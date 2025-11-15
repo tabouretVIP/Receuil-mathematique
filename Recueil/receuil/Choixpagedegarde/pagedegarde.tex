@@ -1,0 +1,121 @@
+\begin{titlepage}
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture,overlay]
+    % Fond coloré
+    \fill[primarycolor!10] (current page.south west) rectangle (current page.north east);
+    
+    % Motifs géométriques décoratifs
+    \foreach \i in {1,...,20}{
+        \pgfmathsetmacro{\opacity}{0.1+0.02*\i}
+        \fill[primarycolor, opacity=\opacity] 
+            ($(current page.north west)+(0,-\i)$) -- 
+            ($(current page.north west)+(\i,-\i)$) --
+            ($(current page.north west)+(\i,0)$) -- cycle;
+    }
+    
+    \foreach \i in {1,...,20}{
+        \pgfmathsetmacro{\opacity}{0.1+0.02*\i}
+        \fill[secondarycolor, opacity=\opacity] 
+            ($(current page.south east)+(0,\i)$) -- 
+            ($(current page.south east)+(-\i,\i)$) --
+            ($(current page.south east)+(-\i,0)$) -- cycle;
+    }
+    
+    % Boîte centrale pour le titre
+    \node[
+        rectangle,
+        draw=primarycolor,
+        line width=2pt,
+        inner sep=20pt,
+        fill=white,
+        drop shadow={shadow xshift=5pt, shadow yshift=-5pt, opacity=0.3}
+    ] at (current page.center) {
+        \begin{minipage}{0.8\textwidth}
+            \centering
+            
+            % Ornement supérieur
+            {\color{primarycolor}\rule{0.7\linewidth}{1.5pt}}
+            
+            \vspace{1cm}
+            
+            % Titre principal
+            {\Huge\bfseries\color{primarycolor} Recueil Mathématique\par}
+            
+            \vspace{0.5cm}
+            
+            % Sous-titre
+            {\LARGE\itshape\color{secondarycolor} Un voyage à travers les mathématiques \par}
+            
+            \vspace{1.5cm}
+            
+            % Ornement central
+            \begin{center}
+            \begin{tikzpicture}
+                \draw[primarycolor, line width=1pt] (0,0) circle (0.8cm);
+                \draw[secondarycolor, line width=1pt] (0,0) circle (0.6cm);
+                \foreach \angle in {0,60,...,300} {
+                    \draw[accentcolor, line width=0.5pt] (0,0) -- (\angle:0.8cm);
+                }
+            \end{tikzpicture}
+            \end{center}
+            
+            \vspace{1.5cm}
+            
+            % Auteur
+            {\Large\scshape\color{black} Tiago Piette \par}
+            
+            \vspace{0.5cm}
+            
+            % Date et version
+            {\large\color{black!70} 2025 \par}
+            {\small\color{black!50} Version: \version\par}
+            
+            \vspace{1cm}
+            
+            % Ornement inférieur
+            {\color{primarycolor}\rule{0.7\linewidth}{1.5pt}}
+            
+        \end{minipage}
+    };
+    
+    % Symboles algébriques - VERSION ÉLÉGANTE ET DISCRÈTE
+    % Opacité réduite pour un effet subtil mais visible
+    
+    % Haut gauche (zone bleue)
+    \node[
+        opacity=0.10,
+        scale=6,
+        color=white
+    ] at ($(current page.center)+(-7,7)$) {$G \rtimes H$};
+    
+    % Haut droite (zone bleue)
+    \node[
+        opacity=0.10,
+        scale=6,
+        color=white
+    ] at ($(current page.center)+(7,7)$) {$\phi: G \to H$};
+    
+    % Bas gauche (zone rouge) - légèrement plus haut
+    \node[
+        opacity=0.12,
+        scale=6,
+        color=white
+    ] at ($(current page.center)+(-7,-7.5)$) {$S_n$};
+    
+    % Bas droite (zone rouge) - légèrement plus haut
+    \node[
+        opacity=0.12,
+        scale=6,
+        color=white
+    ] at ($(current page.center)+(7,-7.5)$) {$G \times X$};
+    
+\end{tikzpicture}
+
+\end{titlepage}
+
+% Page blanche après la page de garde
+%\clearpage
+%\thispagestyle{empty}
+%\mbox{}
+%\clearpage

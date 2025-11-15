@@ -1,0 +1,317 @@
+% ========================================================================
+% PACKAGES ESSENTIELS
+% ========================================================================
+
+% Encodage et langues
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}  % Support du français
+
+% Polices élégantes
+\usepackage{palatino}            % Police principale élégante (Palatino)
+\usepackage{mathpazo}            % Mathématiques assorties à Palatino
+
+% Géométrie et mise en page
+\usepackage[
+    a4paper,
+    inner=2.5cm,
+    outer=2cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    headheight=15pt
+]{geometry}
+
+% En-têtes et pieds de page élégants
+\usepackage{scrlayer-scrpage}
+% Tables des matières
+\usepackage{etoc}
+% Graphiques et couleurs
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{calc,decorations.pathmorphing,patterns,positioning,shadows}
+
+% Définition des couleurs du thème
+\definecolor{primarycolor}{RGB}{0,51,102}      % Bleu foncé
+\definecolor{secondarycolor}{RGB}{204,51,51}   % Rouge profond
+\definecolor{accentcolor}{RGB}{0,102,204}      % Bleu vif
+\definecolor{lightgray}{RGB}{245,245,245}      % Gris très clair
+\definecolor{darkgray}{RGB}{80,80,80}          % Gris foncé pour les définitions
+\definecolor{lemmecolor}{RGB}{204,102,0}       % Orange foncé pour les lemmes
+\definecolor{axiomcolor}{RGB}{102,51,153}      % Violet pour axiomes
+\definecolor{examplecolor}{RGB}{34,139,34}     % Vert pour exemples
+\definecolor{exercisecolor}{RGB}{255,140,0}    % Orange vif pour exercices
+
+% Mathématiques
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage{mathrsfs}
+
+% Boîtes colorées pour les théorèmes
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+% Liens hypertextes (à charger en dernier ou presque)
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primarycolor,
+    urlcolor=accentcolor,
+    citecolor=secondarycolor,
+    pdfborder={0 0 0}
+}
+
+% ========================================================================
+% ENVIRONNEMENTS DE THÉORÈMES - VERSION AVEC SYNTAXE []
+% ========================================================================
+
+% Compteur partagé pour numérotation cohérente
+\newcounter{tcbthm}[section]
+\renewcommand{\thetcbthm}{\thesection.\arabic{tcbthm}}
+
+% Style de base pour les théorèmes
+\tcbset{
+    mytheoremstyle/.style={
+        enhanced,
+        breakable,
+        frame hidden,
+        colback=white,
+        fonttitle=\bfseries\sffamily,
+        before skip=12pt,
+        after skip=12pt,
+        left=8pt,
+        right=5pt,
+        top=5pt,
+        bottom=5pt,
+    }
+}
+
+% Théorème (barre bleue foncée)
+\newtcolorbox{theoreme}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{primarycolor},
+    coltitle=primarycolor,
+    title={\refstepcounter{tcbthm}Théorème~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Proposition (barre bleue vive)
+\newtcolorbox{proposition}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{accentcolor},
+    coltitle=accentcolor,
+    title={\refstepcounter{tcbthm}Proposition~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Lemme (barre orange foncé)
+\newtcolorbox{lemme}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{lemmecolor},
+    coltitle=lemmecolor,
+    title={\refstepcounter{tcbthm}Lemme~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Corollaire (barre bleue atténuée)
+\newtcolorbox{corollaire}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{primarycolor!70},
+    coltitle=primarycolor!70,
+    title={\refstepcounter{tcbthm}Corollaire~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Définition (barre grise foncée)
+\newtcolorbox{definition}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{darkgray},
+    coltitle=darkgray,
+    title={\refstepcounter{tcbthm}Définition~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Axiome (barre violette)
+\newtcolorbox{axiome}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{axiomcolor},
+    coltitle=axiomcolor,
+    title={\refstepcounter{tcbthm}Axiome~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Conjecture (barre violette)
+\newtcolorbox{conjecture}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{axiomcolor},
+    coltitle=axiomcolor,
+    title={\refstepcounter{tcbthm}Conjecture~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Exemple (barre verte)
+\newtcolorbox{exemple}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{examplecolor},
+    coltitle=examplecolor,
+    title={\refstepcounter{tcbthm}Exemple~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Exercice (barre orange vif)
+\newtcolorbox{exercice}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{exercisecolor},
+    coltitle=exercisecolor,
+    title={\refstepcounter{tcbthm}Exercice~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% Remarque numérotée (barre grise claire, texte en italique)
+\newtcolorbox{remarque}[1][]{
+    mytheoremstyle,
+    borderline west={2pt}{0pt}{black!40},
+    coltitle=black!60,
+    fontupper=\itshape,
+    title={\refstepcounter{tcbthm}Remarque~\thetcbthm\if\relax\detokenize{#1}\relax\else\ (#1)\fi},
+}
+
+% ========================================================================
+% ENVIRONNEMENTS SANS NUMÉROTATION
+% ========================================================================
+
+% Remarque simple sans numérotation et sans barre latérale
+\newenvironment{remarquesimp}[1][]%
+{%
+    \par\medskip\noindent%
+    \textbf{\sffamily\color{black!60}Remarque%
+    \if\relax\detokenize{#1}\relax\else\ (#1)\fi.}%
+    \itshape\space%
+}%
+{%
+    \par\medskip%
+}
+
+% Notation
+\newenvironment{notation}[1][]%
+{%
+    \par\medskip\noindent%
+    \textbf{\sffamily\color{black!60}Notation%
+    \if\relax\detokenize{#1}\relax\else\ (#1)\fi :}%
+    \itshape\space%
+}%
+{%
+    \par\medskip%
+}
+
+% ========================================================================
+% CONFIGURATION DES EN-TÊTES ET PIEDS DE PAGE
+% ========================================================================
+
+% Activer le style scrheadings
+\pagestyle{scrheadings}
+
+% Nettoyer les styles par défaut
+\clearpairofpagestyles
+
+% Configuration des en-têtes pour pages paires/impaires
+\ihead{\small\leftmark}  % En-tête intérieur : nom du chapitre
+\ohead{\textcolor{primarycolor}{\thepage}}  % En-tête extérieur : numéro de page
+
+% Pied de page pour le style plain (début de chapitre)
+\cfoot[\textcolor{primarycolor}{\thepage}]{}
+
+% Ligne de séparation colorée
+\ModifyLayer[addvoffset=-.6ex]{scrheadings.foot.above.line}% un peu plus haut
+\ModifyLayer[addvoffset=.6ex]{plain.scrheadings.foot.above.line}% un peu plus haut  
+\setkomafont{pageheadfoot}{\normalfont\normalcolor}
+\setkomafont{pagination}{\normalfont\normalcolor}
+\KOMAoptions{headsepline=0.5pt:head}
+\setkomafont{headsepline}{\color{primarycolor}}
+
+% ========================================================================
+% PERSONNALISATION DES TITRES DE SECTIONS (KOMA)
+% ========================================================================
+
+\definecolor{partgray}{gray}{0.85}
+\definecolor{parttitle}{HTML}{222222}
+
+% === PARTIES ===
+\setkomafont{part}{\color{parttitle}\Huge\bfseries}
+
+\renewcommand*\partformat{}
+\renewcommand*\partheadstartvskip{\vspace*{3cm}}
+\renewcommand*\partheadmidvskip{1em}
+\renewcommand*\partheadendvskip{\vspace*{5cm}}
+
+\renewcommand*\partlineswithprefixformat[3]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[opacity=0.15,scale=30,text=partgray] at (current page.center)
+      {\thepart};
+  \end{tikzpicture}%
+  \begin{center}
+    {\Large\textsc{Partie~\thepart}}\\[1em]
+    {\Huge\bfseries\color{parttitle} #3}
+  \end{center}
+}
+
+\RedeclareSectionCommand[
+  beforeskip=0pt,
+  afterskip=5cm
+]{part}
+
+% === CHAPITRES ===
+\setkomafont{chapter}{\normalfont\huge\bfseries\color{primarycolor}}
+\setkomafont{chapterprefix}{\normalfont\Large\color{primarycolor}}
+
+\renewcommand*{\chapterformat}{%
+  \chapappifchapterprefix{\ }%
+  \thechapter\autodot\enskip%
+}
+
+\RedeclareSectionCommand[
+  beforeskip=0pt,
+  afterskip=20pt
+]{chapter}
+
+% === SECTIONS ===
+\setkomafont{section}{\normalfont\Large\bfseries\color{primarycolor}}
+
+\RedeclareSectionCommand[
+  beforeskip=-3.5ex plus -1ex minus -0.2ex,
+  afterskip=2.3ex plus 0.2ex
+]{section}
+
+% === SOUS-SECTIONS ===
+\setkomafont{subsection}{\normalfont\large\bfseries\color{accentcolor}}
+
+\RedeclareSectionCommand[
+  beforeskip=-3.25ex plus -1ex minus -0.2ex,
+  afterskip=1.5ex plus 0.2ex
+]{subsection}
+
+% === SOUS-SOUS-SECTIONS ===
+\setkomafont{subsubsection}{\normalfont\normalsize\bfseries\color{accentcolor!80}}
+
+% ========================================================================
+% COMMANDES MATHÉMATIQUES PERSONNALISÉES
+% ========================================================================
+
+% Ensembles classiques
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\partie}{\mathcal{P}}  % Ensemble des parties
+
+% Autres notations utiles
+\DeclareMathOperator{\Card}{Card}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+
+% ========================================================================
+% MÉTADONNÉES DU DOCUMENT
+% ========================================================================
+\title{Recueil Mathématique}
+\subtitle{Un voyage à travers les mathématiques}
+\author{Tiago Piette}
+\date{2025}
+\newcommand{\version}{v1.0}

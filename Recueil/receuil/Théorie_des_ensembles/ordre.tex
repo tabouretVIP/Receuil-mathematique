@@ -1,0 +1,218 @@
+\chapter{Relations d'ordre et ensembles bien ordonnés}
+
+Avant d'étudier l'axiome du choix, nous devons introduire plusieurs notions fondamentales sur les relations d'ordre. Nous commencerons par une série de définition.
+\section{Relations d'ordre}
+
+\begin{definition}[Relation d'ordre]
+	Une relation binaire $\leqslant$ sur un ensemble $X$ est une \textbf{relation d'ordre} (ou \textbf{ordre partiel}) si elle est :
+	\begin{enumerate}
+		\item \textbf{Réflexive} : $\forall x \in X, x \leqslant x$
+		\item \textbf{Antisymétrique} : $\forall x, y \in X, (x \leqslant y \land y \leqslant x) \Rightarrow x = y$
+		\item \textbf{Transitive} : $\forall x, y, z \in X, (x \leqslant y \land y \leqslant z) \Rightarrow x \leqslant z$
+	\end{enumerate}
+	On dit alors que $(X, \leqslant)$ est un ensemble ordonné.
+\end{definition}
+
+\begin{exemple}
+	Voici des exemples d'ensembles ordonnés :
+	\begin{itemize}
+		\item $(\mathbb{N}, \leqslant)$ avec l'ordre usuel
+		\item $(\mathcal{P}(E), \subseteq)$ pour tout ensemble $E$
+		\item $(X, =)$ pour tout ensemble $X$ (ordre trivial)
+	\end{itemize}
+\end{exemple}
+
+\begin{definition}[Ordre total]
+	Un ordre $\leqslant$ sur $X$ est \textbf{total} si deux éléments quelconques sont toujours comparables :
+	$$\forall x, y \in X,\quad  x \leqslant y \text{ ou } y \leqslant x$$
+\end{definition}
+
+\begin{exemple}
+	Voici des exemples d'ensembes totalement ordonnés :
+	\begin{itemize}
+		\item $(\mathbb{R}, \leqslant)$ est totalement ordonné
+		\item $(\mathcal{P}(\{0, 1\}), \subseteq)$ n'est PAS totalement ordonné car $\{0\}$ et $\{1\}$ ne sont pas comparables
+	\end{itemize}
+\end{exemple}
+
+\begin{definition}[Chaîne]
+	Une \textbf{chaîne} dans un ensemble ordonné $(X, \leqslant)$ est un sous-ensemble $C \subseteq X$ qui est totalement ordonné par la restriction de $\leqslant$ à $C$.
+\end{definition}
+
+\subsection{Éléments remarquables}
+
+\begin{definition}[Élément maximal et maximum]
+	Soit $(X, \leqslant)$ un ensemble ordonné et $x \in X$.
+	\begin{itemize}
+		\item $x$ est un \textbf{élément maximal} (resp. minimal) de $X$ si :
+		      $$\forall y \in X, (x \leqslant y \Rightarrow x = y)\quad (\text{resp. } \forall y \in X, (x \geqslant y \Rightarrow x = y))$$
+		\item $x$ est le \textbf{maximum} (resp. minimum) de $X$ si :
+		      $$\forall y \in X, y \leqslant x \quad (\text{resp. } \forall y \in X, y \geqslant x )$$
+	\end{itemize}
+\end{definition}
+
+\begin{remarque}
+	Nous avons les faits suivants (à adapter pour le munimum) :
+	\begin{itemize}
+		\item Un plus grand élément est toujours maximal
+		\item Un élément maximal n'est pas nécessairement un plus grand élément
+		\item Dans un ordre total, élément maximal = plus grand élément
+		\item Il peut y avoir plusieurs éléments maximaux, mais au plus un plus grand élément
+	\end{itemize}
+\end{remarque}
+
+\begin{exemple}
+	Soit $X = \{\{1\}, \{2\}, \{1, 2\}\}$ ordonné par $\subseteq$.
+	\begin{itemize}
+		\item $\{1, 2\}$ est le plus grand élément (donc aussi maximal)
+		\item Si on retire $\{1, 2\}$, alors $\{1\}$ et $\{2\}$ sont tous deux maximaux, mais aucun n'est le plus grand
+	\end{itemize}
+\end{exemple}
+
+\begin{definition}[Majorant]
+	Soit $(X, \leqslant)$ un ensemble ordonné et $A \subseteq X$. Un élément $m \in X$ est un \textbf{majorant} de $A$ si :
+	$$\forall a \in A, a \leqslant m$$
+\end{definition}
+
+\begin{remarque}
+	Un majorant de $A$ n'est pas nécessairement dans $A$.
+\end{remarque}
+
+\begin{exemple}
+	\begin{itemize}
+		\item Dans $(\mathbb{R}, \leqslant)$, tout $x \geqslant 1$ est un majorant de $[0, 1]$
+		\item Dans $(\mathcal{P}(E), \subseteq)$, si $\mathcal{F}$ est une famille de parties de $E$, alors $\bigcup \mathcal{F}$ est un majorant de $\mathcal{F}$
+	\end{itemize}
+\end{exemple}
+
+\section{Bons ordres}
+
+\begin{definition}[Bon ordre]
+	Un ordre $\leqslant$ sur $X$ est un \textbf{bon ordre} si toute partie non vide de $X$ possède un plus petit élément :
+	$$\forall A \subseteq X, A \neq \varnothing \Rightarrow \exists m \in A, \forall a \in A, m \leqslant a$$
+
+	On dit alors que $(X, \leqslant)$ est \textbf{bien ordonné}.
+\end{definition}
+
+\begin{exemple}
+	Voici quelques exemples pour illustrer la définition précédente :
+	\begin{itemize}
+		\item $(\mathbb{N}, \leqslant)$ est bien ordonné (principe du plus petit élément)
+		\item $(\mathbb{Z}, \leqslant)$ n'est PAS bien ordonné car $\mathbb{Z}$ lui-même n'a pas de plus petit élément
+		\item $(\mathbb{R}^{> 0}, \leqslant)$ n'est PAS bien ordonné car $]0, 1[$ n'a pas de plus petit élément
+		\item Tout ensemble fini totalement ordonné est bien ordonné
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:bon_ordre_total}
+	Tout bon ordre est un ordre total.
+\end{proposition}
+
+
+\begin{proof}
+	Soit $(X, \leqslant)$ un ensemble bien ordonné. Soient $x, y \in X$. Nous devons montrer que $x \leqslant y$ ou $y \leqslant x$.
+	Considérons l'ensemble $A = \{x, y\}$. Puisque $A$ est non vide, il possède un plus petit élément $m$. Alors $m \in A$ et $m \leqslant x$ et $m \leqslant y$.
+	Puisque $m \in \{x, y\}$, on a soit $m = x$ soit $m = y$. Si $m = x$, alors $x \leqslant y$. Si $m = y$, alors $y \leqslant x$.
+	Donc $x$ et $y$ sont comparables, et l'ordre est total.
+\end{proof}
+
+\subsection{Segments initiaux}
+
+\begin{definition}[Segment initial]
+	Soit $(X, \leqslant)$ un ensemble ordonné, 
+	un sous-ensemble $S \subseteq X$ est un \textbf{segment initial} de $X$ si :
+	$$\forall x \in S, \forall y \in X, (y \leqslant x \Rightarrow y \in S)$$
+	Autrement dit, si $S$ contient $x$, alors $S$ contient tous les éléments plus petits que $x$.
+	On dit que $S$ est un \textbf{segment initial propre} si $S$ est un segment initial et $S \neq X$.
+\end{definition}
+
+\begin{notation}
+	Pour $x \in X$, on note
+	$$\text{seg}_X x = \{y \in X \mid y < x\}$$
+	le segment initial strict déterminé par $x$ dans $X$.
+\end{notation}
+
+\begin{exemple}
+	Dans $(\mathbb{N}, \leqslant)$ :
+	\begin{itemize}
+		\item $\{0, 1, 2\}$ est un segment initial
+		\item $\text{seg}_\mathbb{N} 3 = \{0, 1, 2\}$
+		\item $\{0, 2\}$ n'est PAS un segment initial (contient 2 mais pas 1)
+		\item $\mathbb{N}$ lui-même est un segment initial
+		\item $\varnothing$ est un segment initial
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:segments_comparables}
+	Soit $(X, \leqslant)$ un ensemble bien ordonné. Si $F$ et $G$ sont deux segments initiaux de $X$, alors $F \subseteq G$ ou $G \subseteq F$.
+\end{proposition}
+
+\begin{proof}
+	Supposons que $F \not\subseteq G$ et $G \not\subseteq F$. Alors $F \setminus G \neq \varnothing$ et $G \setminus F \neq \varnothing$. Comme $X$ est bien ordonné, $F \setminus G$ possède un plus petit élément $a$ et $G \setminus F$ possède un plus petit élément $b$.
+
+	Si $a < b$ : Puisque $b \in G$ et que $G$ est un segment initial, on a $a \in G$. Mais $a \in F \setminus G$, contradiction.
+
+	Si $b < a$ : Par symétrie, on obtient une contradiction.
+
+	Si $a = b$ : Alors $a \in F$ et $a \in G$, ce qui contredit $a \in F \setminus G$ et $b \in G \setminus F$.
+
+	Donc $F \subseteq G$ ou $G \subseteq F$.
+\end{proof}
+
+\begin{proposition}\label{prop:reunion_segments}
+	Soit $(X, \leqslant)$ un ensemble bien ordonné. Si $\mathcal{F}$ est une famille de segments initiaux de $X$, alors $\bigcup \mathcal{F}$ est un segment initial de $X$.
+\end{proposition}
+
+\begin{proof}
+	Soit $x \in \bigcup \mathcal{F}$ et soit $y \in X$ tel que $y \leqslant x$. Il existe $F \in \mathcal{F}$ tel que $x \in F$. Puisque $F$ est un segment initial et $y \leqslant x$, on a $y \in F \subseteq \bigcup \mathcal{F}$.
+\end{proof}
+
+\begin{proposition}\label{prop:intersection_segments}
+	Soit $(X, \leqslant)$ un ensemble bien ordonné. Si $\mathcal{F}$ est une famille non vide de segments initiaux de $X$, alors $\bigcap \mathcal{F}$ est un segment initial de $X$.
+\end{proposition}
+
+\begin{proof}
+	Soit $x \in \bigcap \mathcal{F}$ et soit $y \in X$ tel que $y \leqslant x$. Pour tout $F \in \mathcal{F}$, on a $x \in F$, donc $y \in F$ (car $F$ est un segment initial). Ainsi $y \in \bigcap \mathcal{F}$.
+\end{proof}
+
+\subsection{Propriétés fondamentales des bons ordres}
+
+\begin{proposition}[Principe de récurrence transfinie]\label{prop:recurrence_transfinie}
+	Soit $(X, \leqslant)$ un ensemble bien ordonné et $P(x)$ une propriété. Si :
+	\begin{enumerate}
+		\item Pour tout $x \in X$, si $P(y)$ est vraie pour tout $y < x$, alors $P(x)$ est vraie
+	\end{enumerate}
+	Alors $P(x)$ est vraie pour tout $x \in X$.
+\end{proposition}
+
+\begin{proof}
+	Supposons que $P$ ne soit pas vraie pour tout $x \in X$. Alors l'ensemble
+	$$A = \{x \in X \mid P(x) \text{ est fausse}\}$$
+	est non vide. Comme $X$ est bien ordonné, $A$ possède un plus petit élément $a$.
+
+	Par définition de $a$, pour tout $y < a$, on a $y \notin A$, donc $P(y)$ est vraie. Par hypothèse (1), $P(a)$ devrait être vraie, ce qui contredit $a \in A$.
+\end{proof}
+
+\begin{corollaire}
+	Soit $(X, \leqslant)$ bien ordonné.
+	Toute suite strictement décroissante dans $X$ est finie.
+\end{corollaire}
+
+\begin{proof}
+	Supposons qu'il existe une suite infinie strictement décroissante $x_0 > x_1 > x_2 > \cdots$. Alors $A = \{x_0, x_1, x_2, \ldots\}$ est non vide mais n'a pas de plus petit élément, contradiction.
+\end{proof}
+
+\begin{proposition}\label{prop:segment_ou_egal}
+	Soit $(X, \leqslant)$ bien ordonné et $F$ un segment initial propre de $X$. Alors il existe $a \in X$ tel que $F = \text{seg}_X a$.
+\end{proposition}
+
+\begin{proof}
+	Puisque $F \neq X$, l'ensemble $X \setminus F$ est non vide. Soit $a$ son plus petit élément.
+
+	Montrons que $F = \text{seg}_X a$ :
+	\begin{itemize}
+		\item Si $x \in F$ : alors $x \neq a$ (car $a \notin F$). Si $a < x$, alors $a \in F$ (car $F$ est un segment initial), contradiction. Donc $x < a$, i.e. $x \in \text{seg}_X a$.
+
+		\item Si $x \in \text{seg}_X a$ : alors $x < a$. Donc $x \neq a$, donc $x \notin X \setminus F$. Par minimalité de $a$, on ne peut avoir $x \in X \setminus F$. Donc $x \in F$.
+	\end{itemize}
+\end{proof}

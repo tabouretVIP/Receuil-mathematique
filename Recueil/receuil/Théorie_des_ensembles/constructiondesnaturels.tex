@@ -1,0 +1,555 @@
+\chapter{Construction de $\N$}
+
+\section{Entiers de Von Neumann}
+
+Les axiomes de la théorie des ensembles que nous avons introduits suffisent pour construire les entiers naturels de manière rigoureuse. La construction que nous présentons, due à John von Neumann, identifie chaque entier naturel à l'ensemble de ses prédécesseurs.
+
+\begin{definition}
+    On note $0 := \emptyset$ l'ensemble vide.
+\end{definition}
+
+\begin{definition}
+    Soit $n$ un ensemble. On définit le \textbf{successeur} de $n$ par
+    \[
+    n^+:= n\cup\{n\}
+    \]
+    On peut aussi le noter $S(n)$ ou $n+1$ (une fois l'addition définie).
+\end{definition}
+
+\begin{remarque}
+    Le successeur d'un ensemble existe par application de l'axiome de la paire pour former $\{n\}$, puis de l'axiome de l'union pour obtenir $n \cup \{n\}$. Intuitivement, $n^+$ contient tout ce que $n$ contient, plus $n$ lui-même.
+\end{remarque}
+
+\begin{definition}
+    Un ensemble $N$ est dit \textbf{inductif} s'il satisfait :
+    \begin{enumerate}
+        \item $0 \in N$ (il contient zéro)
+        \item $\forall n \in N, \: n^+ \in N$ (il est stable par successeur)
+    \end{enumerate}
+\end{definition}
+
+\begin{remarque}
+    L'axiome de l'infini garantit l'existence d'au moins un ensemble inductif. L'idée est maintenant de prendre le "plus petit" ensemble inductif pour obtenir exactement les naturels.
+\end{remarque}
+
+\begin{lemme}\label{lem:inter_inductif}
+    L'intersection d'une famille d'ensembles inductifs est inductive.
+\end{lemme}
+
+\begin{proof}
+    Soit $(A_i)_{i\in I}$ une famille d'ensembles inductifs et posons $A := \bigcap_{i\in I}A_i$. 
+    
+    Pour tout $i \in I$, on a $0 \in A_i$ car $A_i$ est inductif. Donc $0$ appartient à l'intersection $A$.
+    
+    Si $n \in A$, alors $n \in A_i$ pour tout $i \in I$. La stabilité par successeur de chaque $A_i$ donne $n^+ \in A_i$ pour tout $i$, donc $n^+ \in A$.
+    
+    Ainsi $A$ est inductif.
+\end{proof}
+
+\begin{definition}\label{def:natNeuman}
+	Soit $N$ un ensemble inductif. On définit
+    \[
+    \N := \bigcap \{I \subseteq N \mid I \text{ est inductif}\}
+    \]
+	Les éléments de $\N$ sont appelés \textbf{entiers naturels} ou simplement \textbf{naturels}.
+\end{definition}
+
+\begin{remarque}
+    Cette définition capture l'idée que $\N$ est le plus petit ensemble inductif : c'est l'intersection de tous les ensembles inductifs, donc il ne contient que ce qui est absolument nécessaire (0 et ses successeurs itérés).
+\end{remarque}
+
+\begin{proposition}
+	La définition de $\N$ ne dépend pas du choix de l'ensemble inductif $N$.
+\end{proposition}
+
+\begin{proof}
+	Soient $N$ et $N'$ deux ensembles inductifs. Notons 
+    \[
+    \N_N :=\bigcap\{I\subseteq N \mid I \text{ est inductif}\}
+    \quad \text{et} \quad
+    \N_{N'} :=\bigcap\{I\subseteq N' \mid I \text{ est inductif}\}
+    \]
+	
+    L'ensemble $K := \N_{N'} \cap N$ est inductif : il contient $0$ (qui appartient à $\N_{N'}$ et à $N$), et si $n \in K$ alors $n^+$ appartient à $\N_{N'}$ et à $N$ par inductivité, donc $n^+ \in K$. Ainsi $K$ est un sous-ensemble inductif de $N$, d'où $\N_N \subseteq K \subseteq \N_{N'}$.
+	
+    Le raisonnement symétrique donne $\N_{N'} \subseteq \N_N$, d'où l'égalité.
+\end{proof}
+
+\begin{corollaire}
+    $\N$ est lui-même un ensemble inductif.
+\end{corollaire}
+
+\begin{proof}
+    Par le lemme \ref{lem:inter_inductif}, l'intersection d'ensembles inductifs est inductive.
+\end{proof}
+
+\begin{exemple}
+	Les premiers naturels prennent une forme particulièrement simple :
+	\begin{align*}
+		0 &= \emptyset\\
+        1 &= \{0\} = \{\emptyset\}\\
+        2 &= \{0, 1\} = \{\emptyset, \{\emptyset\}\}\\
+        3 &= \{0, 1, 2\} = \{\emptyset, \{\emptyset\}, \{\emptyset, \{\emptyset\}\}\}
+	\end{align*}
+    On observe que chaque naturel $n$ est précisément l'ensemble $\{0, 1, \ldots, n-1\}$ de ses prédécesseurs.
+\end{exemple}
+
+\section{Compatibilité avec l'axiomatique de Peano}
+
+Giuseppe Peano a axiomatisé les entiers naturels au moyen de cinq axiomes fondamentaux. Vérifions que notre construction satisfait ces axiomes.
+
+\begin{theoreme}[Axiomes de Peano]
+Les entiers naturels $\N$ munis de $0$ et de l'opération successeur vérifient :
+\begin{enumerate}
+	\item $0\in \N$
+	\item $\forall n \in \N, \: n^+\in \N$
+	\item $\forall n\in \N, \: n^+\neq 0$
+	\item $\forall m, n \in \N, \: (m^+=n^+ \Rightarrow m=n)$ (injectivité du successeur)
+	\item Si $S \subseteq \N$ avec $0\in S$ et $\forall n\in S, \: n^+\in S$, alors $S= \N$
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof}
+Les trois premiers axiomes sont immédiats : $\N$ est inductif par construction, donc contient $0$ et est stable par successeur. De plus, $n^+ = n \cup \{n\}$ contient $n$, donc est non vide, donc distinct de $0 = \emptyset$.
+
+Pour le cinquième axiome, remarquons qu'un sous-ensemble $S$ de $\N$ contenant $0$ et stable par successeur est précisément un sous-ensemble inductif de $\N$. Par définition de $\N$ comme intersection de tous les sous-ensembles inductifs, on a $\N \subseteq S$, d'où $S = \N$.
+
+Reste l'axiome d'injectivité, qui nécessite une préparation.
+\end{proof}
+
+\begin{lemme}\label{lem:in_implies_subset}
+	Pour tous $m,n\in \N$, si $m\in n$ alors $m\subseteq n$.
+\end{lemme}
+
+\begin{proof}
+	Soit $S:=\{n\in \N \mid \forall m\in \N, \: (m \in n \Rightarrow m\subseteq n)\}$. Montrons que $S = \N$ par induction.
+    
+    Pour $n = 0 = \emptyset$, l'implication $m \in 0 \Rightarrow m \subseteq 0$ est vacuement vraie, donc $0 \in S$.
+	
+    Supposons $k\in S$ et soit $m \in k^+ = k\cup \{k\}$. Alors $m \in k$ ou $m = k$. Dans le premier cas, $m\subseteq k$ par définition de $S$, donc $m\subseteq k^+$. Dans le second, $m = k \subseteq k^+$ directement. Ainsi $k^+\in S$.
+    
+	Par le cinquième axiome de Peano (déjà vérifié), $S = \N$.
+\end{proof}
+
+\begin{corollaire}\label{cor:nat_transitif}
+    Tout entier naturel est un ensemble transitif : $\forall n \in \N, \: \forall x \in n, \: x \subseteq n$.
+\end{corollaire}
+
+\begin{lemme}[Injectivité du successeur]
+	Pour tous $m, n \in \N$, si $m^+=n^+$ alors $m=n$.
+\end{lemme}
+
+\begin{proof}
+	Supposons $m^+=n^+$ et par l'absurde $m\neq n$. Alors $m \in m^+ = n^+ = n\cup\{n\}$, donc $m \in n$ ou $m = n$. L'égalité étant exclue, on a $m \in n$, d'où $m \subseteq n$ par le lemme précédent.
+    
+    Par symétrie, $n \in n^+ = m^+$ donne $n \in m$ (car $n \neq m$), d'où $n \subseteq m$.
+    
+    La double inclusion $m \subseteq n$ et $n \subseteq m$ impose $m = n$, contradiction.
+\end{proof}
+
+\begin{remarque}
+Cette vérification montre que la construction de von Neumann réalise fidèlement l'arithmétique de Peano dans le cadre de la théorie des ensembles.
+\end{remarque}
+
+\section{Principes d'induction}
+
+Le principe d'induction est l'outil fondamental du raisonnement sur les entiers. Il découle naturellement du cinquième axiome de Peano.
+
+\subsection{Induction simple}
+
+\begin{theoreme}[Principe d'induction]\label{thm:induction}
+Soit $P$ une propriété définie sur $\N$. Si $P(0)$ est vraie et si $P(n) \Rightarrow P(n^+)$ pour tout $n \in \N$, alors $P(n)$ est vraie pour tout $n \in \N$.
+\end{theoreme}
+
+\begin{proof}
+L'ensemble $A = \{n \in \N \mid P(n)\}$ est un sous-ensemble inductif de $\N$ : il contient $0$ et est stable par successeur. Par l'axiome 5 de Peano, $A = \N$.
+\end{proof}
+
+\begin{remarque}
+Ce principe capture l'idée intuitive que pour atteindre tous les naturels, il suffit de partir de $0$ et d'avancer pas à pas via le successeur. C'est l'essence même de la structure inductive de $\N$.
+\end{remarque}
+
+\subsection{Variantes}
+
+\begin{theoreme}[Induction à partir de $n_0$]\label{thm:induction_n0}
+Soit $n_0 \in \N$ et $P$ une propriété. Si $P(n_0)$ est vraie et si $P(n) \Rightarrow P(n^+)$ pour tout $n \geq n_0$, alors $P(n)$ est vraie pour tout $n \geq n_0$.
+\end{theoreme}
+
+\begin{proof}
+Pour chaque $m \in \N$, définissons par récurrence le $m$-ième successeur de $n_0$ :
+\[
+n_0 + 0 := n_0
+\quad \text{et} \quad
+n_0 + m^+ := (n_0 + m)^+
+\]
+Posons $Q(m) := P(n_0 + m)$. Alors $Q(0)$ est vraie et $Q(m) \Rightarrow Q(m^+)$ pour tout $m$. Par induction simple, $Q(m)$ est vraie pour tout $m$, ce qui donne le résultat.
+\end{proof}
+
+\begin{theoreme}[Principe d'induction forte]\label{thm:induction_forte}
+Soit $P$ une propriété. Si pour tout $n \in \N$, l'hypothèse « $P(m)$ pour tout $m < n$ » implique $P(n)$, alors $P(n)$ est vraie pour tout $n \in \N$.
+\end{theoreme}
+
+\begin{proof}
+Définissons $Q(n) := \forall m < n, \: P(m)$, qui exprime que $P$ est vraie en dessous de $n$.
+
+Pour $n = 0$, il n'existe aucun $m < 0$, donc $Q(0)$ est vacuement vraie.
+
+Supposons $Q(n)$ vraie. Pour montrer $Q(n^+)$, soit $m < n^+$. Alors $m \in n^+ = n \cup \{n\}$, donc $m \in n$ ou $m = n$. Si $m \in n$, alors $m < n$ et $Q(n)$ donne $P(m)$. Si $m = n$, l'hypothèse du théorème appliquée à $n$ (avec $Q(n)$) donne $P(n) = P(m)$. Ainsi $Q(n^+)$ est vraie.
+
+Par induction simple, $Q(n)$ est vraie pour tout $n$. En particulier, $Q(n^+)$ exprime que $P(m)$ pour tout $m \leq n$, donc $P(n)$ pour tout $n$.
+\end{proof}
+
+\begin{remarque}
+L'induction forte et l'induction simple sont équivalentes. L'induction forte est souvent plus naturelle car elle permet d'utiliser toute l'information sur les prédécesseurs, pas seulement le prédécesseur immédiat.
+\end{remarque}
+
+\subsection{Principe du bon ordre}
+
+\begin{theoreme}[Bon ordre de $\N$]\label{thm:bon_ordre}
+Toute partie non vide de $\N$ admet un plus petit élément.
+\end{theoreme}
+
+\begin{proof}
+Soit $A \subseteq \N$ non vide. Supposons par l'absurde que $A$ n'ait pas de minimum. Définissons $P(n) :=$ « $n \notin A$ ». Montrons $P(n)$ pour tout $n$ par induction forte.
+
+Soit $n \in \N$ et supposons $P(m)$ pour tout $m < n$. Si $n \in A$, alors tout élément de $A$ plus petit que $n$ n'existe pas (par hypothèse de récurrence), donc $n$ serait un minimum de $A$, contradiction. Ainsi $P(n)$ est vraie.
+
+Par induction forte, $A = \emptyset$, contradiction.
+\end{proof}
+
+\begin{theoreme}[Équivalence des principes]
+Les principes d'induction simple, d'induction forte et du bon ordre sont équivalents.
+\end{theoreme}
+
+\begin{proof}
+Nous avons montré (induction simple) $\Rightarrow$ (induction forte) $\Rightarrow$ (bon ordre).
+
+Montrons (bon ordre) $\Rightarrow$ (induction simple). Soit $P$ une propriété avec $P(0)$ vraie et $P(n) \Rightarrow P(n^+)$. Si $P$ n'était pas vraie partout, l'ensemble $A = \{n \mid \neg P(n)\}$ serait non vide, admettrait un minimum $a$. Or $a \neq 0$, donc $a = b^+$ pour un $b$. Comme $a$ est minimal dans $A$, on a $P(b)$, donc $P(a)$ par hérédité, contradiction.
+\end{proof}
+
+\section{Ordre dans les naturels}
+
+La relation d'appartenance $\in$ induit naturellement un ordre sur $\N$ via l'identification de von Neumann.
+
+\subsection{Définition et structure}
+
+\begin{definition}
+On définit les relations suivantes sur $\N$ :
+\begin{itemize}
+    \item $n < m :\Leftrightarrow n \in m$
+    \item $n \leq m :\Leftrightarrow n < m \text{ ou } n = m$
+    \item $n > m :\Leftrightarrow m < n$
+    \item $n \geq m :\Leftrightarrow m \leq n$
+\end{itemize}
+\end{definition}
+
+\begin{proposition}\label{prop:ordre_strict}
+La relation $<$ est un ordre strict : elle est irréflexive, asymétrique et transitive.
+\end{proposition}
+
+\begin{proof}
+\textbf{Irréflexivité.} Supposons par l'absurde $n \in n$ pour un $n \in \N$. L'axiome de fondation appliqué à $\{n\}$ donne un élément $\in$-minimal, nécessairement $n$, d'où $n \notin n$, contradiction.
+
+\textbf{Asymétrie.} Si $n \in m$ et $m \in n$, l'axiome de fondation appliqué à $\{m,n\}$ donne un élément $\in$-minimal. Si c'est $n$, alors $m \notin n$, contradiction ; si c'est $m$, alors $n \notin m$, contradiction.
+
+\textbf{Transitivité.} Si $k \in m$ et $m \in n$, alors $m \subseteq n$ par transitivité des naturels (corollaire \ref{cor:nat_transitif}), donc $k \in n$.
+\end{proof}
+
+\begin{theoreme}[Trichotomie]\label{thm:trichotomie}
+Pour tous $m, n \in \N$, exactement une des trois relations suivantes est vraie : $n<m$, $n=m$, ou $n>m$.
+\end{theoreme}
+
+\begin{proof}
+Fixons $m$ et montrons par induction sur $n$ que $n<m$ ou $n=m$ ou $n>m$.
+
+Pour $n = 0$, montrons par induction sur $m$ que $0 \leq m$ : c'est vrai pour $m = 0$, et si $0 \leq k$ alors $0 \in k^+$ (car $k^+ = k \cup \{k\}$ et soit $0 \in k$, soit $0 = k$ donnant $0 \in \{k\}$). Ainsi $0 < m$ ou $0 = m$.
+
+Supposons la propriété vraie pour $n$ et considérons $n^+$. Distinguons selon la position de $n$ par rapport à $m$ :
+
+Si $n < m$, alors $n \in m$ donc $n \subseteq m$ par transitivité. On a $n^+ = n \cup \{n\} \subseteq m \cup \{n\}$. Par induction sur $m$, soit $n^+ \in m$ (donc $n^+ < m$), soit $n^+ = m$, soit $m \in n^+$ auquel cas $m \in n$ (impossible car $n < m$) ou $m = n$ donnant $n^+ = m$.
+
+Si $n = m$, alors $m \in m^+ = n^+$, donc $n^+ > m$.
+
+Si $n > m$, alors $m \in n \subseteq n^+$, donc $n^+ > m$.
+
+L'unicité découle de l'asymétrie et de l'irréflexivité.
+\end{proof}
+
+\begin{corollaire}
+$(\N, \leq)$ est un ordre total : pour tous $m,n \in \N$, on a $m \leq n$ ou $n \leq m$.
+\end{corollaire}
+
+\begin{proposition}
+$(\N, \leq)$ est un bon ordre : toute partie non vide admet un plus petit élément.
+\end{proposition}
+
+\begin{proof}
+C'est le théorème \ref{thm:bon_ordre}.
+\end{proof}
+
+\section{Définitions par récurrence}
+
+Pour définir rigoureusement les opérations arithmétiques, nous établissons d'abord le principe général permettant les définitions récursives.
+
+\subsection{Théorèmes de récurrence}
+
+\begin{theoreme}[Récurrence simple]\label{thm:recursion}
+Soient $E$ un ensemble, $a \in E$ et $f: E \to E$. Il existe une unique fonction $h: \N \to E$ satisfaisant
+\[
+h(0) = a
+\quad \text{et} \quad
+h(n^+) = f(h(n)) \text{ pour tout } n \in \N
+\]
+\end{theoreme}
+
+\begin{proof}
+\textbf{Construction.} Appelons \emph{approximation} toute fonction partielle $g: A \to E$ (où $A \subseteq \N$) telle que si $0 \in A$ alors $g(0) = a$, et si $n, n^+ \in A$ alors $g(n^+) = f(g(n))$. Soit $\mathcal{F}$ l'ensemble des approximations et posons $h = \bigcup_{g \in \mathcal{F}} g$.
+
+\textbf{Cohérence.} Montrons par induction que deux approximations coïncident sur leur domaine commun. Pour $n = 0$, toutes les approximations contenant $0$ donnent $g(0) = a$. Si deux approximations $g_1, g_2$ coïncident jusqu'à $n$ et contiennent $n^+$, alors $g_1(n^+) = f(g_1(n)) = f(g_2(n)) = g_2(n^+)$. Ainsi $h$ est bien définie.
+
+\textbf{Complétude.} Par induction sur $n$, montrons $n \in \text{dom}(h)$. La fonction $\{(0,a)\}$ est une approximation, donc $0 \in \text{dom}(h)$. Si $n \in \text{dom}(h)$ avec $h(n) = b$, prenons une approximation $g$ avec $n \in \text{dom}(g)$ et considérons $g' = g \cup \{(n^+, f(b))\}$. C'est une approximation, donc $n^+ \in \text{dom}(h)$.
+
+\textbf{Unicité.} Si $h'$ satisfait aussi les équations, alors par induction $h(n) = h'(n)$ : c'est vrai pour $n = 0$, et si $h(n) = h'(n)$ alors $h(n^+) = f(h(n)) = f(h'(n)) = h'(n^+)$.
+\end{proof}
+
+\begin{theoreme}[Récurrence double]\label{thm:recursion_double}
+Soient $E$ un ensemble, $a \in E$ et $f: \N \times E \to E$. Il existe une unique fonction $h: \N \to E$ satisfaisant
+\[
+h(0) = a
+\quad \text{et} \quad
+h(n^+) = f(n, h(n)) \text{ pour tout } n \in \N
+\]
+\end{theoreme}
+
+\begin{proof}
+Appliquons le théorème \ref{thm:recursion} à $E' = \N \times E$ avec $a' = (0, a)$ et $g((n, x)) = (n^+, f(n, x))$. On obtient $h': \N \to \N \times E$. Par induction, la première composante vérifie $\pi_1(h'(n)) = n$. La seconde composante $h = \pi_2 \circ h'$ satisfait les équations voulues.
+\end{proof}
+
+\subsection{L'addition}
+
+\begin{definition}[Addition]\label{def:addition}
+Pour tout $m \in \N$, le théorème de récurrence appliqué à $E = \N$, $a = m$ et $f = S$ (successeur) définit l'unique fonction $+_m: \N \to \N$ satisfaisant
+\[
+m + 0 = m
+\quad \text{et} \quad
+m + n^+ = (m + n)^+
+\]
+L'addition est alors la fonction $+: \N \times \N \to \N$ donnée par $(m, n) \mapsto m + n$.
+\end{definition}
+
+\begin{lemme}\label{lem:add_succ_left}
+Pour tous $m, n \in \N$ : $m^+ + n = (m + n)^+$.
+\end{lemme}
+
+\begin{proof}
+Par induction sur $n$. Pour $n = 0$ : $m^+ + 0 = m^+ = (m + 0)^+$. Si le résultat est vrai pour $n$ :
+\[
+m^+ + n^+ = (m^+ + n)^+ = ((m + n)^+)^+ = (m + n^+)^+
+\]
+\end{proof}
+
+\begin{proposition}[Neutralité de zéro]
+Pour tout $n \in \N$ : $0 + n = n$ et $n + 0 = n$.
+\end{proposition}
+
+\begin{proof}
+La seconde égalité est définitoire. Pour la première, par induction : $0 + 0 = 0$, et si $0 + n = n$ alors $0 + n^+ = (0 + n)^+ = n^+$.
+\end{proof}
+
+\begin{proposition}[Associativité]\label{prop:add_assoc}
+Pour tous $k, m, n \in \N$ : $(k + m) + n = k + (m + n)$.
+\end{proposition}
+
+\begin{proof}
+Fixons $k, m$ et procédons par induction sur $n$. Pour $n = 0$ : $(k + m) + 0 = k + m = k + (m + 0)$. Si l'égalité est vraie pour $n$ :
+\[
+(k + m) + n^+ = ((k + m) + n)^+ = (k + (m + n))^+ = k + (m + n)^+ = k + (m + n^+)
+\]
+\end{proof}
+
+\begin{proposition}[Commutativité]\label{prop:add_comm}
+Pour tous $m, n \in \N$ : $m + n = n + m$.
+\end{proposition}
+
+\begin{proof}
+Fixons $m$ et procédons par induction sur $n$. Pour $n = 0$ : $m + 0 = m = 0 + m$. Si $m + n = n + m$ :
+\[
+m + n^+ = (m + n)^+ = (n + m)^+ = n^+ + m
+\]
+où la dernière égalité utilise le lemme \ref{lem:add_succ_left}.
+\end{proof}
+
+\begin{proposition}[Simplification]\label{prop:add_cancel}
+Pour tous $k, m, n \in \N$ : $k + m = k + n \Rightarrow m = n$.
+\end{proposition}
+
+\begin{proof}
+Par induction sur $k$. Pour $k = 0$ : $0 + m = 0 + n$ donne $m = n$. Si le résultat est vrai pour $k$ et que $k^+ + m = k^+ + n$, alors $(k + m)^+ = (k + n)^+$ par le lemme \ref{lem:add_succ_left}, donc $k + m = k + n$ par injectivité du successeur, donc $m = n$ par hypothèse de récurrence.
+\end{proof}
+
+\subsection{La multiplication}
+
+\begin{definition}[Multiplication]\label{def:multiplication}
+Pour tout $m \in \N$, le théorème de récurrence définit l'unique fonction $\times_m: \N \to \N$ satisfaisant
+\[
+m \cdot 0 = 0
+\quad \text{et} \quad
+m \cdot n^+ = m \cdot n + m
+\]
+La multiplication est la fonction $\cdot: \N \times \N \to \N$ donnée par $(m, n) \mapsto m \cdot n$, souvent notée $mn$.
+\end{definition}
+
+\begin{lemme}\label{lem:mult_zero}
+Pour tout $n \in \N$ : $0 \cdot n = 0$.
+\end{lemme}
+
+\begin{proof}
+Par induction : $0 \cdot 0 = 0$ par définition, et $0 \cdot n^+ = 0 \cdot n + 0 = 0 + 0 = 0$.
+\end{proof}
+
+\begin{lemme}\label{lem:mult_one}
+Pour tout $n \in \N$ : $1 \cdot n = n$ où $1 := 0^+$.
+\end{lemme}
+
+\begin{proof}
+Par induction : $1 \cdot 0 = 0$, et si $1 \cdot n = n$ alors
+\[
+1 \cdot n^+ = 1 \cdot n + 1 = n + 0^+ = (n + 0)^+ = n^+
+\]
+\end{proof}
+
+\begin{lemme}[Distributivité à droite]\label{lem:mult_dist_right}
+Pour tous $k, m, n \in \N$ : $(k + m) \cdot n = k \cdot n + m \cdot n$.
+\end{lemme}
+
+\begin{proof}
+Fixons $k, m$ et procédons par induction sur $n$. Pour $n = 0$ : $(k + m) \cdot 0 = 0 = 0 + 0 = k \cdot 0 + m \cdot 0$. Si l'égalité est vraie pour $n$ :
+\begin{align*}
+(k + m) \cdot n^+ &= (k + m) \cdot n + (k + m)\\
+                  &= (k \cdot n + m \cdot n) + (k + m)\\
+                  &= (k \cdot n + k) + (m \cdot n + m)\\
+                  &= k \cdot n^+ + m \cdot n^+
+\end{align*}
+où l'avant-dernière ligne utilise l'associativité et la commutativité de l'addition.
+\end{proof}
+
+\begin{lemme}\label{lem:mult_succ_left}
+Pour tous $m, n \in \N$ : $m^+ \cdot n = m \cdot n + n$.
+\end{lemme}
+
+\begin{proof}
+Par induction sur $n$. Pour $n = 0$ : $m^+ \cdot 0 = 0 = m \cdot 0 + 0$. Si l'égalité est vraie pour $n$ :
+\begin{align*}
+m^+ \cdot n^+ &= m^+ \cdot n + m^+\\
+              &= (m \cdot n + n) + m^+\\
+              &= m \cdot n + (n + m^+)\\
+              &= m \cdot n + ((m + n)^+)\\
+              &= (m \cdot n + m) + n^+\\
+              &= m \cdot n^+ + n^+
+\end{align*}
+\end{proof}
+
+\begin{proposition}[Commutativité]\label{prop:mult_comm}
+Pour tous $m, n \in \N$ : $m \cdot n = n \cdot m$.
+\end{proposition}
+
+\begin{proof}
+Fixons $m$ et procédons par induction sur $n$. Pour $n = 0$ : $m \cdot 0 = 0 = 0 \cdot m$. Si $m \cdot n = n \cdot m$ :
+\[
+m \cdot n^+ = m \cdot n + m = n \cdot m + m = n^+ \cdot m
+\]
+\end{proof}
+
+\begin{proposition}[Associativité]\label{prop:mult_assoc}
+Pour tous $k, m, n \in \N$ : $(k \cdot m) \cdot n = k \cdot (m \cdot n)$.
+\end{proposition}
+
+\begin{proof}
+Fixons $k, m$ et procédons par induction sur $n$. Pour $n = 0$ : $(k \cdot m) \cdot 0 = 0 = k \cdot 0 = k \cdot (m \cdot 0)$. Si l'égalité est vraie pour $n$ :
+\[
+(k \cdot m) \cdot n^+ = (k \cdot m) \cdot n + k \cdot m = k \cdot (m \cdot n) + k \cdot m = k \cdot (m \cdot n + m) = k \cdot (m \cdot n^+)
+\]
+où l'avant-dernière égalité utilise la distributivité.
+\end{proof}
+
+\begin{proposition}[Distributivité à gauche]\label{prop:mult_dist_left}
+Pour tous $k, m, n \in \N$ : $k \cdot (m + n) = k \cdot m + k \cdot n$.
+\end{proposition}
+
+\begin{proof}
+Par commutativité : $k \cdot (m + n) = (m + n) \cdot k = m \cdot k + n \cdot k = k \cdot m + k \cdot n$.
+\end{proof}
+
+\begin{proposition}[Éléments remarquables]
+Pour tout $n \in \N$ : $n \cdot 0 = 0$, $n \cdot 1 = n$ et $0 \cdot n = 0$, $1 \cdot n = n$.
+\end{proposition}
+
+\begin{proof}
+Les deux premières égalités découlent de la définition et du lemme \ref{lem:mult_one}. Les deux dernières découlent des lemmes \ref{lem:mult_zero} et \ref{lem:mult_one} avec la commutativité.
+\end{proof}
+
+\subsection{Compatibilité avec l'ordre}
+
+\begin{lemme}
+Pour tous $n, m \in \N$ : $n \leq n + m$.
+\end{lemme}
+
+\begin{proof}
+Par induction sur $m$. Pour $m = 0$ : $n = n + 0$ donc $n \leq n + 0$. Si $n \leq n + m$ alors soit $n = n + m$, soit $n < n + m$. Dans les deux cas, $n \in (n + m)^+ = n + m^+$ ou $n = n + m < n + m^+$, donc $n \leq n + m^+$.
+\end{proof}
+
+\begin{proposition}[Monotonie de l'addition]\label{prop:order_add}
+Pour tous $k, m, n \in \N$ : $m < n \Leftrightarrow k + m < k + n$.
+\end{proposition}
+
+\begin{proof}
+Par induction sur $k$. Pour $k = 0$ c'est immédiat. Supposons le résultat vrai pour $k$. Alors :
+\[
+k^+ + m < k^+ + n \Leftrightarrow (k + m)^+ < (k + n)^+ \Leftrightarrow k + m < k + n \Leftrightarrow m < n
+\]
+La deuxième équivalence utilise que $p^+ < q^+$ si et seulement si $p < q$ (par trichotomie et injectivité du successeur).
+\end{proof}
+
+\begin{proposition}[Monotonie de la multiplication]\label{prop:order_mult}
+Pour tous $k, m, n \in \N$ avec $k \neq 0$ : $m < n \Leftrightarrow k \cdot m < k \cdot n$.
+\end{proposition}
+
+\begin{proof}
+Comme $k \neq 0$, écrivons $k = p^+$ pour un $p \in \N$.
+
+($\Rightarrow$) Si $m < n$, il existe $t \in \N$ non nul tel que $n = m + t$ (se prouve par induction sur $n$). Alors :
+\[
+k \cdot n = k \cdot (m + t) = k \cdot m + k \cdot t > k \cdot m
+\]
+car $k \cdot t \neq 0$ (puisque $k, t \neq 0$, se prouve par induction).
+
+($\Leftarrow$) Par trichotomie sur $m$ et $n$ : si $m = n$ alors $k \cdot m = k \cdot n$, contradiction ; si $m > n$ alors $k \cdot m > k \cdot n$ par ce qui précède, contradiction. Donc $m < n$.
+\end{proof}
+
+\subsection{Structure algébrique}
+
+\begin{remarque}
+Les propriétés établies montrent que $(\N, +, \cdot, 0, 1, \leq)$ forme un \textbf{semi-anneau commutatif totalement ordonné} :
+\begin{itemize}
+    \item $(\N, +, 0)$ est un monoïde commutatif : l'addition est associative, commutative, avec $0$ pour neutre
+    \item $(\N, \cdot, 1)$ est un monoïde commutatif : la multiplication est associative, commutative, avec $1$ pour neutre
+    \item La multiplication distribue sur l'addition
+    \item $0$ est absorbant pour la multiplication : $0 \cdot n = n \cdot 0 = 0$
+    \item $(\N, \leq)$ est un ordre total compatible avec les opérations
+\end{itemize}
+Cette structure capture l'essence algébrique de l'arithmétique élémentaire.
+\end{remarque}
+
+\begin{remarque}
+On peut poursuivre en définissant l'exponentiation par récurrence :
+\[
+m^0 := 1
+\quad \text{et} \quad
+m^{n^+} := m^n \cdot m
+\]
+Toutes les propriétés usuelles se démontrent alors par induction : $(m^p)^q = m^{pq}$, $m^p \cdot m^q = m^{p+q}$, $(mn)^p = m^p n^p$, etc.
+\end{remarque}
+
+\begin{remarque}[Perspective]
+La construction que nous avons effectuée établit un pont remarquable entre la théorie des ensembles et l'arithmétique. Partant des seuls axiomes de ZF, nous avons construit les entiers naturels, vérifié les axiomes de Peano, établi les principes d'induction, défini l'ordre et les opérations arithmétiques, et prouvé toutes leurs propriétés fondamentales. Cette démarche illustre la puissance unificatrice de la théorie des ensembles comme fondement des mathématiques.
+\end{remarque}

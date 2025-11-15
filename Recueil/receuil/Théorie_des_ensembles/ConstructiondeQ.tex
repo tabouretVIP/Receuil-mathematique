@@ -1,0 +1,572 @@
+\chapter{Construction de $\Q$}
+
+\section{Motivation}
+
+L'ensemble $\Z$ des entiers relatifs a résolu le problème de la soustraction : toute équation de la forme $x + a = b$ y admet une solution unique. Cependant, $\Z$ souffre d'une nouvelle limitation : la division n'y est pas toujours définie. L'équation $2x = 3$ n'admet aucune solution dans $\Z$, tout comme l'équation générale $ax = b$ lorsque $a$ ne divise pas $b$.
+
+Pour remédier à cette situation, nous construisons l'ensemble $\Q$ des \textbf{nombres rationnels}, dans lequel toute équation de la forme $ax = b$ avec $a \neq 0$ admettra une solution unique. L'idée fondamentale est d'interpréter chaque rationnel comme un \textbf{quotient formel} de deux entiers : le nombre $\frac{3}{2}$, par exemple, sera représenté par toutes les fractions $\frac{3k}{2k}$ où $k \in \Z \setminus \{0\}$.
+
+\section{Construction par classes d'équivalence}
+
+\subsection{La relation d'équivalence}
+
+\begin{definition}
+On définit une relation binaire $\sim$ sur $\Z \times (\Z \setminus \{0\})$ par :
+\[
+(a,b) \sim (c,d) \quad :\Leftrightarrow \quad ad = bc
+\]
+\end{definition}
+
+\begin{remarque}
+L'intuition derrière cette définition est la suivante : si $(a,b)$ représente le quotient $\frac{a}{b}$ et $(c,d)$ représente $\frac{c}{d}$, alors ces deux quotients sont égaux si et seulement si $\frac{a}{b} = \frac{c}{d}$, c'est-à-dire $ad = bc$. Nous utilisons cette dernière formulation car elle n'implique que la multiplication dans $\Z$, évitant ainsi de faire référence à une division non encore définie.
+
+Notons que nous excluons $0$ des dénominateurs car la division par zéro n'a pas de sens.
+\end{remarque}
+
+\begin{exemple}
+Les paires suivantes sont équivalentes :
+\begin{itemize}
+    \item $(3,2) \sim (6,4)$ car $3 \cdot 4 = 12 = 2 \cdot 6$
+    \item $(1,3) \sim (2,6) \sim (-1,-3)$ car $1 \cdot 6 = 6 = 3 \cdot 2$ et $1 \cdot (-3) = -3 = 3 \cdot (-1)$
+    \item $(-2,3) \sim (2,-3)$ car $(-2) \cdot (-3) = 6 = 3 \cdot 2$
+\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:equiv_Q}
+La relation $\sim$ est une relation d'équivalence sur $\Z \times (\Z \setminus \{0\})$.
+\end{proposition}
+
+\begin{proof}
+Vérifions les trois propriétés caractéristiques.
+
+\textbf{Réflexivité.} Soit $(a,b) \in \Z \times (\Z \setminus \{0\})$. On a $ab = ba$ par commutativité de la multiplication dans $\Z$, donc $(a,b) \sim (a,b)$.
+
+\textbf{Symétrie.} Soient $(a,b), (c,d) \in \Z \times (\Z \setminus \{0\})$ tels que $(a,b) \sim (c,d)$. Alors $ad = bc$, d'où $cb = da$ par commutativité, donc $(c,d) \sim (a,b)$.
+
+\textbf{Transitivité.} Soient $(a,b), (c,d), (e,f) \in \Z \times (\Z \setminus \{0\})$ tels que $(a,b) \sim (c,d)$ et $(c,d) \sim (e,f)$. Les hypothèses donnent $ad = bc$ et $cf = de$. Multiplions la première égalité par $f$ et la seconde par $b$ :
+\begin{align*}
+adf &= bcf\\
+bcf &= bde
+\end{align*}
+Donc $adf = bde$. Par commutativité, $af \cdot d = be \cdot d$. Puisque $d \neq 0$ et que $\Z$ est intègre (théorème \ref{thm:integrite}), on peut simplifier par $d$ : $af = be$. Ainsi $(a,b) \sim (e,f)$.
+\end{proof}
+
+\begin{definition}
+Pour $(a,b) \in \Z \times (\Z \setminus \{0\})$, on note $[a,b]$ ou $\frac{a}{b}$ la classe d'équivalence de $(a,b)$ pour la relation $\sim$ :
+\[
+\left[\frac{a}{b}\right] := \left\{(c,d) \in \Z \times (\Z \setminus \{0\}) \mid (c,d) \sim (a,b)\right\}
+\]
+\end{definition}
+
+\begin{definition}[Les nombres rationnels]
+On définit l'ensemble des \textbf{nombres rationnels} par :
+\[
+\Q := (\Z \times (\Z \setminus \{0\})) / \sim \; = \; \left\{\frac{a}{b} \mid a \in \Z, b \in \Z \setminus \{0\}\right\}
+\]
+\end{definition}
+
+\begin{remarque}
+L'axiome de remplacement de la théorie ZF garantit l'existence de cet ensemble quotient. Intuitivement, chaque classe $\frac{a}{b}$ représente le nombre rationnel $\frac{a}{b}$. Par exemple :
+\begin{itemize}
+    \item $\frac{1}{2} = \frac{2}{4} = \frac{3}{6} = \frac{-1}{-2}$ représente le rationnel $\frac{1}{2}$
+    \item $\frac{3}{1} = \frac{6}{2} = \frac{-3}{-1}$ représente le rationnel $3$
+    \item $\frac{0}{1} = \frac{0}{2} = \frac{0}{-5}$ représente le rationnel $0$
+\end{itemize}
+\end{remarque}
+
+\subsection{Plongement de $\Z$ dans $\Q$}
+
+\begin{definition}
+On définit l'application $\iota : \Z \to \Q$ par :
+\[
+\iota(n) := \frac{n}{1}
+\]
+\end{definition}
+
+\begin{proposition}
+L'application $\iota$ est injective.
+\end{proposition}
+
+\begin{proof}
+Soient $m, n \in \Z$ tels que $\iota(m) = \iota(n)$, c'est-à-dire $\frac{m}{1} = \frac{n}{1}$. Par définition de l'égalité des classes d'équivalence, cela signifie $(m,1) \sim (n,1)$, donc $m \cdot 1 = 1 \cdot n$, d'où $m = n$.
+\end{proof}
+
+\begin{remarque}
+Cette injection canonique permet d'identifier $\Z$ avec un sous-ensemble de $\Q$. Désormais, par abus de notation, nous écrirons souvent $n$ au lieu de $\frac{n}{1}$ pour $n \in \Z$, considérant ainsi $\Z \subseteq \Q$. Cette identification respecte les opérations, comme nous le verrons.
+\end{remarque}
+
+\section{Opérations sur $\Q$}
+
+\subsection{L'opposé}
+
+\begin{definition}
+Pour tout $q = \frac{a}{b} \in \Q$, on définit l'\textbf{opposé} de $q$ par :
+\[
+-q := \frac{-a}{b}
+\]
+\end{definition}
+
+\begin{lemme}
+L'opposé est bien défini : si $\frac{a}{b} = \frac{a'}{b'}$, alors $\frac{-a}{b} = \frac{-a'}{b'}$.
+\end{lemme}
+
+\begin{proof}
+Supposons $\frac{a}{b} = \frac{a'}{b'}$, c'est-à-dire $(a,b) \sim (a',b')$. Alors $ab' = ba'$. En multipliant par $-1$ : $(-a)b' = b(-a')$, ce qui signifie $(-a,b) \sim (-a',b')$, donc $\frac{-a}{b} = \frac{-a'}{b'}$.
+\end{proof}
+
+\begin{proposition}
+Pour tout $q \in \Q$ : $-(-q) = q$.
+\end{proposition}
+
+\begin{proof}
+Soit $q = \frac{a}{b}$. Alors $-q = \frac{-a}{b}$ et $-(-q) = \frac{-(-a)}{b} = \frac{a}{b} = q$.
+\end{proof}
+
+\begin{remarque}
+On peut aussi définir l'opposé par $-\frac{a}{b} = \frac{a}{-b}$, ce qui donne le même résultat :
+\[
+\frac{-a}{b} = \frac{a}{-b} \quad \text{car} \quad (-a) \cdot (-b) = ab = b \cdot a
+\]
+\end{remarque}
+
+\subsection{L'addition}
+
+\begin{definition}
+On définit l'addition $+ : \Q \times \Q \to \Q$ par :
+\[
+\frac{a}{b} + \frac{c}{d} := \frac{ad + bc}{bd}
+\]
+\end{definition}
+
+\begin{remarque}
+Notons que $bd \neq 0$ car $b \neq 0$ et $d \neq 0$, et $\Z$ n'a pas de diviseurs de zéro. La fraction $\frac{ad + bc}{bd}$ est donc bien définie.
+\end{remarque}
+
+\begin{proposition}
+L'addition est bien définie : si $\frac{a}{b} = \frac{a'}{b'}$ et $\frac{c}{d} = \frac{c'}{d'}$, alors $\frac{ad + bc}{bd} = \frac{a'd' + b'c'}{b'd'}$.
+\end{proposition}
+
+\begin{proof}
+Les hypothèses $\frac{a}{b} = \frac{a'}{b'}$ et $\frac{c}{d} = \frac{c'}{d'}$ signifient $(a,b) \sim (a',b')$ et $(c,d) \sim (c',d')$, c'est-à-dire $ab' = ba'$ et $cd' = dc'$.
+
+Il faut montrer $(ad + bc, bd) \sim (a'd' + b'c', b'd')$, c'est-à-dire :
+\[
+(ad + bc) \cdot b'd' = bd \cdot (a'd' + b'c')
+\]
+
+Développons le membre de gauche :
+\[
+(ad + bc) \cdot b'd' = adb'd' + bcb'd'
+\]
+
+Développons le membre de droite :
+\[
+bd \cdot (a'd' + b'c') = bda'd' + bdb'c'
+\]
+
+Utilisons maintenant les hypothèses. De $ab' = ba'$, en multipliant par $dd'$ :
+\[
+ab'dd' = ba'dd'
+\]
+
+De $cd' = dc'$, en multipliant par $bb'$ :
+\[
+bb'cd' = bb'dc'
+\]
+
+On obtient donc :
+\begin{align*}
+adb'd' &= ba'dd' = bda'd'\\
+bcb'd' &= bb'cd' = bb'dc' = bdb'c'
+\end{align*}
+
+En additionnant : $adb'd' + bcb'd' = bda'd' + bdb'c'$, ce qui est exactement ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{definition}
+On note $0$ ou $0_\Q$ l'élément $\frac{0}{1} \in \Q$.
+\end{definition}
+
+\begin{theoreme}[Propriétés de l'addition]
+L'addition sur $\Q$ satisfait les propriétés suivantes :
+\begin{enumerate}
+    \item \textbf{Associativité :} $\forall x, y, z \in \Q, \; (x + y) + z = x + (y + z)$
+    \item \textbf{Élément neutre :} $\forall x \in \Q, \; 0 + x = x = x + 0$
+    \item \textbf{Existence d'un opposé :} $\forall x \in \Q, \; x + (-x) = 0 = (-x) + x$
+    \item \textbf{Commutativité :} $\forall x, y \in \Q, \; x + y = y + x$
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof}
+Vérifions chaque propriété.
+
+\textbf{Associativité.} Soient $x = \frac{a}{b}$, $y = \frac{c}{d}$, $z = \frac{e}{f}$. Alors :
+\begin{align*}
+(x + y) + z &= \frac{ad + bc}{bd} + \frac{e}{f} = \frac{(ad + bc)f + bde}{bdf}\\
+&= \frac{adf + bcf + bde}{bdf}
+\end{align*}
+et
+\begin{align*}
+x + (y + z) &= \frac{a}{b} + \frac{cf + de}{df} = \frac{a \cdot df + b(cf + de)}{b \cdot df}\\
+&= \frac{adf + bcf + bde}{bdf}
+\end{align*}
+Ces expressions sont égales.
+
+\textbf{Neutralité.} Pour $x = \frac{a}{b}$ :
+\[
+0 + x = \frac{0}{1} + \frac{a}{b} = \frac{0 \cdot b + 1 \cdot a}{1 \cdot b} = \frac{a}{b} = x
+\]
+Par commutativité (à établir), $x + 0 = x$.
+
+\textbf{Opposé.} Pour $x = \frac{a}{b}$ :
+\[
+x + (-x) = \frac{a}{b} + \frac{-a}{b} = \frac{ab + b(-a)}{b \cdot b} = \frac{ab - ab}{b^2} = \frac{0}{b^2} = 0
+\]
+car $\frac{0}{b^2} = \frac{0}{1}$ (puisque $0 \cdot 1 = b^2 \cdot 0 = 0$).
+
+\textbf{Commutativité.} Pour $x = \frac{a}{b}$ et $y = \frac{c}{d}$ :
+\[
+x + y = \frac{ad + bc}{bd} = \frac{cb + da}{db} = \frac{c}{d} + \frac{a}{b} = y + x
+\]
+par commutativité de l'addition et de la multiplication dans $\Z$.
+\end{proof}
+
+\begin{proposition}[Compatibilité du plongement avec l'addition]
+Pour tous $m, n \in \Z$ : $\iota(m + n) = \iota(m) + \iota(n)$.
+\end{proposition}
+
+\begin{proof}
+On calcule :
+\[
+\iota(m) + \iota(n) = \frac{m}{1} + \frac{n}{1} = \frac{m \cdot 1 + 1 \cdot n}{1 \cdot 1} = \frac{m + n}{1} = \iota(m+n)
+\]
+\end{proof}
+
+\subsection{La multiplication}
+
+\begin{definition}
+On définit la multiplication $\cdot : \Q \times \Q \to \Q$ par :
+\[
+\frac{a}{b} \cdot \frac{c}{d} := \frac{ac}{bd}
+\]
+\end{definition}
+
+\begin{remarque}
+Cette définition correspond à la règle intuitive de multiplication des fractions : "on multiplie les numérateurs entre eux et les dénominateurs entre eux". Puisque $b \neq 0$ et $d \neq 0$, on a $bd \neq 0$ (car $\Z$ est intègre), donc la fraction est bien définie.
+\end{remarque}
+
+\begin{proposition}
+La multiplication est bien définie : si $\frac{a}{b} = \frac{a'}{b'}$ et $\frac{c}{d} = \frac{c'}{d'}$, alors $\frac{ac}{bd} = \frac{a'c'}{b'd'}$.
+\end{proposition}
+
+\begin{proof}
+Les hypothèses signifient $ab' = ba'$ et $cd' = dc'$. En multipliant ces deux égalités membre à membre :
+\[
+(ab')(cd') = (ba')(dc')
+\]
+Par commutativité et associativité dans $\Z$ :
+\[
+(ac)(b'd') = (bd)(a'c')
+\]
+Donc $(ac, bd) \sim (a'c', b'd')$, c'est-à-dire $\frac{ac}{bd} = \frac{a'c'}{b'd'}$.
+\end{proof}
+
+\begin{definition}
+On note $1$ ou $1_\Q$ l'élément $\frac{1}{1} \in \Q$.
+\end{definition}
+
+\begin{theoreme}[Propriétés de la multiplication]
+La multiplication sur $\Q$ satisfait les propriétés suivantes :
+\begin{enumerate}
+    \item \textbf{Associativité :} $\forall x, y, z \in \Q, \; (x \cdot y) \cdot z = x \cdot (y \cdot z)$
+    \item \textbf{Commutativité :} $\forall x, y \in \Q, \; x \cdot y = y \cdot x$
+    \item \textbf{Élément neutre :} $\forall x \in \Q, \; 1 \cdot x = x = x \cdot 1$
+    \item \textbf{Distributivité :} $\forall x, y, z \in \Q, \; x \cdot (y + z) = x \cdot y + x \cdot z$
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof}
+\textbf{Commutativité.} Pour $x = \frac{a}{b}$ et $y = \frac{c}{d}$ :
+\[
+x \cdot y = \frac{ac}{bd} = \frac{ca}{db} = y \cdot x
+\]
+par commutativité dans $\Z$.
+
+\textbf{Élément neutre.} Pour $x = \frac{a}{b}$ :
+\[
+1 \cdot x = \frac{1}{1} \cdot \frac{a}{b} = \frac{1 \cdot a}{1 \cdot b} = \frac{a}{b} = x
+\]
+
+\textbf{Associativité.} Pour $x = \frac{a}{b}$, $y = \frac{c}{d}$, $z = \frac{e}{f}$ :
+\[
+(x \cdot y) \cdot z = \frac{ac}{bd} \cdot \frac{e}{f} = \frac{(ac)e}{(bd)f} = \frac{a(ce)}{b(df)} = \frac{a}{b} \cdot \frac{ce}{df} = x \cdot (y \cdot z)
+\]
+par associativité dans $\Z$.
+
+\textbf{Distributivité.} Pour $x = \frac{a}{b}$, $y = \frac{c}{d}$, $z = \frac{e}{f}$ :
+\begin{align*}
+x \cdot (y + z) &= \frac{a}{b} \cdot \frac{cf + de}{df} = \frac{a(cf + de)}{b \cdot df}\\
+&= \frac{acf + ade}{bdf}
+\end{align*}
+et
+\begin{align*}
+x \cdot y + x \cdot z &= \frac{ac}{bd} + \frac{ae}{bf} = \frac{ac \cdot bf + bd \cdot ae}{bd \cdot bf}\\
+&= \frac{acbf + bdae}{b^2df} = \frac{acf + ade}{bdf}
+\]
+
+En simplifiant numérateur et dénominateur, ces expressions sont égales.
+\end{proof}
+
+\begin{proposition}[Compatibilité du plongement avec la multiplication]
+Pour tous $m, n \in \Z$ : $\iota(m \cdot n) = \iota(m) \cdot \iota(n)$.
+\end{proposition}
+
+\begin{proof}
+On calcule :
+\[
+\iota(m) \cdot \iota(n) = \frac{m}{1} \cdot \frac{n}{1} = \frac{mn}{1} = \iota(mn)
+\]
+\end{proof}
+
+\subsection{L'inverse}
+
+\begin{definition}
+Pour tout $q = \frac{a}{b} \in \Q$ avec $a \neq 0$, on définit l'\textbf{inverse} de $q$ par :
+\[
+q^{-1} := \frac{b}{a}
+\]
+\end{definition}
+
+\begin{remarque}
+L'inverse n'est défini que pour les rationnels non nuls. Si $a = 0$, alors $\frac{b}{a}$ n'est pas défini car on ne peut pas avoir $0$ au dénominateur.
+\end{remarque}
+
+\begin{lemme}
+L'inverse est bien défini : si $\frac{a}{b} = \frac{a'}{b'}$ avec $a, a' \neq 0$, alors $\frac{b}{a} = \frac{b'}{a'}$.
+\end{lemme}
+
+\begin{proof}
+Supposons $(a,b) \sim (a',b')$, c'est-à-dire $ab' = ba'$. Alors $ba' = ab'$, ce qui signifie $(b,a) \sim (b',a')$, donc $\frac{b}{a} = \frac{b'}{a'}$.
+\end{proof}
+
+\begin{proposition}
+Pour tout $q \in \Q \setminus \{0\}$ :
+\begin{enumerate}
+    \item $q \cdot q^{-1} = 1 = q^{-1} \cdot q$
+    \item $(q^{-1})^{-1} = q$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{(1)} Soit $q = \frac{a}{b}$ avec $a \neq 0$. Alors :
+\[
+q \cdot q^{-1} = \frac{a}{b} \cdot \frac{b}{a} = \frac{ab}{ba} = \frac{ab}{ab} = 1
+\]
+car $(ab, ab) \sim (1, 1)$ (puisque $ab \cdot 1 = 1 \cdot ab$).
+
+\textbf{(2)} Si $q = \frac{a}{b}$ avec $a \neq 0$, alors $q^{-1} = \frac{b}{a}$ et $(q^{-1})^{-1} = \frac{a}{b} = q$.
+\end{proof}
+
+\begin{theoreme}[Propriété fondamentale de $\Q$]
+Pour tous $x, y \in \Q$, si $x \cdot y = 0$ alors $x = 0$ ou $y = 0$.
+\end{theoreme}
+
+\begin{proof}
+Soient $x = \frac{a}{b}$ et $y = \frac{c}{d}$ tels que $x \cdot y = 0$. Alors :
+\[
+\frac{ac}{bd} = \frac{0}{1}
+\]
+Donc $(ac, bd) \sim (0, 1)$, c'est-à-dire $ac \cdot 1 = bd \cdot 0 = 0$. Ainsi $ac = 0$ dans $\Z$. Par intégrité de $\Z$ (théorème \ref{thm:integrite}), $a = 0$ ou $c = 0$. Si $a = 0$ alors $x = \frac{0}{b} = 0$. Si $c = 0$ alors $y = \frac{0}{d} = 0$.
+\end{proof}
+
+\begin{corollaire}
+Tout élément non nul de $\Q$ possède un inverse : pour tout $q \in \Q \setminus \{0\}$, il existe un unique $q^{-1} \in \Q$ tel que $q \cdot q^{-1} = 1$.
+\end{corollaire}
+
+\begin{remarque}
+Cette propriété distingue fondamentalement $\Q$ de $\Z$ : dans $\Q$, on peut diviser par tout élément non nul, alors que dans $\Z$, seuls $1$ et $-1$ ont un inverse.
+\end{remarque}
+
+\section{Ordre sur $\Q$}
+
+\subsection{Définition de l'ordre}
+
+\begin{definition}
+On définit la relation binaire $\leq$ sur $\Q$ par : pour $x = \frac{a}{b}$ et $y = \frac{c}{d}$ (avec $b, d > 0$),
+\[
+x \leq y \quad :\Leftrightarrow \quad ad \leq bc \text{ dans } \Z
+\]
+\end{definition}
+
+\begin{remarque}
+Pour que cette définition soit cohérente, il faut s'assurer que les dénominateurs sont positifs. Tout rationnel $\frac{a}{b}$ peut s'écrire avec un dénominateur positif : si $b < 0$, on utilise $\frac{a}{b} = \frac{-a}{-b}$ avec $-b > 0$.
+\end{remarque}
+
+\begin{lemme}
+L'ordre est bien défini : si $\frac{a}{b} = \frac{a'}{b'}$ (avec $b, b' > 0$) et $\frac{c}{d} = \frac{c'}{d'}$ (avec $d, d' > 0$), alors :
+\[
+ad \leq bc \; \Leftrightarrow \; a'd' \leq b'c'
+\]
+\end{lemme}
+
+\begin{proof}
+Les hypothèses donnent $ab' = ba'$ et $cd' = dc'$. Multiplions la première par $d$ et la seconde par $b$ :
+\begin{align*}
+ab'd &= ba'd\\
+bcd' &= bdc'
+\end{align*}
+
+Supposons $ad \leq bc$. Multiplions par $b'd'$ (qui est strictement positif) :
+\[
+adb'd' \leq bcb'd'
+\]
+En utilisant les égalités ci-dessus :
+\[
+ab'dd' = ba'dd' \quad \text{et} \quad bcb'd' = bdc'b' = bb'dc'
+\]
+Donc $a'd'(bb') \leq b'c'(bb')$. Puisque $bb' > 0$, on peut simplifier : $a'd' \leq b'c'$.
+
+La réciproque se démontre de manière symétrique.
+\end{proof}
+
+\begin{definition}
+On définit les relations dérivées :
+\begin{align*}
+x < y &:\Leftrightarrow (x \leq y \land x \neq y)\\
+x \geq y &:\Leftrightarrow y \leq x\\
+x > y &:\Leftrightarrow y < x
+\end{align*}
+\end{definition}
+
+\subsection{Propriétés de l'ordre}
+
+\begin{theoreme}[Ordre total]
+La relation $\leq$ est un ordre total sur $\Q$ : elle est réflexive, antisymétrique, transitive et totale.
+\end{theoreme}
+
+\begin{proof}
+\textbf{Réflexivité.} Pour tout $x = \frac{a}{b}$ (avec $b > 0$), on a $ab = ba$ donc $ab \leq ba$, donc $x \leq x$.
+
+\textbf{Antisymétrie.} Soient $x = \frac{a}{b}$ et $y = \frac{c}{d}$ (avec $b, d > 0$) tels que $x \leq y$ et $y \leq x$. Alors $ad \leq bc$ et $bc \leq ad$ dans $\Z$. Par antisymétrie de $\leq$ dans $\Z$, on a $ad = bc$, donc $(a,b) \sim (c,d)$, donc $x = y$.
+
+\textbf{Transitivité.} Soient $x = \frac{a}{b}$, $y = \frac{c}{d}$, $z = \frac{e}{f}$ (avec $b, d, f > 0$) tels que $x \leq y$ et $y \leq z$. Alors $ad \leq bc$ et $cf \leq de$ dans $\Z$. Multiplions la première inégalité par $f > 0$ et la seconde par $b > 0$ :
+\begin{align*}
+adf &\leq bcf\\
+bcf &\leq bde
+\end{align*}
+Par transitivité dans $\Z$, $adf \leq bde$. Puisque $d > 0$, on peut simplifier : $af \leq be$, donc $x \leq z$.
+
+\textbf{Totalité.} Soient $x = \frac{a}{b}$ et $y = \frac{c}{d}$ (avec $b, d > 0$). Par trichotomie dans $\Z$, soit $ad \leq bc$, soit $bc \leq ad$. Dans le premier cas $x \leq y$, dans le second $y \leq x$.
+\end{proof}
+
+\begin{proposition}[Trichotomie]
+Pour tous $x, y \in \Q$, exactement une des trois conditions suivantes est vraie :
+\[
+x < y \quad \text{ou} \quad x = y \quad \text{ou} \quad x > y
+\]
+\end{proposition}
+
+\subsection{Compatibilité avec les opérations}
+
+\begin{proposition}[Compatibilité de l'ordre avec l'addition]
+Pour tous $x, y, z \in \Q$ :
+\[
+x \leq y \; \Leftrightarrow \; x + z \leq y + z
+\]
+\end{proposition}
+
+\begin{proof}
+Soient $x = \frac{a}{b}$, $y = \frac{c}{d}$, $z = \frac{e}{f}$ (avec $b, d, f > 0$).
+
+On a $x + z = \frac{af + be}{bf}$ et $y + z = \frac{cf + de}{df}$, avec $bf, df > 0$.
+
+$x \leq y$ signifie $ad \leq bc$. Multiplions par $f > 0$ : $adf \leq bcf$.
+
+$x + z \leq y + z$ signifie $(af + be) \cdot df \leq bf \cdot (cf + de)$, c'est-à-dire :
+\[
+afdf + bedf \leq bfcf + bfde
+\]
+En simplifiant : $adf^2 + bdef \leq bcf^2 + bdef$, d'où $adf^2 \leq bcf^2$.
+
+Puisque $f^2 > 0$, ceci équivaut à $ad \leq bc$, donc à $x \leq y$.
+\end{proof}
+
+\begin{proposition}[Compatibilité de l'ordre avec la multiplication]
+Pour tous $x, y, z \in \Q$ :
+\begin{enumerate}
+    \item Si $z > 0$ : $x \leq y \Rightarrow xz \leq yz$
+    \item Si $z < 0$ : $x \leq y \Rightarrow xz \geq yz$
+    \item Si $z = 0$ : $xz = yz = 0$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{(1)} Soient $x = \frac{a}{b}$, $y = \frac{c}{d}$, $z = \frac{e}{f}$ (avec $b, d, f > 0$ et $e > 0$).
+
+$x \leq y$ signifie $ad \leq bc$. Multiplions par $e > 0$ : $ade \leq bce$.
+
+$xz = \frac{ae}{bf}$ et $yz = \frac{ce}{df}$. Donc $xz \leq yz$ signifie $ae \cdot df \leq bf \cdot ce$, c'est-à-dire $aedf \leq bcef$. En simplifiant par $f > 0$ : $aed \leq bce$, ce qui est vrai.
+
+\textbf{(2)} et \textbf{(3)} se démontrent de manière similaire.
+\end{proof}
+
+\section{La division}
+
+\begin{definition}
+Pour tous $x, y \in \Q$ avec $y \neq 0$, on définit la \textbf{division} par :
+\[
+\frac{x}{y} := x \cdot y^{-1}
+\]
+\end{definition}
+
+\begin{proposition}
+Pour tous $x, y \in \Q$ avec $y \neq 0$ : $\frac{x}{y} \cdot y = x$.
+\end{proposition}
+
+\begin{proof}
+Par associativité et définition de l'inverse :
+\[
+\frac{x}{y} \cdot y = (x \cdot y^{-1}) \cdot y = x \cdot (y^{-1} \cdot y) = x \cdot 1 = x
+\]
+\end{proof}
+
+\begin{corollaire}
+L'équation $t \cdot y = x$ avec $y \neq 0$ admet pour unique solution $t = \frac{x}{y}$.
+\end{corollaire}
+
+\begin{remarque}
+Dans $\Q$, contrairement à $\Z$, la division par tout élément non nul est toujours définie. C'est précisément l'objectif que nous nous étions fixé au début de cette construction. Toute équation $ax = b$ avec $a \neq 0$ admet maintenant la solution unique $x = \frac{b}{a} = b \cdot a^{-1}$.
+\end{remarque}
+
+\section{Synthèse}
+
+\begin{theoreme}[Propriétés fondamentales de $\Q$]
+L'ensemble $\Q$ des nombres rationnels possède les propriétés suivantes :
+\begin{enumerate}
+    \item L'addition est associative, commutative, possède un élément neutre ($0$), et tout élément possède un opposé
+    \item La multiplication est associative, commutative, possède un élément neutre ($1$), et distribue sur l'addition
+    \item Tout élément non nul possède un inverse multiplicatif
+    \item Il n'existe pas de diviseurs de zéro
+    \item La relation $\leq$ est un ordre total
+    \item L'ordre est compatible avec l'addition et la multiplication (avec renversement pour les nombres négatifs)
+    \item Le plongement $\iota : \Z \to \Q$ préserve l'addition, la multiplication et l'ordre
+\end{enumerate}
+\end{theoreme}
+
+\begin{remarque}[Densité de $\Q$]
+Une propriété remarquable de $\Q$ est sa \textbf{densité} : entre deux rationnels distincts, il existe toujours un autre rationnel. En effet, si $x < y$ dans $\Q$, alors :
+\[
+x < \frac{x + y}{2} < y
+\]
+Cette propriété sera cruciale pour la construction ultérieure de $\R$.
+\end{remarque}
+
+\begin{remarque}[Perspective]
+Nous avons maintenant construit la hiérarchie $\N \subseteq \Z \subseteq \Q$. Chaque extension résout un problème :
+\begin{itemize}
+    \item $\Z$ rend la soustraction toujours possible
+    \item $\Q$ rend la division (par des non-nuls) toujours possible
+\end{itemize}
+
+Cependant, $\Q$ n'est pas encore "complet" : certaines équations comme $x^2 = 2$ n'ont pas de solution dans $\Q$. De plus, $\Q$ présente des "lacunes" (par exemple, il n'y a pas de rationnel dont le carré vaut $2$). La construction de $\R$ comblera ces lacunes et fournira un ensemble où les limites de suites convergentes existent toujours.
+\end{remarque}

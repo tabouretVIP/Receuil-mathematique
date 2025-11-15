@@ -1,0 +1,126 @@
+\chapter{Axiome du choix}
+
+Les axiomes précédents forment la théorie ZF,
+à laquelle nous pouvons ajouter l'axiome du choix, constituant ainsi la théorie ZFC.
+
+\begin{axiome}[du choix]\label{choix1}
+	Pour tout ensemble $A$, il existe une application $\gamma: \mathcal{P}(A)\setminus\{\varnothing\}\to A$ (dite fonction de choix) telle que
+	\begin{equation*}
+		\gamma(B)\in B
+	\end{equation*}
+	pour toute partie $B$ non vide de $A$.
+\end{axiome}
+
+\begin{axiome}[équivalent à l'axiome du choix]\label{choix2}
+	Si $(X_i)_{i\in I}$ est une famille non vide d'ensembles non vides, alors le produit cartésien $\prod_{i\in I}X_i$ est non vide. On peut énoncer cela de manière plus formelle :
+	Si $F$ est une fonction définie sur un ensemble non vide $I$ et telle que $F(i)$ soit un ensemble non vide pour tout $i\in I$, alors il existe une fonction $f$ définie sur $I$, et telle que $f(i)\in F(i)$ pour tout $i\in I$.
+\end{axiome}
+
+\begin{theoreme}\label{thm:equiv_choix}
+	Les axiomes \ref{choix1} et \ref{choix2} sont équivalents.
+\end{theoreme}
+
+\begin{proof}
+	Soient $I$ un ensemble non vide et $F$ une fonction définie sur $I$ telle que $F(i)$ soit un ensemble non vide pour tout $i \in I$. Posons $A = \bigcup_{i \in I} F(i)$. L'axiome \ref{choix1} affirme l'existence d'une fonction de choix $\gamma$ pour $A$. En particulier, $\gamma$ est définie en chaque $F(i)$. On obtient alors une fonction $f$ voulue par l'axiome \ref{choix2} en posant $f(i) = \gamma(F(i))$, pour chaque $i \in I$.
+	Réciproquement, soit $A$ un ensemble. Si $A=\varnothing$, la fonction vide (définie nulle part) est une fonction de choix pour $A$. On puet donc supposer $A\neq \varnothing$ et poser
+	$X=\prod_{\underset{B\neq \varnothing}{B\subseteq A}}B$, l'axiome \ref{choix2} affirme que $X\neq \varnothing$,
+	C'est à dire  qu'il existe une fonction $x$ définie sur $\partie(A)\setminus \{\varnothing\}$ et telle que $x(B)\in B$ pour tout $B\in \partie(A)\setminus\{\varnothing\}$. C'est donc une
+	fonction de choix pour $A$.
+\end{proof}
+
+\subsection{Énoncés équivalents à l'axiome du choix}
+
+Le théorème suivant est vrai si on adopte l'axiome du choix (et seulement si on l'adopte, comme on le verra bientôt).
+
+\begin{theoreme}[Lemme de Zorn]\label{thm:zorn}
+	Soit $X$ un ensemble ordonné non vide. Si toute chaîne (i.e. tout sous-ensemble totalement ordonné) de $X$ admet un majorant dans $X$, alors $X$ contient un élément maximal.
+\end{theoreme}
+
+\begin{remarque}
+	On peut remplacer « chaîne » par « sous-ensemble bien ordonné » dans l'énoncé, car tout ensemble bien ordonné est en particulier totalement ordonné. L'énoncé avec « chaîne » est plus courant et légèrement plus faible (donc plus utile), mais les deux versions sont équivalentes sous l'axiome du choix.
+\end{remarque}
+
+Pour démontrer ce théorème, nous aurons besoin d'un lemme technique sur les segments initiaux.
+
+\begin{lemme}\label{lem:segment_initial}
+	Soit $\mathcal{F}$ une famille de parties bien ordonnées de $X$ telle que pour tous $F, G \in \mathcal{F}$, on ait : soit $F$ est un segment initial de $G$, soit $G$ est un segment initial de $F$. Alors la réunion $Y = \bigcup_{F \in \mathcal{F}} F$ est bien ordonnée, et chaque $F \in \mathcal{F}$ est un segment initial de $Y$.
+\end{lemme}
+
+\begin{proof}
+	Montrons d'abord que chaque $F \in \mathcal{F}$ est un segment initial de $Y$. Soient $F \in \mathcal{F}$, $x \in F$ et $y \in Y$ tels que $y \leqslant x$. Puisque $y \in Y = \bigcup_{G \in \mathcal{F}} G$, il existe $G \in \mathcal{F}$ tel que $y \in G$. Par hypothèse sur $\mathcal{F}$, l'un des deux ensembles $F$ et $G$ est un segment initial de l'autre. Si $G$ est un segment initial de $F$, alors $G \subseteq F$, donc $y \in F$. Si au contraire $F$ est un segment initial de $G$, alors puisque $x \in F$ et $y \leqslant x$ avec $y \in G$, on a nécessairement $y \in F$ par définition d'un segment initial. Dans tous les cas, $y \in F$, ce qui prouve que $F$ est un segment initial de $Y$.
+
+	Montrons maintenant que $Y$ est bien ordonné. Soit $Z \subseteq Y$ une partie non vide. Il existe au moins un $F \in \mathcal{F}$ tel que $F \cap Z \neq \varnothing$. Fixons un tel $F$, et soit $m$ le plus petit élément de $F \cap Z$ (qui existe car $F$ est bien ordonné). Montrons que $m$ est le plus petit élément de $Z$ tout entier. Soit $z \in Z$ quelconque. Il existe $G \in \mathcal{F}$ tel que $z \in G$. L'un des deux ensembles est un segment initial de l'autre. Si $G$ est un segment initial de $F$, alors $z \in G \subseteq F$, donc $z \in F \cap Z$, et par minimalité de $m$ dans $F \cap Z$, on a $m \leqslant z$. Si au contraire $F$ est un segment initial de $G$, alors soit $z \in F$ auquel cas $m \leqslant z$ par minimalité, soit $z \notin F$ auquel cas, comme $m \in F$ et $F$ est un segment initial de $G$, on doit avoir $m < z$ dans $G$ (sinon $z \leqslant m$ impliquerait $z \in F$). Dans tous les cas, $m \leqslant z$. Donc $m$ est le plus petit élément de $Z$, ce qui prouve que $Y$ est bien ordonné.
+\end{proof}
+
+\begin{proof}[Preuve du théorème \ref{thm:zorn}]
+	Supposons par l'absurde que $X$ satisfasse l'hypothèse mais n'ait pas d'élément maximal. Nous allons construire une chaîne dans $X$ qui n'a pas de majorant, ce qui donnera une contradiction.
+
+	Par l'axiome du choix, il existe une fonction de choix $\gamma$ pour $X$. Pour toute partie bien ordonnée $Z$ de $X$, l'ensemble des majorants stricts de $Z$ défini par
+	$$S(Z) = \{x \in X \mid \forall z \in Z, \, z < x\}$$
+	est non vide : en effet, $Z$ admet un majorant $m$ par hypothèse, et puisque $X$ n'a pas d'élément maximal, il existe $x > m$, donc $x \in S(Z)$. On peut alors poser $\Gamma(Z) = \gamma(S(Z))$.
+
+	Considérons la collection $\mathcal{F}$ de toutes les parties bien ordonnées $F$ de $X$ satisfaisant : pour tout $x \in F$, on a $\Gamma(\mathrm{seg}_F(x)) = x$, où $\mathrm{seg}_F(x) = \{y \in F \mid y < x\}$ désigne le segment initial strict de $F$ déterminé par $x$. Pour appliquer le lemme précédent, il faut montrer que pour tous $F, G \in \mathcal{F}$, l'un est un segment initial de l'autre.
+
+	Soient donc $F, G \in \mathcal{F}$. Posons
+	$$H = \bigcup \{I \subseteq X \mid I \text{ est segment initial de } F \text{ et de } G\}$$
+	Alors $H$ est le plus grand segment initial commun à $F$ et $G$ (car une réunion de segments initiaux est un segment initial). Supposons par l'absurde que $H \neq F$ et $H \neq G$. Alors $F \setminus H$ et $G \setminus H$ sont non vides, et on peut considérer leurs plus petits éléments respectifs $f$ et $g$. Par construction, on a $H = \mathrm{seg}_F(f) = \mathrm{seg}_G(g)$. Puisque $F$ et $G$ appartiennent à $\mathcal{F}$, on obtient
+	$$f = \Gamma(\mathrm{seg}_F(f)) = \Gamma(H) = \Gamma(\mathrm{seg}_G(g)) = g$$
+	Mais alors $H \cup \{f\}$ est à la fois un segment initial de $F$ et de $G$, et est strictement plus grand que $H$, ce qui contredit la maximalité de $H$. Donc nécessairement $H = F$ ou $H = G$, c'est-à-dire que l'un est un segment initial de l'autre.
+
+	Par le lemme \ref{lem:segment_initial}, la réunion $Y = \bigcup_{F \in \mathcal{F}} F$ est bien ordonnée et satisfait : pour tout $x \in Y$, on a $\Gamma(\mathrm{seg}_Y(x)) = x$. Par hypothèse, $Y$ admet un majorant dans $X$. Considérons alors $Y' = Y \cup \{\Gamma(Y)\}$. Cet ensemble est bien ordonné (on ajoute simplement un élément strictement plus grand que tous ceux de $Y$), et il satisfait la propriété caractéristique de $\mathcal{F}$ : pour tout $x \in Y$, on a $\mathrm{seg}_{Y'}(x) = \mathrm{seg}_Y(x)$, donc $\Gamma(\mathrm{seg}_{Y'}(x)) = x$, et pour $x = \Gamma(Y)$, on a $\mathrm{seg}_{Y'}(x) = Y$, donc $\Gamma(\mathrm{seg}_{Y'}(x)) = \Gamma(Y) = x$. Ainsi $Y' \in \mathcal{F}$.
+
+	Or $Y'$ contient strictement $Y$, mais $Y = \bigcup_{F \in \mathcal{F}} F$ contient par définition tous les éléments de $\mathcal{F}$, donc en particulier $Y'$. Ceci est contradictoire. Cette contradiction prouve que notre hypothèse de départ était fausse : $X$ possède nécessairement un élément maximal.
+\end{proof}
+
+\begin{remarque}
+	\begin{enumerate}
+		\item On utilise fréquemment le lemme de Zorn lorsque $X$ est un ensemble d'ensembles muni de la relation d'ordre $\subseteq$. Dans ce cas, pour appliquer le lemme, il suffit de vérifier que pour toute chaîne $\mathcal{C} \subseteq X$ (i.e. toute famille totalement ordonnée par inclusion), la réunion $\bigcup \mathcal{C}$ appartient à $X$. En effet, $\bigcup \mathcal{C}$ est alors un majorant de $\mathcal{C}$ dans $X$.
+
+		\item Le lemme de Zorn permet de démontrer de nombreux résultats fondamentaux en mathématiques que nous serons ammené à rencontrer plus tard:
+		      \begin{itemize}
+			      \item \textbf{Algèbre linéaire :} Tout espace vectoriel sur un corps admet une base.
+			      \item \textbf{Algèbre commutative :} Tout idéal propre d'un anneau commutatif unitaire est contenu dans un idéal maximal.
+			      \item \textbf{Théorie des corps :} Tout corps est contenu dans un corps algébriquement clos (clôture algébrique).
+			      \item \textbf{Topologie :} Tout filtre sur un ensemble peut être étendu en un ultrafiltre.
+		      \end{itemize}
+
+		\item La preuve ci-dessus montre clairement pourquoi l'axiome du choix est essentiel : on utilise une fonction de choix $\gamma$ pour « étendre » progressivement une partie bien ordonnée en choisant à chaque étape un élément strictement plus grand.
+	\end{enumerate}
+\end{remarque}
+
+Le théorème suivant se démontre en utilisant le lemme de Zorn. En particulier, il est vrai si on adopte l'axiome du choix.
+
+\begin{theoreme}[Principe de Zermelo]\label{thm:zermelo}
+	Tout ensemble possède un bon ordre.
+\end{theoreme}
+
+\begin{proof}
+	Soit $A$ un ensemble, que l'on peut supposer non vide (sinon, l'énoncé est trivialement un bon ordre). On désigne par $X$ la collection des paires $(B, \leqslant)$ où $B$ est une partie de $A$ et $\leqslant$ un bon ordre sur $B$. Alors $X$ est non vide (il contient la partie vide). De plus, on obtient une relation d'ordre sur $X$ en posant $(B_1, \leqslant_1) \leqslant (B_2, \leqslant_2)$ lorsque $B_1$ est un segment initial de $B_2$ (pour $\leqslant_2$) et que la relation induite par $\leqslant_2$ sur $B_1$ est $\leqslant_1$.
+
+	Si $Y$ est une famille bien (donc totalement) ordonnée d'éléments $(B_i, \leqslant_i)$ de $X$, alors $\bigcup_i B_i$ est bien ordonnée par la relation $\bigcup_i \leqslant_i$. Or, cette réunion est un majorant de $Y$. Par le lemme de Zorn, $X$ contient un élément maximal $(M, \leqslant_M)$.
+
+	Si $M$ était distinct de $A$, il existerait $a \in A \setminus M$ et on obtiendrait un bon ordre sur $M \cup \{a\}$ en posant $m \leqslant a$ pour tout $m \in M$. Cela contredirait la maximalité de $(M, \leqslant_M)$. Donc $M = A$ et $\leqslant_M$ est un bon ordre sur $A$.
+\end{proof}
+
+Sous l'axiome du choix, les deux théorèmes précédents montrent que tout ensemble possède un bon ordre. Voici maintenant la réciproque de ce résultat.
+
+\begin{theoreme}\label{thm:zermelo_implique_choix}
+	Le principe de Zermelo implique l'axiome du choix.
+\end{theoreme}
+
+\begin{proof}
+	Soit $A$ un ensemble. Par hypothèse, il existe un bon ordre $\leqslant$ sur $A$. Toute partie non vide $B$ de $A$ possède un plus petit élément $\gamma(B)$. L'application
+	\begin{equation*}
+		\gamma : \begin{cases}
+			\mathcal{P}(A) \setminus \{\varnothing\} & \longrightarrow A     \\
+			B                                        & \longmapsto \gamma(B)
+		\end{cases}
+	\end{equation*}
+	est une fonction de choix pour $A$.
+\end{proof}
+
+En conclusion, l'axiome du choix, le lemme de Zorn et le principe de Zermelo sont des axiomes équivalents.
+
+\begin{remarque}
+	Néanmoins, lorsque cela nous est possible, nous préférerons ne pas l'utiliser. En effet, bien que largement accepté et indispensable en mathématiques, cet axiome conduit à des résultats contre-intuitifs comme le paradoxe de Banach-Tarski, qui affirme qu'on peut découper une boule en un nombre fini de morceaux et les réassembler pour obtenir deux boules identiques à l'originale.
+\end{remarque}

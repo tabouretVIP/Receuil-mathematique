@@ -1,0 +1,542 @@
+\chapter{Cardinaux}
+
+\section{Équipotence}
+
+\begin{definition}[Équipotence]
+	Deux ensembles $A$ et $B$ sont \textbf{équipotents} (ou ont même \textbf{cardinalité}) s'il existe une bijection $f : A \to B$. On note $A \sim B$ ou $|A| = |B|$.
+\end{definition}
+
+\begin{proposition}
+	La relation d'équipotence est une relation d'équivalence.
+\end{proposition}
+
+\begin{proof}
+	La réflexivité découle de l'identité $\mathrm{id}_A : A \to A$. La symétrie provient de l'inverse d'une bijection. La transitivité résulte de la composition de bijections.
+\end{proof}
+
+\begin{definition}[Comparaison de cardinalités]
+	On note $|A| \leqslant |B|$ s'il existe une injection $f : A \to B$.
+
+	On note $|A| < |B|$ si $|A| \leqslant |B|$ et $|A| \neq |B|$ (i.e. il n'existe pas de bijection entre $A$ et $B$).
+\end{definition}
+
+\begin{theoreme}[Cantor-Bernstein-Schröder]\label{thm:cantor_bernstein}
+	Si $|A| \leqslant |B|$ et $|B| \leqslant |A|$, alors $|A| = |B|$.
+\end{theoreme}
+
+
+Le théorème de Cantor-Bernstein-Schröder est l'un des résultats fondamentaux de la théorie des cardinaux. Il établit que la relation d'ordre $\leqslant$ sur les cardinaux est \textbf{antisymétrique}, ce qui en fait un ordre partiel. Sans ce théorème, on ne pourrait pas affirmer que deux ensembles ont « la même taille » simplement en exhibant des injections dans les deux sens. En pratique, il est souvent beaucoup plus facile de construire deux injections qu'une bijection explicite, ce qui rend ce théorème extrêmement utile.
+
+\textbf{Applications :} Ce théorème permet de démontrer de nombreuses égalités cardinales importantes :
+\begin{itemize}
+	\item $|[0,1]| = |\mathbb{R}|$ (en construisant des injections dans les deux sens)
+	\item $|\mathbb{R}| = |\mathbb{R}^2|$ (le plan et la droite ont même cardinal)
+	\item $|\mathcal{P}(\mathbb{N})| = |\mathbb{R}|$ (l'ensemble des parties de $\mathbb{N}$ et les réels sont équipotents)
+\end{itemize}
+
+\textbf{Intuition géométrique de la preuve :} Imaginons deux immeubles $A$ et $B$ reliés par deux systèmes d'ascenseurs : $f$ qui monte de $A$ vers $B$, et $g$ qui descend de $B$ vers $A$. En partant du rez-de-chaussée de chaque immeuble et en empruntant alternativement ces ascenseurs, on crée des « allers-retours » qui forment les suites $A_0 \supseteq A_1 \supseteq A_2 \supseteq \cdots$ et $B_0 \supseteq B_1 \supseteq B_2 \supseteq \cdots$. Chaque étage qu'on atteint est un peu plus « profond » dans la structure.
+
+L'idée clé est de découper chaque immeuble en « tranches » horizontales (les $A_n^*$ et $B_n^*$) entre deux passages successifs, plus un « noyau » central ($A_\infty$ et $B_\infty$) qu'on n'atteint qu'à la limite. Pour construire la bijection finale, on utilise l'ascenseur $f$ pour certaines tranches et l'ascenseur inverse $g^{-1}$ pour d'autres, de manière à ce que les images s'emboîtent parfaitement et couvrent tout $B$ sans chevauchement. Les tranches d'indices pairs « montent » via $f$, tandis que les tranches d'indices impairs « descendent » via $g^{-1}$, créant un entrelacement qui garantit la bijectivité.
+
+\textbf{Remarque historique :} Cette preuve, due à Dedekind (1887) et Bernstein (1897), est remarquable car elle n'utilise \textbf{pas} l'axiome du choix, contrairement à la démonstration originale de Cantor qui passait par le théorème de bon ordre. Le théorème reste donc valide dans des contextes où l'axiome du choix n'est pas disponible, ce qui en fait un résultat particulièrement robuste.
+
+
+\begin{proof}
+	Soient $f : A \to B$ et $g : B \to A$ deux injections. Construisons deux suites décroissantes en appliquant alternativement $f$ et $g$. Posons $A_0 = A$ et $B_0 = B$, puis définissons par récurrence
+	$$A_{n+1} = g(B_n) \qquad \text{et} \qquad B_{n+1} = f(A_n)$$
+	pour tout $n \geqslant 0$. Puisque $g(B) \subseteq A$ et $f(A) \subseteq B$, on obtient deux suites décroissantes :
+	$$A = A_0 \supseteq A_1 \supseteq A_2 \supseteq \cdots \qquad \text{et} \qquad B = B_0 \supseteq B_1 \supseteq B_2 \supseteq \cdots$$
+
+	Par construction, $f$ établit une bijection entre $A_n$ et $B_{n+1} = f(A_n)$ pour tout $n$ (car $f$ est injective et $B_{n+1}$ est exactement l'image de $A_n$). De même, $g$ bijecte $B_n$ sur $A_{n+1}$.
+
+	\textbf{Premier cas : stabilisation.} Supposons qu'il existe un entier $N$ tel que $A_N = A_{N+1}$. Alors $A_N = g(B_N)$, donc $g$ bijecte $B_N$ sur $A_N$. De plus, $f$ bijecte $A_N$ sur $B_{N+1}$, et $g$ bijecte $B_{N+1}$ sur $A_{N+2} = A_N$. En composant, $B_N \sim A_N \sim B_{N+1}$. Puisque $f$ bijecte aussi $A_{N-1}$ sur $B_N$, on obtient $A_{N-1} \sim B_N \sim A_N$. De même, $g$ bijecte $B_{N-1}$ sur $A_N$, donc $A_{N-1} \sim B_{N-1}$. Par récurrence descendante, $A_k \sim B_k$ pour tout $k \leqslant N$, et en particulier $A = A_0 \sim B_0 = B$. Le même raisonnement s'applique si $B_N = B_{N+1}$.
+
+	\textbf{Second cas : suites strictement décroissantes.} Supposons que toutes les inclusions soient strictes. Définissons
+	$$A_n^* = A_n \setminus A_{n+1}, \quad B_n^* = B_n \setminus B_{n+1}, \quad A_\infty = \bigcap_{n \geqslant 0} A_n, \quad B_\infty = \bigcap_{n \geqslant 0} B_n$$
+
+	Tout élément de $A$ appartient soit à l'une des couches $A_n^*$, soit au noyau $A_\infty$. En effet, si $a \notin A_\infty$, il existe un premier $n$ tel que $a \notin A_{n+1}$, donc $a \in A_n^*$. On a ainsi les partitions
+	$$A = \left(\bigcup_{n \geqslant 0} A_n^*\right) \sqcup A_\infty \qquad \text{et} \qquad B = \left(\bigcup_{n \geqslant 0} B_n^*\right) \sqcup B_\infty$$
+
+	Puisque $f$ est injective et bijecte $A_n$ sur $B_{n+1}$ et $A_{n+1}$ sur $B_{n+2}$, on a
+	$$f(A_n^*) = f(A_n \setminus A_{n+1}) = f(A_n) \setminus f(A_{n+1}) = B_{n+1} \setminus B_{n+2} = B_{n+1}^*$$
+	Ainsi $f$ bijecte $A_n^*$ sur $B_{n+1}^*$. De même, $g$ bijecte $B_n^*$ sur $A_{n+1}^*$.
+
+	Pour les noyaux, puisque $f$ est injective, on a
+	$$f(A_\infty) = f\left(\bigcap_{n \geqslant 0} A_n\right) = \bigcap_{n \geqslant 0} f(A_n) = \bigcap_{n \geqslant 0} B_{n+1} = \bigcap_{n \geqslant 1} B_n = B_\infty$$
+	car pour une injection, l'image d'une intersection est l'intersection des images. Donc $f$ bijecte $A_\infty$ sur $B_\infty$.
+
+	Construisons la bijection $h : A \to B$ par :
+	$$h(a) = \begin{cases}
+			f(a)      & \text{si } a \in A_n^* \text{ avec } n \text{ pair, ou si } a \in A_\infty \\
+			g^{-1}(a) & \text{si } a \in A_n^* \text{ avec } n \text{ impair}
+		\end{cases}$$
+	où $g^{-1}(a)$ désigne l'unique $b$ tel que $g(b) = a$. Cette fonction est bien définie : pour $n \geqslant 1$ impair, on a $A_n = g(B_{n-1})$, donc $a \in A_n^* \subseteq g(B)$ et $g^{-1}(a)$ existe.
+
+	La fonction $h$ est injective car sur chaque partie de la partition, elle coïncide avec une injection. Elle est surjective car :
+	$$h(A_\infty) = B_\infty, \quad h(A_0^*) = B_1^*, \quad h(A_1^*) = B_0^*, \quad h(A_2^*) = B_3^*, \quad h(A_3^*) = B_2^*, \ldots$$
+	couvre exactement la partition $B = B_\infty \sqcup B_0^* \sqcup B_1^* \sqcup B_2^* \sqcup \cdots$
+\end{proof}
+
+\section{Définition des cardinaux}
+
+\begin{remarque}[Dépendance à l'axiome du choix]
+	Les résultats qui suivent utilisent le principe de Zermelo (équivalent à l'axiome du choix), qui affirme que tout ensemble peut être bien ordonné.
+\end{remarque}
+
+\begin{theoreme}[Zermelo]\label{thm:ensemble_ordinal}
+	Tout ensemble peut être bien ordonné. En particulier, pour tout ensemble $A$, il existe un ordinal $\alpha$ et une bijection $f : A \to \alpha$.
+\end{theoreme}
+
+\begin{proof}
+	Soit $A$ un ensemble, que l'on peut supposer non vide (sinon le résultat est trivial avec $\alpha = 0$). On désigne par $\mathcal{X}$ la collection des couples $(B, \leqslant)$ où $B \subseteq A$ et $\leqslant$ est un bon ordre sur $B$. Cet ensemble est non vide car $(\varnothing, \varnothing) \in \mathcal{X}$ (l'ordre vide sur l'ensemble vide est un bon ordre).
+
+	Munissons $\mathcal{X}$ d'une relation d'ordre : on dit que $(B_1, \leqslant_1) \preccurlyeq (B_2, \leqslant_2)$ si $B_1 \subseteq B_2$, si $\leqslant_1$ est la restriction de $\leqslant_2$ à $B_1$, et si $B_1$ est un segment initial de $B_2$ pour l'ordre $\leqslant_2$ (c'est-à-dire : pour tous $x \in B_1$ et $y \in B_2$, si $y \leqslant_2 x$ alors $y \in B_1$).
+
+	Montrons que $(\mathcal{X}, \preccurlyeq)$ satisfait les hypothèses du lemme de Zorn. Soit $\mathcal{C}$ une chaîne dans $\mathcal{X}$. Posons
+	$$B = \bigcup_{(C, \leqslant_C) \in \mathcal{C}} C$$
+	et définissons une relation $\leqslant$ sur $B$ par : pour $x, y \in B$, on a $x \leqslant y$ si et seulement si il existe $(C, \leqslant_C) \in \mathcal{C}$ tel que $x, y \in C$ et $x \leqslant_C y$. Cette définition est cohérente car $\mathcal{C}$ est une chaîne : si $x, y$ appartiennent à deux éléments différents de $\mathcal{C}$, l'un est inclus dans l'autre, donc $x$ et $y$ sont comparables de la même façon dans les deux.
+
+	La relation $\leqslant$ ainsi définie est un bon ordre sur $B$ : elle est clairement réflexive, antisymétrique et transitive. Elle est totale car pour tous $x, y \in B$, il existe $(C, \leqslant_C) \in \mathcal{C}$ contenant à la fois $x$ et $y$ (par la propriété de chaîne), et $x, y$ sont comparables dans $C$. Enfin, toute partie non vide $D \subseteq B$ possède un minimum : il existe $(C, \leqslant_C) \in \mathcal{C}$ tel que $C \cap D \neq \varnothing$, et le minimum de $C \cap D$ dans $C$ est aussi le minimum de $D$ dans $B$.
+
+	De plus, $(B, \leqslant)$ est un majorant de $\mathcal{C}$ dans $\mathcal{X}$. Par le lemme de Zorn, $\mathcal{X}$ possède un élément maximal $(M, \leqslant_M)$.
+
+	Il reste à montrer que $M = A$. Supposons par l'absurde que $M \neq A$. Alors il existe $a \in A \setminus M$. On peut construire un bon ordre sur $M \cup \{a\}$ en posant : pour tous $x, y \in M \cup \{a\}$, on a $x \leqslant' y$ si et seulement si soit $x, y \in M$ et $x \leqslant_M y$, soit $x \in M$ et $y = a$, soit $x = y = a$. Autrement dit, on ajoute $a$ comme plus grand élément après tous les éléments de $M$.
+
+	Vérifions que $(M \cup \{a\}, \leqslant')$ est bien ordonné. La relation est clairement réflexive, antisymétrique, transitive et totale. Pour toute partie non vide $D \subseteq M \cup \{a\}$, si $D \cap M \neq \varnothing$, alors le minimum de $D \cap M$ dans $M$ est aussi le minimum de $D$ dans $M \cup \{a\}$. Si $D \cap M = \varnothing$, alors $D = \{a\}$ et $a$ est son minimum. Donc $(M \cup \{a\}, \leqslant') \in \mathcal{X}$.
+
+	De plus, $(M, \leqslant_M) \preccurlyeq (M \cup \{a\}, \leqslant')$ strictement, ce qui contredit la maximalité de $(M, \leqslant_M)$. Donc nécessairement $M = A$.
+
+	Ainsi, $A$ peut être muni d'un bon ordre. Comme tout ensemble bien ordonné est isomorphe à un unique ordinal (résultat standard de la théorie des ordinaux), il existe un ordinal $\alpha$ et une bijection $f : A \to \alpha$ préservant l'ordre.
+\end{proof}
+
+\begin{definition}[Cardinal]
+	Un ordinal $\kappa$ est un \textbf{cardinal} si pour tout ordinal $\alpha < \kappa$, on a $|\alpha| < |\kappa|$ (i.e. $\alpha$ et $\kappa$ ne sont pas équipotents).
+
+	Autrement dit, un cardinal est le plus petit ordinal de sa classe d'équipotence.
+\end{definition}
+
+\begin{exemple}
+	Voici des exemples illustratifs :
+	\begin{itemize}
+		\item Tous les naturels $0, 1, 2, 3, \ldots$ sont des cardinaux
+		\item $\omega$ est un cardinal, noté $\aleph_0$ (aleph-zéro)
+		\item $\omega + 1$ n'est PAS un cardinal car $|\omega + 1| = |\omega|$ (ils sont équipotents)
+		\item $\omega \cdot 2$ n'est PAS un cardinal car $|\omega \cdot 2| = |\omega|$
+		\item $\omega^\omega$ n'est pas nécessairement un cardinal
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:existence_cardinal}
+	Pour tout ensemble $A$, il existe un unique cardinal $\kappa$ tel que $|A| = \kappa$.
+\end{proposition}
+
+\begin{proof}
+	Par le théorème \ref{thm:ensemble_ordinal}, $A$ est équipotent à un ordinal. Soit $\kappa$ le plus petit ordinal équipotent à $A$. Par définition, $\kappa$ est un cardinal, et c'est le seul cardinal équipotent à $A$ (par minimalité).
+\end{proof}
+
+\begin{definition}[Cardinal d'un ensemble]
+	Le \textbf{cardinal} d'un ensemble $A$, noté $|A|$ ou $\mathrm{card}(A)$, est l'unique cardinal équipotent à $A$.
+\end{definition}
+
+\section{Cardinaux finis et infinis}
+
+\begin{definition}[Cardinal fini et infini]
+	Un cardinal $\kappa$ est \textbf{fini} s'il existe $n \in \omega$ tel que $\kappa = n$.
+
+	Un cardinal est \textbf{infini} s'il n'est pas fini.
+\end{definition}
+
+\begin{proposition}
+	Un ensemble est fini (au sens usuel) si et seulement si son cardinal est un entier naturel.
+\end{proposition}
+
+\begin{proposition}\label{prop:omega_plus_petit_infini}
+	$\aleph_0 = \omega$ est le plus petit cardinal infini.
+\end{proposition}
+
+\begin{proof}
+	$\omega$ est infini car il n'est équipotent à aucun $n < \omega$ (un ensemble fini n'est pas équipotent à une partie propre de lui-même). Si $\kappa$ est un cardinal infini, alors $\kappa \geqslant \omega$, car sinon $\kappa < \omega$ impliquerait $\kappa \in \omega$, donc $\kappa$ serait fini.
+\end{proof}
+
+\begin{definition}[Ensemble dénombrable]
+	Un ensemble est \textbf{dénombrable} s'il est fini ou équipotent à $\mathbb{N}$.
+
+	Un ensemble est \textbf{au plus dénombrable} s'il est dénombrable.
+
+	Un ensemble est \textbf{non dénombrable} si son cardinal est strictement plus grand que $\aleph_0$.
+\end{definition}
+
+\section{Théorème de Cantor}
+
+\begin{theoreme}[Cantor]\label{thm:cantor}
+	Pour tout ensemble $A$, on a $|A| < |\mathcal{P}(A)|$.
+\end{theoreme}
+
+\begin{proof}
+	L'injection $a \mapsto \{a\}$ de $A$ dans $\mathcal{P}(A)$ montre que $|A| \leqslant |\mathcal{P}(A)|$.
+
+	Supposons par l'absurde qu'il existe une surjection $f : A \to \mathcal{P}(A)$. Définissons l'ensemble de Russell :
+	$$D = \{a \in A \mid a \notin f(a)\}$$
+
+	Puisque $D \subseteq A$, on a $D \in \mathcal{P}(A)$. Par surjectivité de $f$, il existe $d \in A$ tel que $f(d) = D$.
+
+	Analysons si $d \in D$ :
+	\begin{itemize}
+		\item Si $d \in D$, alors par définition de $D$, on a $d \notin f(d) = D$, contradiction.
+		\item Si $d \notin D$, alors $d \notin f(d)$, donc par définition de $D$, on devrait avoir $d \in D$, contradiction.
+	\end{itemize}
+
+	Dans les deux cas, on obtient une contradiction. Donc il n'existe pas de surjection de $A$ sur $\mathcal{P}(A)$, d'où $|A| < |\mathcal{P}(A)|$.
+\end{proof}
+
+\begin{corollaire}
+	Il existe une infinité de cardinaux infinis strictement croissants :
+	$$\aleph_0 < |\mathcal{P}(\mathbb{N})| < |\mathcal{P}(\mathcal{P}(\mathbb{N}))| < \cdots$$
+\end{corollaire}
+
+\subsection{La hiérarchie des alephs}
+
+\begin{definition}[Suite des alephs]
+	On définit par récurrence transfinie la suite des \textbf{alephs} (qui sont tous des cardinaux infinis) :
+	\begin{align*}
+		 & \aleph_0             = \omega                                                                                                                           \\
+		 & \aleph_{\alpha + 1}  = \text{le plus petit cardinal strictement supérieur à } \aleph_\alpha                                                             \\
+		 & \aleph_\lambda       = \sup_{\alpha < \lambda} \aleph_\alpha = \bigcup_{\alpha < \lambda} \aleph_\alpha \quad \text{si $\lambda$ est un ordinal limite}
+	\end{align*}
+\end{definition}
+
+\begin{remarque}
+	L'existence de $\aleph_{\alpha+1}$ (le cardinal successeur) nécessite l'axiome du choix. Sans AC, il pourrait exister des ensembles non comparables en cardinalité.
+\end{remarque}
+
+\begin{exemple}
+	\begin{itemize}
+		On a
+		\item $\aleph_0 = |\mathbb{N}|$ (cardinal du dénombrable)
+		\item $\aleph_1$ est le plus petit cardinal non dénombrable
+		\item $\aleph_2$ est le deuxième plus petit cardinal non dénombrable
+		\item $\aleph_\omega = \bigcup_{n < \omega} \aleph_n$ est un cardinal limite
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}
+	Pour tout ordinal $\alpha$, l'aleph $\aleph_\alpha$ est un cardinal.
+\end{proposition}
+
+\begin{proposition}
+	Tout cardinal infini est un aleph.
+\end{proposition}
+
+\begin{proof}
+	Soit $\kappa$ un cardinal infini. Nous allons montrer qu'il existe un ordinal $\alpha$ tel que $\kappa = \aleph_\alpha$.
+
+	Considérons l'ensemble
+	$$I = \{\beta \in \mathrm{Ord} \mid \aleph_\beta < \kappa\}$$
+	C'est un ensemble d'ordinaux (par l'axiome de séparation appliqué à un ensemble suffisamment grand d'ordinaux). Montrons que $I$ est en fait un ordinal.
+
+	Tout d'abord, $I$ est transitif : si $\gamma \in \beta \in I$, alors $\gamma < \beta$, donc $\aleph_\gamma < \aleph_\beta$ (car la suite des alephs est strictement croissante), d'où $\aleph_\gamma < \aleph_\beta < \kappa$, donc $\gamma \in I$.
+
+	De plus, $I$ est totalement ordonné par $\in$ (car c'est un ensemble d'ordinaux). Donc $I$ est un ordinal. Notons $\alpha = I$.
+
+	Montrons maintenant que $\kappa = \aleph_\alpha$. Nous allons procéder par double inégalité.
+
+	\textbf{Montrons que $\kappa \leqslant \aleph_\alpha$ :} Supposons par l'absurde que $\aleph_\alpha < \kappa$. Alors par définition de $I$, on aurait $\alpha \in I = \alpha$, ce qui contredit l'axiome de fondation (un ordinal ne peut s'appartenir à lui-même).
+
+	\textbf{Montrons que $\aleph_\alpha \leqslant \kappa$ :} Supposons par l'absurde que $\kappa < \aleph_\alpha$. Par définition de $\aleph_\alpha$, celui-ci est le plus petit cardinal strictement supérieur à tous les $\aleph_\beta$ pour $\beta < \alpha$. Puisque $\kappa < \aleph_\alpha$ et que $\kappa$ est un cardinal, on doit avoir $\kappa \leqslant \aleph_\beta$ pour un certain $\beta < \alpha$. Mais alors, soit $\kappa < \aleph_\beta$, auquel cas $\kappa$ serait inférieur à un aleph (ce qui contredit que $\kappa$ soit le plus petit cardinal de sa classe d'équipotence), soit $\kappa = \aleph_\beta$, auquel cas on aurait $\aleph_\beta < \kappa$ (car $\beta < \alpha = I$ signifie $\beta \in I$, donc $\aleph_\beta < \kappa$ par définition de $I$), ce qui est contradictoire.
+
+	En fait, raisonnons plus directement : pour tout $\beta < \alpha$, on a $\beta \in I$, donc $\aleph_\beta < \kappa$ par définition de $I$. Ainsi $\kappa$ est un majorant de tous les $\aleph_\beta$ pour $\beta < \alpha$. Puisque $\aleph_\alpha$ est par définition le plus petit cardinal strictement supérieur à tous ces alephs (si $\alpha$ est successeur) ou leur supremum (si $\alpha$ est limite), on a nécessairement $\aleph_\alpha \leqslant \kappa$.
+
+	Par double inégalité, $\kappa = \aleph_\alpha$.
+\end{proof}
+
+\begin{corollaire}
+	Tout cardinal infini s'écrit de manière unique sous la forme $\aleph_\alpha$ pour un certain ordinal $\alpha$.
+\end{corollaire}
+
+\begin{remarque}
+	Cette proposition montre que la hiérarchie des alephs épuise tous les cardinaux infinis. Ainsi, un cardinal infini est simplement un ordinal qui est un aleph. La suite des alephs fournit donc une énumération de tous les cardinaux infinis.
+\end{remarque}
+
+La construction de la hiérarchie des alephs que nous venons de présenter repose de manière essentielle sur l'axiome du choix pour garantir que tout ensemble peut être bien ordonné. Une question naturelle se pose alors : peut-on construire cette hiérarchie sans invoquer l'axiome du choix ? Le théorème de Hartogs, que nous allons maintenant étudier, apporte une réponse remarquable à cette question.
+
+\subsection{Théorème de Hartogs}
+
+Le théorème de Hartogs, démontré en 1915, est l'un des résultats les plus remarquables de la théorie des cardinaux. Il établit que pour tout ensemble, il existe un ordinal « trop gros » pour s'y injecter, et ce sans utiliser l'axiome du choix. Ce résultat montre que même en l'absence de l'axiome du choix, la hiérarchie des ordinaux « explose » nécessairement au-delà de tout ensemble donné.
+
+Avec l'axiome du choix, la hiérarchie des cardinaux est claire : pour tout cardinal $\kappa$, il existe un cardinal strictement plus grand. Mais que se passe-t-il sans l'axiome du choix ? Certains ensembles ne peuvent même pas être bien ordonnés, donc on ne peut pas leur associer directement un « cardinal successeur ». Pourtant, comme Hartogs l'a découvert, on peut toujours construire un ordinal qui refuse de s'injecter dans un ensemble donné.
+
+\begin{theoreme}[Hartogs, 1915]\label{thm:hartogs}
+	Pour tout ensemble $A$, il existe un ordinal $\alpha$ tel qu'il n'existe aucune injection $\alpha \to A$.
+\end{theoreme}
+
+\begin{remarque}
+	Ce théorème ne nécessite que les axiomes de ZF. Hartogs l'a même prouvé en 1915 dans le cadre de la théorie de Zermelo, avant l'introduction de l'axiome de remplacement dans sa forme moderne, bien que la preuve actuelle en fasse usage de manière essentielle.
+\end{remarque}
+
+\paragraph{Construction du nombre de Hartogs.} La preuve est constructive et fournit explicitement l'ordinal cherché, appelé nombre de Hartogs de $A$.
+
+\begin{definition}[Nombre de Hartogs]\label{def:hartogs_number}
+	Soit $A$ un ensemble. Le \textbf{nombre de Hartogs} de $A$, noté $\aleph(A)$ ou $h(A)$, est défini par
+	$$\aleph(A) = \{\beta \in \mathrm{Ord} \mid \text{il existe une injection } \beta \to A\}$$
+\end{definition}
+
+\begin{proof}[Preuve du théorème \ref{thm:hartogs}]
+	Nous allons montrer que $\aleph(A)$ est un ensemble, que c'est un ordinal, et qu'il ne s'injecte pas dans $A$.
+
+	Commençons par vérifier que $\aleph(A)$ est bien un ensemble. L'idée est de « coder » tous les ordinaux qui s'injectent dans $A$ via les bons ordres sur les sous-ensembles de $A$. Considérons
+	$$W = \{(X, R) \in \mathcal{P}(A) \times \mathcal{P}(A \times A) \mid R \subseteq X \times X \text{ et } (X, R) \text{ est bien ordonné}\}$$
+	Cet ensemble existe par les axiomes de séparation et des parties, car $W$ est un sous-ensemble de $\mathcal{P}(A) \times \mathcal{P}(A \times A)$, qui est lui-même un ensemble.
+
+	Par le théorème fondamental sur les bons ordres, chaque élément $(X, R)$ de $W$ est isomorphe à un unique ordinal. Définissons $F : W \to \mathrm{Ord}$ en associant à chaque $(X, R)$ cet ordinal unique. L'axiome de remplacement garantit alors que l'image $F(W)$ est un ensemble.
+
+	Vérifions maintenant que cet ensemble coïncide avec notre définition de $\aleph(A)$. Si un ordinal $\beta$ s'injecte dans $A$ via une injection $i : \beta \to A$, alors en transportant le bon ordre de $\beta$ sur son image $i(\beta) \subseteq A$, on crée un élément de $W$ isomorphe à $\beta$. Réciproquement, si $(X, R) \in W$ est isomorphe à un ordinal $\beta$, cet isomorphisme fournit une injection de $\beta$ dans $X \subseteq A$. Ainsi $\aleph(A) = F(W)$ est bien un ensemble.
+
+	Montrons maintenant que $\aleph(A)$ est un ordinal. Pour la transitivité, si $\beta \in \aleph(A)$ et $\gamma \in \beta$, alors $\gamma$ est un ordinal strictement plus petit que $\beta$. Comme il existe une injection $i : \beta \to A$, sa restriction à $\gamma \subseteq \beta$ fournit une injection $\gamma \to A$, donc $\gamma \in \aleph(A)$. De plus, $\aleph(A)$ est bien ordonné par $\in$ car c'est un ensemble d'ordinaux. Donc $\aleph(A)$ est un ordinal.
+
+	Enfin, montrons qu'il n'existe pas d'injection $\aleph(A) \to A$. Si une telle injection existait, alors par définition même de $\aleph(A)$, on devrait avoir $\aleph(A) \in \aleph(A)$. Or aucun ordinal n'appartient à lui-même, ce qui donne la contradiction cherchée.
+\end{proof}
+
+\paragraph{Propriétés fondamentales.} Le nombre de Hartogs possède des propriétés remarquables qui en font un outil puissant en théorie des ensembles.
+
+\begin{proposition}\label{prop:hartogs_cardinal}
+	Le nombre de Hartogs $\aleph(A)$ est un cardinal, c'est-à-dire un ordinal initial : il n'est équipotent à aucun ordinal strictement plus petit.
+\end{proposition}
+
+\begin{proof}
+	Soit $\beta < \aleph(A)$. Alors $\beta \in \aleph(A)$, donc par définition il existe une injection $\beta \to A$. Si $\aleph(A)$ était équipotent à $\beta$, on pourrait composer une bijection $\aleph(A) \to \beta$ avec l'injection $\beta \to A$ pour obtenir une injection $\aleph(A) \to A$, ce qui contredit le théorème de Hartogs. Donc $\aleph(A)$ n'est équipotent à aucun ordinal plus petit, ce qui en fait un cardinal.
+\end{proof}
+
+\begin{corollaire}\label{cor:hartogs_not_inject}
+	Pour tout ensemble $A$, le nombre de Hartogs $\aleph(A)$ ne s'injecte pas dans $A$.
+\end{corollaire}
+
+\begin{remarque}[Subtilité sans l'axiome du choix]
+	Sans l'axiome du choix, il faut être prudent avec les comparaisons de cardinaux. On ne peut pas affirmer simplement que $|A| < \aleph(A)$, car si $A$ ne peut pas être bien ordonné, alors $|A|$ et $\aleph(A)$ pourraient ne pas être comparables au sens usuel. Ce qu'on sait avec certitude, c'est que $\aleph(A)$ ne s'injecte pas dans $A$, mais cela ne garantit pas automatiquement l'existence d'une injection dans l'autre sens.
+
+	Toutefois, si $A$ est bien ordonnable, la situation se clarifie complètement, comme nous allons le voir.
+\end{remarque}
+
+\begin{corollaire}[Absence de plus grand cardinal]\label{cor:no_largest_cardinal}
+	Il n'existe pas de plus grand cardinal. Pour tout cardinal $\kappa$, on peut construire un cardinal $\lambda$ tel que $\lambda$ ne s'injecte pas dans $\kappa$.
+\end{corollaire}
+
+\begin{proof}
+	Prenons un ensemble $A$ de cardinal $\kappa$. Alors $\lambda = \aleph(A)$ est un cardinal qui ne s'injecte pas dans $A$, donc ne s'injecte pas dans $\kappa$.
+\end{proof}
+
+Lorsque $A$ peut être bien ordonné, le nombre de Hartogs prend une forme particulièrement simple.
+
+\begin{proposition}\label{prop:hartogs_with_ac}
+	Si $A$ peut être bien ordonné et si $|A| = \aleph_\alpha$, alors $\aleph(A) = \aleph_{\alpha+1}$.
+\end{proposition}
+
+\begin{proof}
+	Puisque $|A| = \aleph_\alpha$, tout ordinal $\beta \leqslant \aleph_\alpha$ s'injecte dans $A$, donc $\aleph(A) > \aleph_\alpha$. Réciproquement, si $\beta < \aleph(A)$, alors $\beta$ s'injecte dans $A$, d'où $|\beta| \leqslant |A| = \aleph_\alpha$. Ainsi, tout ordinal strictement inférieur à $\aleph(A)$ a un cardinal au plus égal à $\aleph_\alpha$, ce qui signifie que $\aleph(A)$ est le plus petit ordinal de cardinal strictement supérieur à $\aleph_\alpha$, autrement dit $\aleph(A) = \aleph_{\alpha+1}$.
+\end{proof}
+
+\begin{remarque}
+	Ce résultat montre que pour les ensembles bien ordonnés, le nombre de Hartogs coïncide exactement avec la notion intuitive de « cardinal successeur ». C'est l'une des raisons pour lesquelles la hiérarchie des alephs se construit naturellement par récurrence en utilisant le nombre de Hartogs à chaque étape.
+\end{remarque}
+
+Le théorème de Hartogs a des conséquences profondes pour la théorie des cardinaux en l'absence de l'axiome du choix.
+
+D'abord, il permet de construire la hiérarchie des alephs de manière purement ensembliste. On peut définir par récurrence transfinie :
+$$\aleph_0 = \omega, \qquad \aleph_{\alpha+1} = \aleph(\aleph_\alpha), \qquad \aleph_\lambda = \bigcup_{\beta < \lambda} \aleph_\beta \text{ pour } \lambda \text{ limite}$$
+Cette construction fonctionne dans ZF seul, sans invoquer l'axiome du choix. Chaque $\aleph_\alpha$ ainsi construit est automatiquement un cardinal bien ordonnable.
+
+Ensuite, le théorème révèle une connexion profonde avec l'ensemble des parties. On peut montrer que pour tout ensemble $A$, on a $\aleph(A) \leqslant |\mathcal{P}(\mathcal{P}(\mathcal{P}(A)))|$. Autrement dit, trois applications successives de l'opération « ensemble des parties » suffisent toujours pour « sauter » au-delà du nombre de Hartogs. Ce résultat, dû à divers auteurs dont Hickman, montre que $\mathcal{P}(A)$ effectue nécessairement un « grand saut » dans la hiérarchie cardinale, même sans l'axiome du choix.
+
+Enfin, le nombre de Hartogs fournit un critère pour détecter quand deux ensembles sont comparables en cardinal. Si l'un des deux peut être bien ordonné et si son nombre de Hartogs domine l'autre, alors on peut effectivement les comparer.
+
+\begin{exemple}
+	Pour $A = \mathbb{N}$, le nombre de Hartogs $\aleph(\mathbb{N})$ est $\omega_1$, le premier ordinal indénombrable. Ceci fournit une définition de $\omega_1$ qui ne nécessite aucun recours à l'axiome du choix : c'est simplement le plus petit ordinal qui ne peut pas s'injecter dans $\mathbb{N}$. Autrement dit, $\omega_1$ est le « premier ordinal vraiment indénombrable », au sens où tous les ordinaux dénombrables s'injectent dans $\mathbb{N}$, mais $\omega_1$ ne le peut pas.
+\end{exemple}
+
+\begin{remarque}[Contexte historique]
+	Le théorème de Hartogs date de 1915, une époque où l'axiome du choix était encore controversé. Hartogs l'a utilisé pour démontrer un résultat méta-mathématique remarquable : la « trichotomie » des cardinaux (l'assertion que pour tous ensembles $A$ et $B$, on a soit $|A| < |B|$, soit $|A| = |B|$, soit $|A| > |B|$) implique l'axiome du choix. Ainsi, sans l'axiome du choix, il existe nécessairement des ensembles incomparables en cardinal. Pourtant, comme le montre le théorème de Hartogs, on peut toujours construire des ordinaux « trop grands » pour n'importe quel ensemble, ce qui garantit l'absence de « plus grand cardinal » même en l'absence de l'axiome du choix.
+\end{remarque}
+
+\section{Arithmétique cardinale}
+
+\subsection{Addition et multiplication cardinales}
+
+\begin{definition}[Addition cardinale]
+	Pour des cardinaux $\kappa$ et $\lambda$ :
+	$$\kappa + \lambda = |\kappa \times \{0\} \cup \lambda \times \{1\}|$$
+	où l'union est disjointe.
+\end{definition}
+
+\begin{definition}[Multiplication cardinale]
+	$$\kappa \cdot \lambda = |\kappa \times \lambda|$$
+\end{definition}
+
+\begin{remarque}[Utilisation de l'axiome du choix]
+	Les théorèmes suivants sur l'arithmétique cardinale infinie nécessitent l'axiome du choix.
+\end{remarque}
+
+\begin{theoreme}\label{thm:addition_cardinaux_infinis}
+	Pour des cardinaux infinis $\kappa$ et $\lambda$ :
+	$$\kappa + \lambda = \max(\kappa, \lambda)$$
+\end{theoreme}
+
+\begin{theoreme}\label{thm:multiplication_cardinaux_infinis}
+	Pour des cardinaux infinis $\kappa$ et $\lambda$ :
+	$$\kappa \cdot \lambda = \max(\kappa, \lambda)$$
+\end{theoreme}
+
+\begin{corollaire}
+	Si $\kappa$ est un cardinal infini :
+	\begin{itemize}
+		\item $\kappa + \kappa = \kappa$
+		\item $\kappa \cdot \kappa = \kappa$
+		\item $\kappa + n = \kappa$ pour tout $n \in \mathbb{N}$
+		\item $\kappa \cdot n = \kappa$ pour tout $n \in \mathbb{N} \setminus \{0\}$
+	\end{itemize}
+\end{corollaire}
+
+\begin{exemple}
+	\begin{itemize}
+		\item $\aleph_0 + \aleph_0 = \aleph_0$ (correspondant à $|\mathbb{N} \cup \mathbb{N}| = |\mathbb{N}|$)
+		\item $\aleph_0 \cdot \aleph_0 = \aleph_0$ (correspondant à $|\mathbb{N} \times \mathbb{N}| = |\mathbb{N}|$)
+		\item $\aleph_1 + \aleph_0 = \aleph_1$
+		\item $\aleph_1 \cdot \aleph_1 = \aleph_1$
+	\end{itemize}
+\end{exemple}
+
+\subsection*{Exponentiation cardinale}
+
+\begin{definition}[Exponentiation cardinale]
+	Pour des cardinaux $\kappa$ et $\lambda$ :
+	$$\kappa^\lambda = |\{\text{fonctions } f : \lambda \to \kappa\}| = |{}^\lambda\kappa|$$
+\end{definition}
+
+\begin{exemple}
+	On a
+	\begin{itemize}
+		\item $2^\kappa = |\{\text{fonctions } \kappa \to \{0, 1\}\}| = |\mathcal{P}(\kappa)|$ (ensemble des parties)
+		\item $2^{\aleph_0} = |\mathcal{P}(\mathbb{N})|$
+		\item $\kappa^0 = 1$ pour tout cardinal $\kappa$
+		\item $\kappa^1 = \kappa$ pour tout cardinal $\kappa$
+		\item $1^\lambda = 1$ pour tout cardinal $\lambda$
+	\end{itemize}
+\end{exemple}
+
+\begin{theoreme}[Cantor - version cardinale]
+	Pour tout cardinal $\kappa$ :
+	$$\kappa < 2^\kappa$$
+\end{theoreme}
+
+\begin{proof}
+	C'est une reformulation du théorème \ref{thm:cantor} : $|\kappa| < |\mathcal{P}(\kappa)| = |2^\kappa|$.
+\end{proof}
+
+\begin{corollaire}
+	Pour tout cardinal $\kappa$, il existe un cardinal strictement plus grand. Il n'existe donc pas de « plus grand cardinal ».
+\end{corollaire}
+
+\section{Le cardinal du continu et l'hypothèse du continu}
+
+\begin{definition}[Cardinal du continu]
+	Le \textbf{cardinal du continu}, noté $\mathfrak{c}$ ou $2^{\aleph_0}$, est le cardinal de $\mathbb{R}$.
+\end{definition}
+
+\begin{theoreme}[Cantor]
+	$|\mathbb{N}| < |\mathbb{R}|$, c'est-à-dire $\aleph_0 < \mathfrak{c}$.
+\end{theoreme}
+
+\begin{proof}
+	Par le théorème de Cantor (théorème \ref{thm:cantor}), on a
+	$$|\mathbb{N}| < |\mathcal{P}(\mathbb{N})| = 2^{\aleph_0}$$
+
+	Il suffit donc de montrer que $|\mathbb{R}| = |\mathcal{P}(\mathbb{N})|$ pour conclure.
+
+	Construisons une bijection entre $\mathcal{P}(\mathbb{N})$ et l'intervalle $]0, 1[ \subseteq \mathbb{R}$, ce qui suffira (car $]0, 1[$ est équipotent à $\mathbb{R}$ via une bijection comme $x \mapsto \tan(\pi(x - 1/2))$).
+
+				À tout sous-ensemble $A \subseteq \mathbb{N}$, associons le réel
+				$$f(A) = \sum_{n \in A} 2^{-(n+1)} = 0{,}a_1 a_2 a_3 \ldots \quad \text{(en binaire)}$$
+				où $a_n = 1$ si $n \in A$ et $a_n = 0$ sinon. Ceci donne le développement binaire de $f(A) \in [0, 1]$.
+
+				Inversement, tout réel $x \in ]0, 1[$ admet un développement binaire (en évitant les développements se terminant par une suite infinie de $1$, qui sont en bijection avec ceux se terminant par une suite infinie de $0$), ce qui définit un unique sous-ensemble de $\mathbb{N}$.
+
+				Cette correspondance établit une bijection entre $\mathcal{P}(\mathbb{N})$ et $]0, 1[$, donc
+			$$|\mathbb{R}| = |]0, 1[| = |\mathcal{P}(\mathbb{N})| = 2^{\aleph_0}$$
+
+	Par le théorème de Cantor, $|\mathbb{N}| < 2^{\aleph_0}$, donc $|\mathbb{N}| < |\mathbb{R}|$.
+\end{proof}
+
+\begin{remarque}
+	Cette preuve montre que le cardinal du continu $\mathfrak{c} = |\mathbb{R}|$ est exactement $2^{\aleph_0}$. L'existence de cardinaux strictement entre $\aleph_0$ et $2^{\aleph_0}$ est l'objet de l'hypothèse du continu.
+\end{remarque}
+
+\begin{corollaire}
+	$2^{\aleph_0} = \mathfrak{c} = |\mathbb{R}| > \aleph_0 = |\mathbb{N}|$.
+\end{corollaire}
+
+\begin{conjecture}[Hypothèse du continu (CH)]
+	$$2^{\aleph_0} = \aleph_1$$
+	Autrement dit, il n'existe pas de cardinal strictement entre $|\mathbb{N}|$ et $|\mathbb{R}|$.
+\end{conjecture}
+
+\begin{conjecture}[Hypothèse généralisée du continu (GCH)]
+	Pour tout ordinal $\alpha$ :
+	$$2^{\aleph_\alpha} = \aleph_{\alpha+1}$$
+	Autrement dit, il n'existe pas de cardinal strictement entre $\aleph_\alpha$ et $2^{\aleph_\alpha}$.
+\end{conjecture}
+
+Le théorème suivant demande des notions avancées de logique. Nous ne discuterons pas de ce dernier, néanmoins cela peut enrichir la culture mathématique du lecteur.
+
+\begin{theoreme}[Gödel 1938, Cohen 1963]
+	L'hypothèse du continu est indépendante de ZFC :
+	\begin{itemize}
+		\item Si ZFC est consistant, alors ZFC + CH est consistant (Gödel, 1938)
+		\item Si ZFC est consistant, alors ZFC + $\neg$CH est consistant (Cohen, 1963)
+	\end{itemize}
+	En particulier, on ne peut ni prouver ni réfuter CH dans ZFC.
+\end{theoreme}
+
+\begin{remarque}
+	Cela signifie que CH est une question « au-delà » de ZFC. En pratique, la plupart des mathématiques ne dépendent pas de CH, mais certains résultats en topologie et en analyse réelle en dépendent.
+\end{remarque}
+
+\section{Cardinaux réguliers et singuliers}
+
+Cette section nécéssite comme prérequis des notions élémentaires d'analyse concerant les suites.
+Si le lecteur souhaite travailler cette partie il est recommmandé de d'abord prendre connaissance du premier chapitre dans la partie d'analyse s'il n'est pas à l'aise avec ces notions.
+
+\begin{definition}[Cofinalité]
+	Soit $\kappa$ un cardinal infini. La \textbf{cofinalité} de $\kappa$, notée $\mathrm{cf}(\kappa)$, est le plus petit cardinal $\lambda$ tel qu'il existe une suite strictement croissante $(\alpha_i)_{i < \lambda}$ d'ordinaux $< \kappa$ avec $\sup_{i < \lambda} \alpha_i = \kappa$.
+\end{definition}
+
+\begin{definition}[Cardinal régulier et singulier]
+	Un cardinal infini $\kappa$ est \textbf{régulier} si $\mathrm{cf}(\kappa) = \kappa$.
+
+	Il est \textbf{singulier} si $\mathrm{cf}(\kappa) < \kappa$.
+\end{definition}
+
+\begin{exemple}
+	Par exemple :
+	\begin{itemize}
+		\item $\aleph_0$ est régulier (toute suite croissante d'entiers bornée est finie)
+		\item Tout cardinal successeur $\aleph_{\alpha+1}$ est régulier
+		\item $\aleph_\omega = \sup_{n < \omega} \aleph_n$ est singulier car $\mathrm{cf}(\aleph_\omega) = \omega < \aleph_\omega$
+		\item Sous GCH, $\mathrm{cf}(2^{\aleph_0}) = 2^{\aleph_0}$, donc $2^{\aleph_0}$ serait régulier
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}
+	$\mathrm{cf}(\kappa)$ est toujours un cardinal régulier.
+\end{proposition}
+
+\begin{definition}[Cardinal inaccessible]
+	Un cardinal $\kappa$ est \textbf{fortement inaccessible} si :
+	\begin{enumerate}
+		\item $\kappa$ est infini
+		\item $\kappa$ est régulier
+		\item Pour tout $\lambda < \kappa$, on a $2^\lambda < \kappa$
+	\end{enumerate}
+\end{definition}
+
+\begin{remarque}
+	L'existence d'un cardinal inaccessible ne peut être prouvée dans ZFC (si ZFC est consistant), car elle implique la consistance de ZFC. Les cardinaux inaccessibles sont des « grands cardinaux » étudiés en théorie des ensembles avancée.
+\end{remarque}
+
