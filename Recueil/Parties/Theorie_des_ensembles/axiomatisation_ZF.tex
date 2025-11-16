@@ -1,0 +1,129 @@
+\chapterimage{chapter_head_2.pdf}
+\chapter{Axiomatisation de Zermolo-Fraenkel}
+
+\section{Paradoxe de Russel}
+Jusqu'au début du XX\,\textsuperscript{e}~siècle, les mathématiciens manipulaient les ensembles de manière dite \emph{naïve}.  
+On les concevait d’abord comme des objets géométriques (points, droites, cercles, etc.), puis comme de simples collections d’objets partageant une propriété commune.
+
+C’est le mathématicien allemand \textsc{Georg Cantor} (1845–1918) qui, à partir de 1874, posa les bases de la \emph{théorie naïve des ensembles}.  
+Cette approche intuitive permit à Cantor de développer la notion de \emph{cardinalité} et d’étudier différents « types d’infini » par des travaux qui révolutionnèrent les fondements des mathématiques modernes.  
+Cependant, cette théorie, bien que féconde, se révéla insuffisamment rigoureuse.
+
+\medskip
+
+En 1901, le philosophe et logicien britannique \textsc{Bertrand Russell} (1872–1970) mit en évidence une contradiction au cœur même de la théorie naïve : le \emph{paradoxe de Russell}.  
+Considérons l’ensemble suivant :
+\[
+R := \{\,x \text{ ensemble} \mid x \notin x\,\}.
+\]
+Autrement dit, $R$ désigne l’ensemble de tous les ensembles qui ne se contiennent pas eux-mêmes.  
+La question est alors : $R$ appartient-il à lui-même~?
+
+\medskip
+
+\noindent
+Deux cas se présentent :
+\begin{itemize}
+  \item Si $R \in R$, alors par définition de $R$, on doit avoir $R \notin R$.
+  \item Si $R \notin R$, alors, toujours par définition, $R$ satisfait la condition pour appartenir à $R$ ; donc $R \in R$.
+\end{itemize}
+
+Dans les deux cas, on aboutit à la contradiction suivante :
+\begin{equation*}
+    R \in R \;\Longleftrightarrow\; R \notin R.
+\end{equation*}
+
+Cette impossibilité logique révèle une faille fondamentale de la théorie naïve : certaines définitions « trop générales » engendrent des paradoxes.
+
+\medskip
+
+Pour surmonter cette difficulté, les mathématiciens entreprirent de fonder la théorie des ensembles sur une base axiomatique rigoureuse.  
+En 1908, \textsc{Ernst Zermelo} (1871–1953) proposa une première axiomatisation visant à éviter les paradoxes.  
+Cette théorie fut ensuite enrichie en 1922 par \textsc{Abraham Fraenkel} (1891–1965) et, indépendamment, par \textsc{Thoralf Skolem} (1887–1963).  
+L’ensemble de ces axiomes constitue la théorie des ensembles \textbf{ZF} (\emph{Zermelo–Fraenkel}).  
+Lorsqu’on y ajoute l’axiome du choix, on obtient la théorie \textbf{ZFC}, aujourd’hui la base de la plupart des mathématiques formelles.
+
+\medskip
+
+Cependant, même la théorie ZF ne permet pas de manipuler des « collections trop grandes » comme la collection de tous les ensembles car celle-ci n'est pas un ensemble, mais une \emph{classe propre}.  
+Pour traiter de telles collections, d’autres systèmes ont été développés, notamment la théorie \textbf{NBG} (\emph{von Neumann–Bernays–Gödel}), qui étend ZF en introduisant une distinction explicite entre ensembles et classes. Dans ce chapitre, nous allons énoncés les différents axiomes ainsi que leurs conséquences qui nous permettrons d'établir nos premières constructions.
+
+Commençons par donner cinq axiomes dont les énoncés sont relativement aisés à comprendre et qui sont en accords avec l'intuition commune.
+\section{Axiomes élémentaires}
+
+\begin{axiome}[d'extensionnalité]
+	Deux ensembles possédant les mêmes éléments sont égaux :
+	\begin{equation*}
+		\forall A,\forall B, \quad [\forall x, \: (x\in A \Leftrightarrow x\in B)] \: \Rightarrow \:A=B
+	\end{equation*}
+\end{axiome}
+Tout naturellement, nous pouvons facilement prouver l'implication réciproque. En effet, si on suppose qu'on a deux ensembles $A$ et $B$ égaux alors par définition de l'égalité en prenant un élément $x$ de $A$ et la formule $\varphi(y)\equiv x\in y$ (qui est bien dans le langage de $ZF$). Nous abtenons que 
+\[
+\varphi(A)\Leftrightarrow \varphi(B).
+\]
+C'est à dire que $A=B \Rightarrow \forall x \: (x\in A \Leftrightarrow x\in B)$
+\begin{axiome}[de l'ensemble vide]
+	Il existe un ensemble qui ne contient aucun éléments :
+	\begin{equation*}
+		\exists E,\: \forall x,\: x\notin E
+	\end{equation*}
+\end{axiome}
+
+\begin{proposition}
+	Il n'y a qu'un seul ensemble qui ne possède aucun élément.
+	On l'appelle ensemble vide et on le note $\varnothing$.
+\end{proposition}
+
+\begin{proof}
+	Cela résulte des deux axiomes précédant
+\end{proof}
+
+\begin{axiome}[de la paire]
+	Pour tous ensembles $a$ et $b$, il existe un ensemble, noté $\{a,b\}$
+	, admettant comme éléments $a$ et $b$ et rien d'autre.
+	\begin{equation*}
+		\forall a,\forall b,\quad \exists E,\forall x, [x\in E \Leftrightarrow (x=a \lor x=b)]
+	\end{equation*}
+\end{axiome}
+
+\begin{axiome}[de la réunion]
+	Pour tout ensemble $I$, il existe un ensemble $U$ dont les éléments sont les éléments des éléments $I$.
+	\begin{equation*}
+		\forall I,\exists U,\forall x, [x\in U \Leftrightarrow \exists i,(i\in I\land x\in i)]
+	\end{equation*}
+	L'ensemble $U$ est appelé la réunion des éléments de $I$
+\end{axiome}
+Par exemple, si $I=\{\{a,b\}, \{c,d\},\{d\}\}$ alors $U= \{a,b,c,d\}$. Ce qu'on note $\bigcup I$. De même, pour $I=\{A,B\}$, l'ensemble $U$ est noté $A\cup B$.
+\begin{definition}
+	On dit qu'un ensemble $A$ est contenu dans un ensemble $B$, ou que $A$ est une partie de $B$ si tout élément de $A$ est élément de $B$
+	\begin{equation*}
+		\forall x,[x\in A \Rightarrow x\in B]
+	\end{equation*}
+	On écrit alors $A\subseteq B$
+\end{definition}
+
+\begin{remarque}
+    De cette définition, il en vient naturellement que deux ensembles $A$ et $B$ sont égaux si et seulement si il sont inclus l'un a l'autre, c'est à dire
+    \[
+    A=B \Leftrightarrow (A\subseteq B) \land ( B\subseteq A)
+    \]
+\end{remarque}
+
+\begin{axiome}[de l'ensemble des parties]
+	Pour tout ensemble $A$, il existe un ensemble $P$ dont les éléments sont les ensembles contenus dans $A$.
+	\begin{equation*}
+		\forall A,\exists P, \forall x, [x\in P\Leftrightarrow \forall y, (y\in x \Rightarrow y\in A)]
+	\end{equation*}
+	Cet ensembles est noté $\mathscr{P}(A)$.
+\end{axiome}
+
+\begin{axiome}[de l'infini]
+	Il existe un ensemble $N$ qui vérifie
+	\begin{equation*}
+		\exists N, (\varnothing \in N\land \forall n,(n\in N\Rightarrow  n\cup \{n\}\in N))
+	\end{equation*}
+\end{axiome}
+Ce qui veut dire qu'il existe un ensemble $N$ qui admet notamment comme éléments $\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\},\dotsc$
+
+
+
