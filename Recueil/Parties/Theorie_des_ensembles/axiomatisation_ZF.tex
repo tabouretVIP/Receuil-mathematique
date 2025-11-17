@@ -23,14 +23,26 @@ A noter que, à moins d'une mention explicite, un symbole quelconque n'as aucun 
 Un \textbf{mot} sur un alphabet $\Sigma$ est une séquence \emph{finie} 
 de symboles de $\Sigma$. On note $\varepsilon$ le \textbf{mot vide}.
 \end{definition}
+On munit les mots de la concaténation. Par exemple si $ab$ et $bc$ sont deux mots alors $abbc$ est le mot obtenus en concaténant le deuxiemme mot avec le premier.
 
 \begin{definition}[Clôture de Kleene]
 	Soit $\Sigma$ un alphabet, la \textbf{clôture de Kleene} de $\Sigma$, notée $\Sigma^*$ est la collection de tout les mots finis de $\Sigma$, y compris le mot vide.
 \end{definition}
 
+\begin{remarque}
+	La clôture de Kleene est fermé par l'"opération" concaténation.
+\end{remarque}
+
 \begin{proposition}
 	Pour tout alphabet $\Sigma$, la collection $\Sigma^*$ est infini et énumérable.
 \end{proposition}
+ 
+\begin{definition}
+Un \textbf{langage} (ou dictionnaire) $L$ est une sous-collection de $\Sigma^*$ ce qu'on note :
+\[
+L\subseteq \Sigma^*
+\]
+\end{definition}
 
 \section{Paradoxe de Russel}
 Jusqu'au début du XX\,\textsuperscript{e}~siècle, les mathématiciens manipulaient les ensembles de manière dite \emph{naïve}.
