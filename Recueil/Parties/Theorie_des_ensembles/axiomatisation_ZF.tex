@@ -1,22 +1,53 @@
 \chapterimage{chapter_head_2.pdf}
 \chapter{Axiomatisation de Zermolo-Fraenkel}
 
+\section{Logique élémentaire}
+L'objectif de cette section est fournir le minimum logique nécéssaire avant de construire une théorie axiomatique, nous ne discuterons donc pas de logique plus avancé pour l'instant.
+\begin{quote}
+	\og Nous ne discuterons pas de la possibilité d'enseigné les principes du language formalisé à des être n'irait pas jusqu'à savoir lire ou compter. \fg
+\end{quote}
+Cette citation pourrait sembler idiote cependant elle met en lumière un point important. Pour pouvoir faire des mathématiques nous devons nous appuyer sur les capacités intellectuels que nous possèdons.
+Puisque si nous souhaitons être formel, on définirait certains ensembles comme dénombrables mais la notion de dénombrabilité n'est établie que bien plus tard. Autrement dit, pour définir la dénombrabilité,
+nous utilisons des bases logique qui repose dejà sur elle, nous avons donc un problème inextricable de circularité.
+\medskip
+Pour au mieux éviter ce problème nous reposons la logique sur certaines capacités du lecteur que voici : On estime que le lecteur à la capacité de distinguer si deux symboles sont identiques ou non ( par symboles on entend des marques visibles par le lecteur sur un support),
+on estime aussi qu'il lui est possible de compter, d'énumérer des objets et de les regrouper dans une liste (ou collection), il doit être capable de distinguer si une collection d'objets est finie ou non. On notera les collections avec des symboles représentant les objets entre crochets.
+
+De là, pour des mots utilisé non définit ici, le lecteur peut considérer qu'ils ont les sens usuels qu'on leur attribue.
+A noter que, à moins d'une mention explicite, un symbole quelconque n'as aucun sens mathématique. On distingue ici, clairement, la synthaxe et la sémentique. 
+\begin{definition}[Alphabet]
+	Un \textbf{alphabet} $\Sigma$ est une collection finie de symboles. Un symbole d'un alphabet est une lettre.
+\end{definition}
+
+\begin{definition}[Mot]
+Un \textbf{mot} sur un alphabet $\Sigma$ est une séquence \emph{finie} 
+de symboles de $\Sigma$. On note $\varepsilon$ le \textbf{mot vide}.
+\end{definition}
+
+\begin{definition}[Clôture de Kleene]
+	Soit $\Sigma$ un alphabet, la \textbf{clôture de Kleene} de $\Sigma$, notée $\Sigma^*$ est la collection de tout les mots finis de $\Sigma$, y compris le mot vide.
+\end{definition}
+
+\begin{proposition}
+	Pour tout alphabet $\Sigma$, la collection $\Sigma^*$ est infini et énumérable.
+\end{proposition}
+
 \section{Paradoxe de Russel}
-Jusqu'au début du XX\,\textsuperscript{e}~siècle, les mathématiciens manipulaient les ensembles de manière dite \emph{naïve}.  
+Jusqu'au début du XX\,\textsuperscript{e}~siècle, les mathématiciens manipulaient les ensembles de manière dite \emph{naïve}.
 On les concevait d’abord comme des objets géométriques (points, droites, cercles, etc.), puis comme de simples collections d’objets partageant une propriété commune.
 
-C’est le mathématicien allemand \textsc{Georg Cantor} (1845–1918) qui, à partir de 1874, posa les bases de la \emph{théorie naïve des ensembles}.  
-Cette approche intuitive permit à Cantor de développer la notion de \emph{cardinalité} et d’étudier différents « types d’infini » par des travaux qui révolutionnèrent les fondements des mathématiques modernes.  
+C’est le mathématicien allemand \textsc{Georg Cantor} (1845–1918) qui, à partir de 1874, posa les bases de la \emph{théorie naïve des ensembles}.
+Cette approche intuitive permit à Cantor de développer la notion de \emph{cardinalité} et d’étudier différents « types d’infini » par des travaux qui révolutionnèrent les fondements des mathématiques modernes.
 Cependant, cette théorie, bien que féconde, se révéla insuffisamment rigoureuse.
 
 \medskip
 
-En 1901, le philosophe et logicien britannique \textsc{Bertrand Russell} (1872–1970) mit en évidence une contradiction au cœur même de la théorie naïve : le \emph{paradoxe de Russell}.  
+En 1901, le philosophe et logicien britannique \textsc{Bertrand Russell} (1872–1970) mit en évidence une contradiction au cœur même de la théorie naïve : le \emph{paradoxe de Russell}.
 Considérons l’ensemble suivant :
 \[
-R := \{\,x \text{ ensemble} \mid x \notin x\,\}.
+	R := \{\,x \text{ ensemble} \mid x \notin x\,\}.
 \]
-Autrement dit, $R$ désigne l’ensemble de tous les ensembles qui ne se contiennent pas eux-mêmes.  
+Autrement dit, $R$ désigne l’ensemble de tous les ensembles qui ne se contiennent pas eux-mêmes.
 La question est alors : $R$ appartient-il à lui-même~?
 
 \medskip
@@ -24,28 +55,28 @@ La question est alors : $R$ appartient-il à lui-même~?
 \noindent
 Deux cas se présentent :
 \begin{itemize}
-  \item Si $R \in R$, alors par définition de $R$, on doit avoir $R \notin R$.
-  \item Si $R \notin R$, alors, toujours par définition, $R$ satisfait la condition pour appartenir à $R$ ; donc $R \in R$.
+	\item Si $R \in R$, alors par définition de $R$, on doit avoir $R \notin R$.
+	\item Si $R \notin R$, alors, toujours par définition, $R$ satisfait la condition pour appartenir à $R$ ; donc $R \in R$.
 \end{itemize}
 
 Dans les deux cas, on aboutit à la contradiction suivante :
 \begin{equation*}
-    R \in R \;\Longleftrightarrow\; R \notin R.
+	R \in R \;\Longleftrightarrow\; R \notin R.
 \end{equation*}
 
 Cette impossibilité logique révèle une faille fondamentale de la théorie naïve : certaines définitions « trop générales » engendrent des paradoxes.
 
 \medskip
 
-Pour surmonter cette difficulté, les mathématiciens entreprirent de fonder la théorie des ensembles sur une base axiomatique rigoureuse.  
-En 1908, \textsc{Ernst Zermelo} (1871–1953) proposa une première axiomatisation visant à éviter les paradoxes.  
-Cette théorie fut ensuite enrichie en 1922 par \textsc{Abraham Fraenkel} (1891–1965) et, indépendamment, par \textsc{Thoralf Skolem} (1887–1963).  
-L’ensemble de ces axiomes constitue la théorie des ensembles \textbf{ZF} (\emph{Zermelo–Fraenkel}).  
+Pour surmonter cette difficulté, les mathématiciens entreprirent de fonder la théorie des ensembles sur une base axiomatique rigoureuse.
+En 1908, \textsc{Ernst Zermelo} (1871–1953) proposa une première axiomatisation visant à éviter les paradoxes.
+Cette théorie fut ensuite enrichie en 1922 par \textsc{Abraham Fraenkel} (1891–1965) et, indépendamment, par \textsc{Thoralf Skolem} (1887–1963).
+L’ensemble de ces axiomes constitue la théorie des ensembles \textbf{ZF} (\emph{Zermelo–Fraenkel}).
 Lorsqu’on y ajoute l’axiome du choix, on obtient la théorie \textbf{ZFC}, aujourd’hui la base de la plupart des mathématiques formelles.
 
 \medskip
 
-Cependant, même la théorie ZF ne permet pas de manipuler des « collections trop grandes » comme la collection de tous les ensembles car celle-ci n'est pas un ensemble, mais une \emph{classe propre}.  
+Cependant, même la théorie ZF ne permet pas de manipuler des « collections trop grandes » comme la collection de tous les ensembles car celle-ci n'est pas un ensemble, mais une \emph{classe propre}.
 Pour traiter de telles collections, d’autres systèmes ont été développés, notamment la théorie \textbf{NBG} (\emph{von Neumann–Bernays–Gödel}), qui étend ZF en introduisant une distinction explicite entre ensembles et classes. Dans ce chapitre, nous allons énoncés les différents axiomes ainsi que leurs conséquences qui nous permettrons d'établir nos premières constructions.
 
 Commençons par donner cinq axiomes dont les énoncés sont relativement aisés à comprendre et qui sont en accords avec l'intuition commune.
@@ -57,9 +88,9 @@ Commençons par donner cinq axiomes dont les énoncés sont relativement aisés 
 		\forall A,\forall B, \quad [\forall x, \: (x\in A \Leftrightarrow x\in B)] \: \Rightarrow \:A=B
 	\end{equation*}
 \end{axiome}
-Tout naturellement, nous pouvons facilement prouver l'implication réciproque. En effet, si on suppose qu'on a deux ensembles $A$ et $B$ égaux alors par définition de l'égalité en prenant un élément $x$ de $A$ et la formule $\varphi(y)\equiv x\in y$ (qui est bien dans le langage de $ZF$). Nous abtenons que 
+Tout naturellement, nous pouvons facilement prouver l'implication réciproque. En effet, si on suppose qu'on a deux ensembles $A$ et $B$ égaux alors par définition de l'égalité en prenant un élément $x$ de $A$ et la formule $\varphi(y)\equiv x\in y$ (qui est bien dans le langage de $ZF$). Nous abtenons que
 \[
-\varphi(A)\Leftrightarrow \varphi(B).
+	\varphi(A)\Leftrightarrow \varphi(B).
 \]
 C'est à dire que $A=B \Rightarrow \forall x \: (x\in A \Leftrightarrow x\in B)$
 \begin{axiome}[de l'ensemble vide]
@@ -93,7 +124,10 @@ C'est à dire que $A=B \Rightarrow \forall x \: (x\in A \Leftrightarrow x\in B)$
 	\end{equation*}
 	L'ensemble $U$ est appelé la réunion des éléments de $I$
 \end{axiome}
-Par exemple, si $I=\{\{a,b\}, \{c,d\},\{d\}\}$ alors $U= \{a,b,c,d\}$. Ce qu'on note $\bigcup I$. De même, pour $I=\{A,B\}$, l'ensemble $U$ est noté $A\cup B$.
+Par exemple, si $I=\{\{a,b\}, \{c,d\},\{d\}\}$ alors $U= \{a,b,c,d\}$. Ce qu'on note $\bigcup I$.
+\begin{definition}
+	Soient $A$ et $B$ deux ensembles, on définit l'union de $A$ et $B$ que l'on note $A\cup B$ par l'emsemble $\bigcup I$ où $I=\{A,B\}$.
+\end{definition}
 \begin{definition}
 	On dit qu'un ensemble $A$ est contenu dans un ensemble $B$, ou que $A$ est une partie de $B$ si tout élément de $A$ est élément de $B$
 	\begin{equation*}
@@ -103,10 +137,8 @@ Par exemple, si $I=\{\{a,b\}, \{c,d\},\{d\}\}$ alors $U= \{a,b,c,d\}$. Ce qu'on 
 \end{definition}
 
 \begin{remarque}
-    De cette définition, il en vient naturellement que deux ensembles $A$ et $B$ sont égaux si et seulement si il sont inclus l'un a l'autre, c'est à dire
-    \[
-    A=B \Leftrightarrow (A\subseteq B) \land ( B\subseteq A)
-    \]
+	De cette définition, il en vient naturellement que deux ensembles $A$ et $B$ sont égaux si et seulement si il sont inclus l'un a l'autre, c'est à dire
+	$A=B \Leftrightarrow (A\subseteq B) \land ( B\subseteq A)$
 \end{remarque}
 
 \begin{axiome}[de l'ensemble des parties]
@@ -116,14 +148,66 @@ Par exemple, si $I=\{\{a,b\}, \{c,d\},\{d\}\}$ alors $U= \{a,b,c,d\}$. Ce qu'on 
 	\end{equation*}
 	Cet ensembles est noté $\mathscr{P}(A)$.
 \end{axiome}
-
+\begin{remarque}
+	Notons que l'ensemble vide, appartient toujours à $\mathscr{P}(A)$ pour tout $A$.
+\end{remarque}
 \begin{axiome}[de l'infini]
 	Il existe un ensemble $N$ qui vérifie
 	\begin{equation*}
 		\exists N, (\varnothing \in N\land \forall n,(n\in N\Rightarrow  n\cup \{n\}\in N))
 	\end{equation*}
 \end{axiome}
-Ce qui veut dire qu'il existe un ensemble $N$ qui admet notamment comme éléments $\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\},\dotsc$
+Ce qui veut dire qu'il existe un ensemble $N$ qui admet notamment comme éléments
+$\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\},\dotsc$.
 
+Nous recommandons grandement au lecteur de bien prendre note de la première section avant de continuer. Sans ces notions élémentaires, il ne sera 
+pas possible de comprendre pleinement les axiomes suivants et donc de prouver l'existence de certains ensembles.
 
+\section{Les axiomes techniques}
 
+D'autres axiomes sont donc nécessaires pour que la théorie puisse être utilisée. Voici donc, en plus des cinq précédents, les axiomes de séparation (aussi appelé axiomes de compréhension),
+les axiomes de substitution et l'axiome de fondation. Ces axiomes constituent la théorie ZF, pour Zermolo-Fraenkel. Et lorsque nous ajouterons l'axiome du choix, nous obtiendrons la théorie ZFC.
+On considère des expression logique $\mathscr{C}(x,x_1,\dotsc ,x_k)$ en des variables $x,x_1,\dotsc ,x_k$
+dans le language de ZF. Pour chaque expression de ce type, on a un axiome de séparation.
+
+\begin{axiome}[de séparation ou de compréhension]
+	Pour chaque expression logique $\mathscr{C}(x,x_1,\dotsc ,x_k),$ en des variables $x,x_1,\dotsc ,x_k$, il y a un axiomes de séparation sont voici l'énoncé :
+	\begin{equation*}
+		\forall x,\forall x_1,\dotsc, x_k,\forall X,\exists Z, \quad [x\in Z \Leftrightarrow (x\in X \land \mathscr{C}(x,x_1,\dotsc , x_k) )]
+	\end{equation*}
+	L'ensemble $Z$ est appelé l'ensemble des $x\in X$ tels que $\mathscr{C}(x,x_1,\dotsc , x_k)$ et il est noté $\{x\in X \mid \mathscr{C}(x,x_1,\dots, x_k)\}$
+\end{axiome}
+
+Nous pouvons donc séparer les éléments d'un ensemble existant avec une formule dans le langage de ZF.
+
+\begin{definition}
+    Soit $A$ un ensemble non vide. Dès lors, il existe $a\in A$. On peut donc définir l'ensemble $I(a,A)$ par $\{x\in a\mid \forall b\in A,x\in b\}$. 
+\end{definition}
+On va montrer que cet ensemble ne dépend pas du choix de $a$, ce qui nous permettra de l'appeler l'intersection de $A$, et de le noter $\bigcap A$
+\begin{proof}
+    Soit $a,a'\in A$. Comme $a'\in A$, il vient $I(a, A)\subseteq I(a',A)$. Par symétrie, $I(a',A)\subseteq I(a,A)$, d'où $I(a,A) = I(a',A)$
+\end{proof}
+
+\begin{definition}
+	Soient $A$ et $B$ deux ensembles on note $A\cap B$ l'intersection entre $A$ et $B$ qui est l'ensembles $\bigcap C$ où $C=\{A,B\}$ 
+\end{definition}
+
+\begin{axiome}[de substitution ou de remplacement]
+	Pour chaque expression logique de type $\mathscr{C}(x, y,x_1,\dotsc , x_k)$, il y a un axiome de substitution dont voici l'énoncé :
+	\begin{align*}
+		 & \forall X, \quad [(\forall x\in X), \forall y_1, \forall y_2 (\mathscr{C}(x, y_1,x_1,\dotsc, x_k)\land \mathscr{C}(x, y_2, x_1, \dotsc , x_k)\Rightarrow y_2 = y_1)\Rightarrow \\
+		 & \exists Y, \forall y (y\in Y \Leftrightarrow \exists x\in X, \mathscr{C}(x, y,x_1, \dotsc ,x_k))].
+	\end{align*}
+\end{axiome}
+
+cela implique que,
+et c'est probablement ce qu'il faut en retenir,
+que si $X$ est un ensemble et $f$ est une expression logique définissant une fonction sur $X$,
+alors l'ensemble $\{f(x) \mid x\in X\}$. On obtiendra
+le résultat en prenant pour l'expression logique $\mathscr{C}(x,y ,x_1, \dotsc , x_k)$ l'expression $y=f(x)$.
+
+\begin{axiome}[de fondation]
+	Tout ensemble non vide $A$ possède un élément $a$ tel que $a\cap A = \varnothing$
+\end{axiome}
+L’axiome de fondation assure que la relation d’appartenance est bien fondée, excluant toute boucle du type 
+$A\in A$ ou chaînes infinies d’appartenance. Il garantit ainsi une hiérarchie claire des ensembles et permet les raisonnements par récurrence sur leur structure.
