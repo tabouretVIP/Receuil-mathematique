@@ -1,19 +1,19 @@
 # Fdb version 4
-["biber main"] 1763284804.16749 "main.bcf" "main.bbl" "main" 1763554551.55772 0
-  "main.bcf" 1763554551.41647 108491 4ab030f67870f03c95d478330e9ddc2c "pdflatex"
+["biber main"] 1763284804.16749 "main.bcf" "main.bbl" "main" 1763558791.48413 0
+  "main.bcf" 1763558791.22427 108491 4ab030f67870f03c95d478330e9ddc2c "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["makeindex main.idx"] 1763284803.93888 "main.idx" "main.ind" "main" 1763554551.55756 0
-  "main.idx" 1763554550.40945 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex main.idx"] 1763558780.63735 "main.idx" "main.ind" "main" 1763558791.48375 0
+  "main.idx" 1763558788.26328 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "main.ilg"
   "main.ind"
   (rewritten before read)
-["pdflatex"] 1763554549.39351 "/home/tiago/Bureau/LEnapkin/Receuil-mathematique/Recueil/main.tex" "main.pdf" "main" 1763554551.55807 0
+["pdflatex"] 1763558786.10218 "/home/tiago/Bureau/LEnapkin/Receuil-mathematique/Recueil/main.tex" "main.pdf" "main" 1763558791.48507 0
   "/etc/texmf/web2c/texmf.cnf" 1758364100.67449 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/tiago/Bureau/LEnapkin/Receuil-mathematique/Recueil/main.tex" 1763466685.63211 1035 1c6036606dd5181c774ef781e145db2b ""
+  "/home/tiago/Bureau/LEnapkin/Receuil-mathematique/Recueil/main.tex" 1763558721.67881 1209 7d3338078ac36696ee264099e4841520 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/avantgar/pagd8r.tfm" 1136768653 4840 6a894dde946186de9a64269f0edd24e5 ""
@@ -254,23 +254,32 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1741904018 41538 c016915c1d51223b6dbbfe27341748a8 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1758364609 5467255 9a64d1b40e0b893fc5588ecce9d8accf ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1758364645 3347010 64bcee857bb81deeab373d8deb809045 ""
-  "Parties/Theorie_des_ensembles/axiomatisation_ZF.aux" 1763554551.37647 7659 2452629d5799348b95ada5f2ce1f475f "pdflatex"
+  "Parties/Algebre/Groupes.aux" 1763558790.00927 4670 3bde1d4a202fbb8af2ad50bc9fae8d74 "pdflatex"
+  "Parties/Algebre/Groupes.tex" 1763556382.85406 1608 d07ed577e6e4437026eb885d3bf20bab ""
+  "Parties/Theorie_des_ensembles/axiomatisation_ZF.aux" 1763558789.90963 7659 2452629d5799348b95ada5f2ce1f475f "pdflatex"
   "Parties/Theorie_des_ensembles/axiomatisation_ZF.tex" 1763554549.12247 29708 a196d5a5ae0531a1af78fbc17873eb85 ""
+  "Parties/Topologie/Espaces_topologiques.aux" 1763558790.77227 7333 14c6d2516bb626799253bccbd5dd92d1 "pdflatex"
+  "Parties/Topologie/Espaces_topologiques.tex" 1763558318.7015 37287 2802e901459bdfefa116e138b851394c ""
+  "Parties/Topologie/topologie_induite.aux" 1763558791.15683 6879 e4332ecb4676c9c04453e0fe56d9dd26 "pdflatex"
+  "Parties/Topologie/topologie_induite.tex" 1763558780.22177 11191 489818905727eaf0db1c2e66ecf46aa0 ""
   "Pictures/background.pdf" 1763280888 15253 d9a03f6e202671124db1172af03625d4 ""
   "Pictures/chapter_head_1.pdf" 1763280888 92598 02e37cf41c589760ac56129669747481 ""
   "Pictures/chapter_head_2.pdf" 1763280890 156812 0342733a9ef42f670bc50ccfbd949b75 ""
-  "main.aux" 1763554551.40947 5144 14ec0c69cff990b96cf7617b6bfb6551 "pdflatex"
+  "main.aux" 1763558791.20537 11324 b665a3c6da1a19b617ef0d5f8ecb2d70 "pdflatex"
   "main.bbl" 1763284805.44607 466 76d65a242ec496c9b4361af646ff12cb "biber main"
-  "main.ind" 1763284804.16407 0 d41d8cd98f00b204e9800998ecf8427e "makeindex main.idx"
-  "main.ptc" 1763554551.4186 906 8c4c49de2c062a9c7d82b8ef23283abd "pdflatex"
-  "main.run.xml" 1763554551.4186 2309 06bc8aaba03b8781ab66fad029620a9d "pdflatex"
-  "main.tex" 1763466685.63211 1035 1c6036606dd5181c774ef781e145db2b ""
-  "main.toc" 1763554551.4186 880 00b8fd7376987df8ff3f2a46edf099be "pdflatex"
+  "main.ind" 1763558780.8883 0 d41d8cd98f00b204e9800998ecf8427e "makeindex main.idx"
+  "main.ptc" 1763558791.22798 2457 dd6ed7aab983404114553e9a28f123ec "pdflatex"
+  "main.run.xml" 1763558791.22798 2309 06bc8aaba03b8781ab66fad029620a9d "pdflatex"
+  "main.tex" 1763558721.67881 1209 7d3338078ac36696ee264099e4841520 ""
+  "main.toc" 1763558791.22798 2329 6342805f46862cd99aec13f3e8500d16 "pdflatex"
   "page_de_garde.tex" 1763280888 2024 d51321c7ca24823e7c643415e2e53356 ""
-  "preambule.tex" 1763280888 21067 2ff90dbfa52796fdbf6e653588f3cfe2 ""
+  "preambule.tex" 1763558402.09451 24289 f0d22f51335a67006a93b5e41b015146 ""
   "table_des_matieres.tex" 1763280888 551 f29aef50717108bd4153dd1da95c8443 ""
   (generated)
+  "Parties/Algebre/Groupes.aux"
   "Parties/Theorie_des_ensembles/axiomatisation_ZF.aux"
+  "Parties/Topologie/Espaces_topologiques.aux"
+  "Parties/Topologie/topologie_induite.aux"
   "main.aux"
   "main.bcf"
   "main.idx"

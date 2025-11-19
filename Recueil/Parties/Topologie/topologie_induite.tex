@@ -1,0 +1,175 @@
+\chapter{Topologie induite et topologie produit}
+\begin{definition}
+    Soit $(X,\topologie)$ un espace topologique, soit $Y\subset X$. La topologie induite par $\topologie$ sur $Y$ est $\{\ouvert\cap Y\mid \ouvert\in\topologie\}$
+\end{definition}
+Les ouverts de base de $\mathscr C$ sont les points correspondants à un ensemble de branches infinies partageant un même segment initial.
+\section{Topologie produit}
+\subsection{Fonctions projections}
+
+Soit $(X_i,\topologie_i)_{i\in I}$ une famille d'espaces $X\ne\varnothing$. On voudrait construire une topologie sur $\prod_{i\in I}X_i\ne\varnothing$. 
+Les bébés considèrent les fonctions de projection $p_{i_0} : \prod_{i\in I}X_i\to X_{i_0}$. La topologie produit est la topologie la plus gorssière sur $\prod_{i\in I}X_i$ qui rend toutes les projections continues? 
+\begin{definition}
+    Sur un espace $X$, on dit que $\topologie_1$ est plus grossière  que $\topologie_2$ ou que $\topologie_2$ est plus fine que $\topologie_1$ si $\topologie_1\subseteq \topologie_2\subseteq\partie X$
+\end{definition}
+\begin{definition}
+Soit $f$ une fonction entre deux ensembles munis d'une distance.
+    $f$ est lipschitzien de constante $k\ge 0$ sur $I$ si $\forall x,y\in I$ $$d_{\im f}(f(x),f(y))\le k d_{\dom f}(x,y)$$
+\end{definition}
+\begin{definition}[Rappel]
+    Soit $f:(X,\topologie_X)\to(Y,\topologie_Y)$. $f$ est continue si pour tout ouvert $\ouvert\in\topologie_Y$, $f^{-1}(\ouvert)\in\topologie_X$. Si $\topologie_Y$ admet une base $B$, on peut se limiter aux ouverts de la base, car tout ouvert de $\topologie_Y$ est une union d'ouverts de base. 
+\end{definition}
+On veut donc que $\topologie_{\prod X_i}$comprennent $P_{i_0}^{-1}(\ouvert)$ où $\ouvert \in \topologie_{i_0}$
+$$\topologie_{\prod X_i} = \{p_{i_O}^{-1}\mid \ouvert\in\topologie_{i_0}\land i_0\in I\} = \{(\prod_{i\ne i_0}X_i)\times \ouvert\}$$
+
+\begin{exercice}
+    Une fonction continue sur son domaine (en tout point) ssi $\forall \ouvert$ de $\im f$ $f^{-1}(\ouvert)$ ouvert de $\dom f$
+\end{exercice}
+
+\begin{remarque}
+On a $P_1^{-1}(\ouvert ) \cap P_2^{-1}(\ouvert)\neq \varnothing$ 
+\end{remarque}
+
+C'est en fait, on obtient la topologie usuels. En effet, une base de la topologie produit est fournie par
+\[
+\{P_{i_1}^{-1}(\ouvert_{i_1})\cap P_{i_k}^{-1}(\ouvert _{i_k}) \mid  i_{1,\dotsc,k}\in I, \: \ouvert_{i_j}\in \topologie_{i_j}\}
+\]
+\begin{remarque}
+    $(X,\topologie)$ et $Y$ en bijection avec $X$. Comment définir une topologie $\topologie_Y$ sur $Y$ qui copie celle de $X$ ? telle que ces deux espaces soient homéomorphes c'est à dire, il eciste une bijection bicontinue entre $X$ et $Y$. Par hypothèse, on a $F$ bijection de $X\to  Y$, on veut construire $\topologie_Y$ de telle sorte quue $F$ et $F^{-1}$ sont continues.
+    Je veux que $F$ soit d'abord continue, c'est à dire que $\forall \ouvert \in \topologie_X$, il faut $F^{-1}(\ouvert)\in \topologie$ Pour $\topologie_Y$, on prend la topologie engendrée par les $F^{-1}(\ouvert)$ tel que $\ouvert \in \topologie_X$. De plus, $F^{-1}(\ouvert _1)\cap F^{-1}(\ouvert_2)= F^{-1}(\ouvert_1\cap \ouvert_2)$
+ \end{remarque}
+
+ \subsection{Lien avec triadique de Cantor}
+
+ On sait que $\mathscr C \simeq 2^{\N}$ Une suite est une branche d'arbre binaire. Il faut choisir la topologie qu'on met sur $2^\N$ (il y en a $4$). On choisit la topologie discrète sur chaque fibre. Ainsi la topologie produit qui est l'union finie des segments initiaux. (C'est la même ttopologie sur les algèbres de bool) Cette topologie est compact. Voyons ce que cela signifie.
+
+ \section{Continuité, convergence, compacité, séparation}
+
+ \begin{definition}
+     Une topologie $\topologie$ est dite $T_2$ sur l'espace $X$, si $\forall x_1,x_2 \in X_1, \exists \ouvert_1 \text{ qui comprend }x_1 \exists \ouvert_2 \text{qui comprend }x_2 $, tel que $\ouvert_1\cap\ouvert_2\neq \varnothing$  
+ \end{definition}
+
+ Soit $d$ une distance sur $X$, soit $\topologie_d$ la topologie engendrée par les boules pour $d$, $\topologie_d$ séparée.
+
+ \begin{definition}
+     On dit qu'une topologie $\topologie$ sur $X$ est métrisable s'il existe $d$ une distance sur $X$ tel que $\topologie_d = \topologie$
+ \end{definition}
+
+\begin{proposition}
+    Soient $(X,\topologie_X)$ et $(Y,\topologie_Y)$ deux espaces topologique. $F:X\to Y$ est continue en $a\in \dom F$ si 
+    \[
+    \forall W \text{ voisinage pour } \topologie_Y \text{ de } F(a), \exists V  \text{ voisinage pour } \topologie_X \text{ de } a \text{ tel que } F(V)\subseteq W
+    \]
+    Cela est équivalent à
+    \[
+    \forall \ouvert \in \topologie_Y F(a)\in \ouvert, \exists \ouvert '\in \topologie_X, a \in \ouvert' \text{ tel que } F(\ouvert')\subseteq \ouvert
+    \]
+\end{proposition}
+
+\begin{proof}
+    Je l'ai faite dans ma tête, wallah c'est facile.
+\end{proof}
+
+\textbf{Rappel : Convergence dans $\R$}\\
+\[
+(r_n)\to r \quad \Longleftrightarrow \quad \forall \varepsilon>0, \exists N_\varepsilon , \forall n \ge N_\varepsilon \quad \abs{r_n-a} \le \varepsilon
+\]
+
+On remarque que converger c'est dire qu'on est continu, mais pas n'importe comment, pas n'importe où, pas pour n'importe quel topologie. En effet, on peut montrer que la définition précédente est équivalente à
+\[
+\forall W \in V(r), \exists \text{ un voisinage pour la topologie où les voisinages de + } \infty \text{ sont les cofinis }V, F(V) \subseteq W
+\]
+
+\begin{proof}
+    Observer
+\end{proof}
+
+\begin{definition}
+    Une fonction $F: \N \to X$, on dit qu'elle converge en $+\infty$, si $W$ voisinage au sens de $\topologie_X$, $\exists$ un cofini $V$ de $\N \cup \{+\infty\}$ tel que $F(V)\subseteq W$
+    C'est à dire on a la continuité de $F$ en $+\infty$, avec la bonne topologie $\topologie_{\N\cup \{+\infty\}}$.
+\end{definition}
+
+\begin{definition}
+    On dit que $(X,\topologie)$ est précompact si toute famille de fermés de $\topologie$. qui à la \textit{P.I.F} à une intersection non vide. \textit{i.e} $\bigcap_{i\in I}F_i\neq \varnothing$
+\end{definition}
+
+\begin{exercice}
+    Soit $I$ un ensemble non vide, soit $A\subseteq \partie (I)$ tel que $A$ à la pif. c'est à dire que $\forall x_1,\dotsc x_k\in A$ $\bigcap_{i=1}^kx_i\neq \varnothing$ alors $\langle A\rangle  = \{U\subseteq I \mid \text{une intersection finie d'élements de }A \subseteq U\}$
+\end{exercice}
+
+\begin{exercice}
+    Un espace $(X,\topologie)$ est précompact si pour toute famille $(\ouvert_i)_{i\in I}$ d'ouvert de $\topologie$ qui recouvre $X$, il existe $I_0\subseteq I$ fini tel que $\cup \ouvert_i =X$. Autrement dit, de toute recouvrementt ouvert de $X$, on peut extraire un sous-recouvrement fini de $X$.
+\end{exercice}
+\begin{proposition}
+    Soit $(\ferme_i)$ un famille de fermés de $X$. Soit $(\ferme^c_i)$ la famille d'ouverts associés. Supposons que $(\ferme_i)$ aient la PIF
+\end{proposition}
+\begin{remarque}
+    $(F_i^c)$ est un recouvrement de $X$ ssi $\bigcup\ferme_i^c = X$ ssi $\bigcap \ferme_i = \varnothing$
+\end{remarque}
+\begin{remarque}
+    $(\ferme_i)_{i\in I}$ a la pif ssi $$\forall  I_0\subseteq I, \text{ si $I_0$ est fini alors }\bigcap_{i\in I_0}\ferme_i\ne\varnothing$$ ssi $\bigcup_{i\in I_0}\ferme_i^c\ne X$
+\end{remarque}
+Par conséquent, chaque fois que j'ai une famille d'ouverts dont toutes les unions finies ne sont pas des recouvrement, alor la famille globale n'est pas un recouvrement. Donc, si j'ai (1), on a (1') et donc on a saussi la contraposée de (1') ui nous dit que si j'ai un recouvrement, alors il y avait un recouvrement fini de $X$. 
+\begin{definition}
+    Un espace $(X,\topologie)$ est dit compact s'il est précompact et $T_2$.
+\end{definition}
+ \begin{exemple}
+     Soit $X$ avec la topologie discrète . $X$ est précompact ssi $X$ est fini.
+ \end{exemple}
+ \begin{proof}
+     Les singletons sont ouverts.
+ \end{proof}
+ \begin{exemple}
+     Considérons $\N\cup\{\omega\}$ muni de la topologie discrète sur $\N$ avec $\voisinage_\omega$ le filtre des cofinis sur $\N\cup\{\omega\}$. C'est le compactifié de $(\N,\topologie_\text{disc}$. Montrons que c'est un compact.
+ \end{exemple}
+ \begin{proof}
+     Un recouvrement ouvert de $\N\cup\{\omega\}$ doit contenir $\omega$ donc prenons un cofini. Il ne reste qu'un nombre fini de points, donc ils peuvent être recouvert par un nombre fini d'ouverts. De plus cette topologie est $T_2$.
+ \end{proof}
+ \begin{definition}
+     $X$ un espace métrique est dit séquentiellement compact ssi toute suite possède une sous-suite convergente.
+ \end{definition}
+ \begin{exercice}
+     Soit $X$ un espace métrique. Montrer que $X$ est séquentiellement compact ssi il est précompact.
+ \end{exercice}
+ \begin{definition}
+     Soit $(X,\topologie)$ un espace topologique. On dit que $K\subseteq X$ est (pré)compact ssi $K$ muni de la topologie induite par $\topologie$ est (pré)compact.
+ \end{definition}
+ \begin{proposition}
+     L'image d'un compact $K$ par une fonction continue est un compact. 
+ \end{proposition}
+ \begin{proof}
+     Soit $(\ouvert_i)$ une famille d'ouverts recouvrant $F(K)$. Alors la famille $(F^{-1}(\ouvert_i))$ est une famille d'ouverts
+ \end{proof}
+ \begin{definition}
+     Un espace topologique $(X\topologie)$ est connexe ssi les seuls ouverts fermés de $X$ sont $\varnothing$ et $X$.
+ \end{definition}
+ \begin{proposition}
+     Soit $(X,d)$ séquentiellement compact. Soit $Y$ muni d'un ordre. Soit $f : X\to Y$ une application continue. Alors si $a\in Y$ est la borne supérieure de $\im f$, alors $a\in\im f$.  
+ \end{proposition}
+ \begin{proof}
+     Donc, on utilise le fait que l'image d'un précompact et compact
+ \end{proof}
+  \begin{definition}
+      Un espace métrique $(X,d)$ est complet ssi toute suite de Cauchy d'éléments de $X$ converge dans $X$.
+  \end{definition}
+  \begin{remarque}
+      Considérons $\Q$ muni de la topologie induite par la topologie usuelle sur $\R$. Condidérons $\interoo{-\sqrt 2, -\sqrt 2}\cap \Q = \interff{-\sqrt 2, -\sqrt 2}\cap \Q $
+  \end{remarque}
+  Soit $X$ complet. Considérons $\ferme$ fermé. Alors $\ferme$ est compact pour la topologie induite.
+  \begin{theoreme}[Tychonoff]
+      Le produit d'espace compact d'une famille $(X_i,\topologie_i)_{i\in I}$, \textit{i.e.} $\prod_{i\in I}X_i$ muni de la topologie produit, est compact. 
+  \end{theoreme}
+  \begin{definition}
+      Soit $V$ un $K$-espace vectoriel. Soit $A\subseteq V$. $A$ est libre si toute partie $A_0\subseteq A$ de cardinal $r\in\N$ est libre càd, en posant $A_0 := \{a_1,\dotsc, a_r\}$ et $f : K^r\to A : (\lambda_1,\dotsc, \lambda_r)\mapsto\sum_{i = 1}^r\lambda_ia_i$, $f$ est injective
+  \end{definition}
+  \begin{definition}
+      $A\subseteq V$ est une partie génératrice de $V$ si $\langle A\rangle = V$ avec $\langle A\rangle := \{\sum_{a_i\in A_0}\lambda_ia_i\mid A_0\subseteq A\text{ est fini}, \lambda_i\in K\}$
+  \end{definition}
+  \begin{definition}
+      $A$ est une base de $V$ si $A\subseteq V$ et $A$ est générateur et libre.
+  \end{definition}
+  \begin{proposition}
+      Tout espace vectoriel a une base.
+  \end{proposition}
+  \begin{proof}
+      On regarde $E:= \{A\subseteq V\mid A \text{ est libre}\}$ muni de $\subseteq$, on montre que si $V\ne\{0\}$ alors $E$ est inductif
+  \end{proof}
