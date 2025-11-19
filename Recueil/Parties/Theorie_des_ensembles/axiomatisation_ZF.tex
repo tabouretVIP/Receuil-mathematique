@@ -1,48 +1,6 @@
 \chapterimage{chapter_head_2.pdf}
+
 \chapter{Axiomatisation de Zermolo-Fraenkel}
-
-\section{Logique élémentaire}
-L'objectif de cette section est fournir le minimum logique nécéssaire avant de construire une théorie axiomatique, nous ne discuterons donc pas de logique plus avancé pour l'instant.
-\begin{quote}
-	\og Nous ne discuterons pas de la possibilité d'enseigné les principes du language formalisé à des être n'irait pas jusqu'à savoir lire ou compter. \fg
-\end{quote}
-Cette citation pourrait sembler idiote cependant elle met en lumière un point important. Pour pouvoir faire des mathématiques nous devons nous appuyer sur les capacités intellectuels que nous possèdons.
-Puisque si nous souhaitons être formel, on définirait certains ensembles comme dénombrables mais la notion de dénombrabilité n'est établie que bien plus tard. Autrement dit, pour définir la dénombrabilité,
-nous utilisons des bases logique qui repose dejà sur elle, nous avons donc un problème inextricable de circularité.
-\medskip
-Pour au mieux éviter ce problème nous reposons la logique sur certaines capacités du lecteur que voici : On estime que le lecteur à la capacité de distinguer si deux symboles sont identiques ou non ( par symboles on entend des marques visibles par le lecteur sur un support),
-on estime aussi qu'il lui est possible de compter, d'énumérer des objets et de les regrouper dans une liste (ou collection), il doit être capable de distinguer si une collection d'objets est finie ou non. On notera les collections avec des symboles représentant les objets entre crochets.
-
-De là, pour des mots utilisé non définit ici, le lecteur peut considérer qu'ils ont les sens usuels qu'on leur attribue.
-A noter que, à moins d'une mention explicite, un symbole quelconque n'as aucun sens mathématique. On distingue ici, clairement, la synthaxe et la sémentique. 
-\begin{definition}[Alphabet]
-	Un \textbf{alphabet} $\Sigma$ est une collection finie de symboles. Un symbole d'un alphabet est une lettre.
-\end{definition}
-
-\begin{definition}[Mot]
-Un \textbf{mot} sur un alphabet $\Sigma$ est une séquence \emph{finie} 
-de symboles de $\Sigma$. On note $\varepsilon$ le \textbf{mot vide}.
-\end{definition}
-On munit les mots de la concaténation. Par exemple si $ab$ et $bc$ sont deux mots alors $abbc$ est le mot obtenus en concaténant le deuxiemme mot avec le premier.
-
-\begin{definition}[Clôture de Kleene]
-	Soit $\Sigma$ un alphabet, la \textbf{clôture de Kleene} de $\Sigma$, notée $\Sigma^*$ est la collection de tout les mots finis de $\Sigma$, y compris le mot vide.
-\end{definition}
-
-\begin{remarque}
-	La clôture de Kleene est fermé par l'"opération" concaténation.
-\end{remarque}
-
-\begin{proposition}
-	Pour tout alphabet $\Sigma$, la collection $\Sigma^*$ est infini et énumérable.
-\end{proposition}
- 
-\begin{definition}
-Un \textbf{langage} (ou dictionnaire) $L$ est une sous-collection de $\Sigma^*$ ce qu'on note :
-\[
-L\subseteq \Sigma^*
-\]
-\end{definition}
 
 \section{Paradoxe de Russel}
 Jusqu'au début du XX\,\textsuperscript{e}~siècle, les mathématiciens manipulaient les ensembles de manière dite \emph{naïve}.
@@ -89,9 +47,242 @@ Lorsqu’on y ajoute l’axiome du choix, on obtient la théorie \textbf{ZFC}, a
 \medskip
 
 Cependant, même la théorie ZF ne permet pas de manipuler des « collections trop grandes » comme la collection de tous les ensembles car celle-ci n'est pas un ensemble, mais une \emph{classe propre}.
-Pour traiter de telles collections, d’autres systèmes ont été développés, notamment la théorie \textbf{NBG} (\emph{von Neumann–Bernays–Gödel}), qui étend ZF en introduisant une distinction explicite entre ensembles et classes. Dans ce chapitre, nous allons énoncés les différents axiomes ainsi que leurs conséquences qui nous permettrons d'établir nos premières constructions.
+Pour traiter de telles collections, d’autres systèmes ont été développés, notamment la théorie \textbf{NBG} (\emph{von Neumann–Bernays–Gödel}), qui étend ZF en introduisant une distinction explicite entre ensembles et classes.
+Dans ce chapitre, nous allons construire la théorie ZF en donnant les différents axiomes ainsi que leurs conséquences qui nous permettrons d'établir nos premières constructions.
+
+
+\section{Logique élémentaire}
+
+L'objectif de cette section est de fournir le minimum logique nécessaire avant de construire la théorie axiomatique ZF. Pour ce faire, nous allons adopter une approche naïve de la théorie du langage.
+
+\begin{quote}
+	\og Nous ne discuterons pas de la possibilité d'enseigner les principes du langage formalisé à des êtres ne sachant pas lire ou compter. \fg
+\end{quote}
+
+Cette citation, bien qu'elle puisse sembler évidente, met en lumière un point fondamental. Pour pouvoir faire des mathématiques, nous devons nécessairement nous appuyer sur certaines capacités intellectuelles préexistantes. En effet, si nous souhaitons être complètement formels, nous définirions certaines collections comme dénombrables ; mais la notion même de dénombrabilité n'est établie que bien plus tard dans la théorie. Autrement dit, pour définir rigoureusement la dénombrabilité, nous utilisons des bases logiques qui reposent déjà sur elle. Nous sommes donc confrontés à un problème inextricable de circularité.
+\medskip
+Pour éviter au mieux ce problème, nous faisons reposer la logique sur certaines capacités du lecteur. On suppose que le lecteur a la capacité de distinguer si deux symboles sont identiques ou non, par symboles, on entend des marques visibles sur un support. On suppose également qu'il lui est possible de compter, d'énumérer des objets et de les regrouper dans une liste ou une collection. Enfin, il doit être capable de distinguer si une collection d'objets est finie ou infinie. Nous noterons les collections en listant les objets entre crochets.
+\medskip
+Pour les termes utilisés mais non définis ici, le lecteur peut considérer qu'ils ont leurs sens usuels. À noter que, sauf mention explicite du contraire, un symbole quelconque n'a aucun sens mathématique intrinsèque. Nous distinguons ici clairement la syntaxe de la sémantique.
+\medskip
+Commençons par les notions les plus élémentaires de la théorie des langages formels.
+
+\begin{definition}[Alphabet]
+	Un \textbf{alphabet} $\Sigma$ est une collection finie de symboles. Un symbole d'un alphabet est appelé une \textbf{lettre}.
+\end{definition}
+
+\begin{definition}[Mot]
+	Un \textbf{mot} sur un alphabet $\Sigma$ est une séquence \emph{finie} de symboles de $\Sigma$. On note $\varepsilon$ le \textbf{mot vide}, qui ne contient aucun symbole.
+\end{definition}
+
+Les mots peuvent être combinés par l'opération de \emph{concaténation}. Si $u$ et $v$ sont deux mots, leur concaténation $uv$ est simplement le mot obtenu en juxtaposant les symboles de $u$ suivi de ceux de $v$. 
+\begin{definition}[Clôture de Kleene]
+	Soit $\Sigma$ un alphabet. La \textbf{clôture de Kleene} de $\Sigma$, notée $\Sigma^*$, est la collection de tous les mots finis sur $\Sigma$, y compris le mot vide.
+\end{definition}
+
+\begin{remarque}
+	La clôture de Kleene est fermée par concaténation : si $u, v \in \Sigma^*$, alors $uv \in \Sigma^*$.
+\end{remarque}
+
+\begin{proposition}
+	Pour tout alphabet $\Sigma$, la collection $\Sigma^*$ est infinie et énumérable.
+\end{proposition}
+
+Cette proposition ne peut être prouvée rigoureusement à ce stade ; nous construirons formellement les outils nécessaires dans les sections dédiées à l'arithmétique et aux cardinaux.
+
+\begin{definition}[Langage]
+	Un \textbf{langage} (ou dictionnaire) $\mathcal{L}$ sur un alphabet $\Sigma$ est une sous-collection de $\Sigma^*$, ce que l'on note :
+	\[
+	\mathcal{L} \subseteq \Sigma^*
+	\]
+\end{definition}
+
+\begin{remarque}
+	Il est crucial de comprendre que tous les mots ne sont pas des \textbf{formules}. Une formule est un mot qui respecte certaines règles grammaticales spécifiques que nous définirons précisément. Un langage $\mathcal{L}$ spécifie exactement quels mots de $\Sigma^*$ sont considérés comme des formules bien formées selon sa grammaire.
+\end{remarque}
+
+Avant de construire le langage spécifique à la théorie ZF, il convient de définir ce qu'est un langage du premier ordre de manière générale. Cette digression nous permettra de situer ZF dans le cadre plus large de la logique mathématique.
+
+La logique du \emph{premier ordre}, également appelée calcul des prédicats, est un système formel où les quantificateurs $\forall$ (pour tout) et $\exists$ (il existe) ne portent que sur des \emph{individus}, représentés par des variables. Ce qui caractérise fondamentalement le premier ordre est qu'on ne peut pas quantifier sur des propriétés, des relations ou des collections de ces individus.
+
+Par exemple, la formule
+\[
+\forall x \, \exists y \, (x \in y)
+\]
+est une formule du premier ordre : les quantificateurs portent sur des objets $x$ et $y$. En revanche, une formule hypothétique du type
+\[
+\forall P \, \exists x \, P(x)
+\]
+où $P$ est une variable de propriété, relève de la logique du \emph{second ordre}, qui sort de notre cadre. Dans cette dernière formule, on quantifierait sur toutes les propriétés $P$, ce qui n'est pas autorisé en logique du premier ordre.
+
+Pour comprendre ce qu'est un langage du premier ordre, il faut distinguer deux types de symboles : les symboles logiques, communs à tous les langages du premier ordre, et les symboles non-logiques, qui varient d'un langage à l'autre et caractérisent chaque théorie spécifique.
+
+Un langage du premier ordre est entièrement déterminé par une \emph{signature} qui précise les symboles non logiques disponibles.
+La définition suivante est naïve mais nous permet de comprendre la structure des langages du premier ordre.
+\begin{definition}[Signature]
+    Une \textbf{signature} $\tau$ consiste en trois types de symboles :
+    \begin{enumerate}
+        \item Des \textbf{symboles de relation} (ou prédicats), 
+        \item Des \textbf{symboles de fonction},
+        \item Des \textbf{symboles de constante}.
+    \end{enumerate}
+\end{definition}
+Outre la signature, tout alphabet de langage du premier ordre contient des symboles logiques universels :
+\begin{itemize}
+	\item Un ensemble infini $\mathcal{V}$ de \textbf{variables}, typiquement notées $x, y, z, x', x'', x_1, x_2, \ldots$
+	\item Les \textbf{connecteurs logiques} : $\neg$ (négation), $\land$ (conjonction), $\lor$ (disjonction), $\Rightarrow$ (implication), $\Leftrightarrow$ (équivalence)
+	\item Les \textbf{quantificateurs} : $\forall$ (universel) et $\exists$ (existentiel)
+	\item Les \textbf{parenthèses} : $($ et $)$
+	\item Le symbole d'\textbf{égalité} : $=$ (souvent inclus par défaut)
+\end{itemize}
+
+A ces cymboles on leur associe dans un second temps leur sens logique usuel. Mais lorsque l'on définit un alphabet contenant ces symboles logiques, il n'ont aucun sens à prioris à moins qu'on le spécifie.
+On donne la ici la sémantique à la syntaxe. 
+
+La construction d'un langage du premier ordre consiste à donner une \textbf{grammaire} à un dictionnaire. C'est à dire qu'un mot qui respecte des rêgles grammaticales données appartiendra à notre langage, dans ce cas on dit que ce mot est une formule de notre langage.
+ Cela se fait de manière inductive en plusieurs couches. Nous commençons par définir les expressions les plus simples, les \emph{termes}, qui désignent des objets de la théorie.
+
+\begin{definition}[Terme]
+	L'ensemble des \textbf{termes} d'un langage du premier ordre de signature $\tau$ est défini inductivement par :
+	\begin{enumerate}
+		\item Toute variable est un terme
+		\item Tout symbole de constante de $\tau$ est un terme
+		\item Si $f$ est un symbole de fonction d'arité $n$, c'est à dire le nombre de paramettres que prend notre symbole, dans $\Sigma$ et si $t_1, \ldots, t_n$ sont des termes, alors $f(t_1, \ldots, t_n)$ est un terme
+		\item Rien d'autre n'est un terme
+	\end{enumerate}
+\end{definition}
+
+Les termes, une fois interprétés, désigneront des éléments d'un ensemble (appelé domaine ou univers). À partir de ces termes, nous construisons les \emph{formules atomiques}, qui sont les assertions les plus élémentaires.
+
+\begin{definition}[Formule atomique]
+	Une \textbf{formule atomique} est une expression de l'une des formes suivantes :
+	\begin{enumerate}
+		\item Si $R$ est un symbole de relation d'arité $n$ et si $t_1, \ldots, t_n$ sont des termes, alors $R(t_1, \ldots, t_n)$ est une formule atomique
+		\item Si $t_1$ et $t_2$ sont des termes, alors $t_1 = t_2$ est une formule atomique (lorsque l'égalité fait partie du langage)
+	\end{enumerate}
+\end{definition}
+
+Nous pouvons maintenant définir l'ensemble complet des formules bien formées en combinant les formules atomiques avec les connecteurs logiques et les quantificateurs.
+
+\begin{definition}[Formule bien formée]
+	L'ensemble des \textbf{formules} (ou formules bien formées) d'un langage du premier ordre est défini inductivement par :
+	\begin{enumerate}
+		\item Toute formule atomique est une formule
+		\item Si $\varphi$ est une formule, alors $\neg\varphi$ est une formule
+		\item Si $\varphi$ et $\psi$ sont des formules, alors $(\varphi \land \psi)$, $(\varphi \lor \psi)$, $(\varphi \Rightarrow \psi)$ et $(\varphi \Leftrightarrow \psi)$ sont des formules
+		\item Si $\varphi$ est une formule et $x$ est une variable, alors $\forall x \, \varphi$ et $\exists x \, \varphi$ sont des formules
+		\item Rien d'autre n'est une formule
+	\end{enumerate}
+\end{definition}
+
+\section{Le langage de la théorie ZF}
+
+Nous sommes maintenant en mesure de construire le langage spécifique dans lequel sera formulée la théorie de Zermelo-Fraenkel, que nous noterons $\mathcal{L}_\in$.
+
+Le langage $\mathcal{L}_\in$ est un langage du premier ordre dont la signature est d'une extrême simplicité.
+
+\begin{definition}[Signature de ZF]
+	La signature $\tau_\in$ du langage $\mathcal{L}_\in$ est donnée par :
+	\[
+	\tau_\in = \{\in, =\}
+	\]
+	où $\in$ est un symbole de relation binaire (l'appartenance) et $=$ est le symbole d'égalité. Cette signature ne contient \textbf{aucun} symbole de fonction et \textbf{aucune} constante.
+\end{definition}
+
+Cette simplicité n'est pas anodine : elle reflète le fait que dans la théorie ZF, tout est ensemble, et la seule structure primitive est la relation d'appartenance. Tous les autres objets mathématiques (fonctions, nombres, relations) seront construits à partir de cette unique notion.
+
+Pour construire concrètement les formules du langage, nous devons spécifier l'alphabet complet. L'alphabet $\Sigma_\in$ est constitué des symboles suivants :
+\begin{itemize}
+	\item Les connecteurs logiques : $\neg, \land, \lor, \Rightarrow, \Leftrightarrow$
+	\item Les quantificateurs : $\forall, \exists$
+	\item Les symboles de relation : $=, \in$
+	\item Les parenthèses : $(, )$
+	\item Le symbole prime : $'$
+	\item Les lettres latines et grecques : $a, b, c, \ldots, z, \alpha, \beta, \gamma, \ldots, \omega$
+	\item Les dix chiffres arabes : $0, 1, 2, \ldots, 9$
+\end{itemize}
+
+Les variables dans $\mathcal{L}_\in$ sont construites selon des règles permettant d'en obtenir une infinité dénombrable.
+
+\begin{definition}[Variables de $\mathcal{L}_\in$]
+	Les \textbf{variables} du langage $\mathcal{L}_\in$ sont définies récursivement par :
+	\begin{enumerate}
+		\item Toute lettre (latine ou grecque) est une variable
+		\item Si $x$ est une variable, alors $x'$ est une variable
+		\item Si $x$ est une variable et si $n$ est un mot formé de chiffres, alors $x_n$ est une variable
+	\end{enumerate}
+\end{definition}
+
+Ainsi, $x, y', z_{12}, \alpha, \beta''$ sont toutes des variables de $\mathcal{L}_\in$.
+
+\begin{remarque}
+	Bien que nous utilisions les chiffres pour indicer les variables, il est important de comprendre qu'il s'agit d'une convention \textbf{métathéorique}. Nous n'avons pas encore défini les nombres entiers dans notre théorie ; les chiffres servent ici uniquement de symboles pour distinguer différentes variables. On pourrait dire que nous empruntons la notation des entiers au métalangage pour faciliter l'écriture, sans présupposer leur existence dans la théorie elle-même.
+\end{remarque}
+
+Nous pouvons maintenant définir précisément les formules de $\mathcal{L}_\in$, c'est-à-dire donner la \emph{grammaire} de notre langage.
+
+Puisque les seuls termes sont les variables et que notre signature ne contient que deux symboles de relation, les formules atomiques sont particulièrement simples.
+
+\begin{definition}[Formules atomiques de $\mathcal{L}_\in$]
+	Les \textbf{formules atomiques} de $\mathcal{L}_\in$ sont exactement les expressions de la forme :
+	\begin{itemize}
+		\item $x = y$ où $x$ et $y$ sont des variables
+		\item $x \in y$ où $x$ et $y$ sont des variables
+	\end{itemize}
+\end{definition}
+
+À partir de ces formules atomiques, nous construisons toutes les formules de $\mathcal{L}_\in$ en appliquant les règles de formation des formules du premier ordre.
+
+\begin{definition}[Formules de $\mathcal{L}_\in$]
+	L'ensemble des \textbf{formules} de $\mathcal{L}_\in$ est défini inductivement par :
+	\begin{enumerate}
+		\item Toute formule atomique ($x = y$ ou $x \in y$) est une formule
+		\item Si $\varphi$ est une formule, alors $\neg\varphi$ est une formule
+		\item Si $\varphi$ et $\psi$ sont des formules, alors les expressions suivantes sont des formules :
+		\begin{itemize}
+			\item $(\varphi \land \psi)$ — la conjonction : « $\varphi$ et $\psi$ »
+			\item $(\varphi \lor \psi)$ — la disjonction : « $\varphi$ ou $\psi$ »
+			\item $(\varphi \Rightarrow \psi)$ — l'implication : « si $\varphi$ alors $\psi$ »
+			\item $(\varphi \Leftrightarrow \psi)$ — l'équivalence : « $\varphi$ si et seulement si $\psi$ »
+		\end{itemize}
+		\item Si $\varphi$ est une formule et $x$ est une variable, alors :
+		\begin{itemize}
+			\item $\forall x \, \varphi$ — la quantification universelle : « pour tout $x$, $\varphi$ »
+			\item $\exists x \, \varphi$ — la quantification existentielle : « il existe $x$ tel que $\varphi$ »
+		\end{itemize}
+		\item Rien d'autre n'est une formule de $\mathcal{L}_\in$
+	\end{enumerate}
+\end{definition}
+
+Cette définition inductive nous assure que toute formule de $\mathcal{L}_\in$ peut être construite en un nombre fini d'étapes à partir des formules atomiques.
+
+\begin{exemple}
+	Voici quelques exemples de formules de $\mathcal{L}_\in$ :
+	\begin{enumerate}
+		\item $\forall x \, \exists y \, (x \in y)$ — « Pour tout $x$, il existe $y$ tel que $x$ appartient à $y$ »
+		\item $\forall x \, \forall y \, ((\forall z \, (z \in x \Leftrightarrow z \in y)) \Rightarrow x = y)$ 
+		\item $\exists x \, \forall y \, \neg(y \in x)$ — « Il existe un ensemble qui ne contient aucun élément »
+	\end{enumerate}
+\end{exemple}
+
+Les notions de variables libres, variables liées et formules closes se définissent pour $\mathcal{L}_\in$ exactement comme pour tout langage du premier ordre, c'est à dire qu'un varialbe libre est une variables ne dépendant d'aucun quantificateurs. Tandis qu'un variable liée dépend d'un quantificateur.
+
+\begin{definition}[Énoncé de $\mathcal{L}_\in$]
+	Un \textbf{énoncé} de $\mathcal{L}_\in$ est une formule sans variables libres.
+\end{definition}
+
+\begin{remarque}
+	Les axiomes de la théorie ZF seront tous des énoncés de $\mathcal{L}_\in$. Un axiome ne contient pas de variables libres : il affirme quelque chose d'universel sur tous les ensembles ou l'existence de certains ensembles, sans référence à des ensembles particuliers non spécifiés.
+\end{remarque}
+
+Nous avons maintenant établi le cadre formel dans lequel la théorie de Zermelo-Fraenkel sera développée. Le langage $\mathcal{L}_\in$, malgré sa simplicité apparente ou plutôt grâce à elle, s'avérera suffisamment expressif pour formaliser l'intégralité des mathématiques modernes.
+
+La théorie ZF elle-même consistera en un ensemble d'énoncés de $\mathcal{L}_\in$, appelés axiomes, qui caractériseront le comportement de la relation d'appartenance. Ces axiomes ont été soigneusement choisis pour capturer notre intuition ensembliste tout en évitant les paradoxes qui ont tourmenté la théorie naïve des ensembles au début du XX\textsuperscript{e} siècle.
+
+Dans la section suivante, nous énoncerons et étudierons en détail ces axiomes fondamentaux.
 
 Commençons par donner cinq axiomes dont les énoncés sont relativement aisés à comprendre et qui sont en accords avec l'intuition commune.
+
 \section{Axiomes élémentaires}
 
 \begin{axiome}[d'extensionnalité]
@@ -223,3 +414,78 @@ le résultat en prenant pour l'expression logique $\mathscr{C}(x,y ,x_1, \dotsc 
 \end{axiome}
 L’axiome de fondation assure que la relation d’appartenance est bien fondée, excluant toute boucle du type 
 $A\in A$ ou chaînes infinies d’appartenance. Il garantit ainsi une hiérarchie claire des ensembles et permet les raisonnements par récurrence sur leur structure.
+
+\section{Conséquences}
+
+\begin{proposition}\label{ens: atoutseul}
+	Pour tout ensemble $a$, il existe un ensemble et un seul dont $a$ est le seul élément. Cet ensemble est noté $\{a\}$
+\end{proposition}
+
+\begin{proof}
+	Il s'agit d'un cas particulier de l'axiome de la paire avec $a=b$.
+\end{proof}
+
+\begin{proposition}
+	Si on a un nombre fini d'ensemble $x_1, \dotsc , x_k$, il existe un ensemble et un seul sont les éléments sont $x_1, \dotsc, x_k$, et eux seulement. Cet ensemble est noté $\{x_1, \dotsc , x_k\}$
+\end{proposition}
+
+\begin{proof}
+	Le résultat se construit par itération finie à l’aide des axiomes de la paire et de la réunion.  
+	
+	En effet, l’axiome de la paire assure que, pour tout couple d’ensembles $x, y$, l’ensemble $\{x, y\}$ existe.  
+	En supposant construit un ensemble $Y = \{x_1, \dotsc, x_{k-1}\}$, on applique l’axiome de la paire à $Y$ et $x_k$, ce qui donne $\{Y, x_k\}$.  
+	L’axiome de la réunion fournit alors
+	\[
+		\bigcup \{Y, x_k\} = Y \cup \{x_k\} = \{x_1, \dotsc, x_k\}.
+	\]
+	L’unicité découle de l’axiome d’extensionnalité.
+\end{proof}
+
+\begin{proposition}
+	Il n’existe pas d’ensemble $A$ tel que $A \in A$.
+\end{proposition}
+\begin{proof}
+	Si un tel ensemble existait, l’axiome de fondation appliqué à $\{A\}$ fournirait un élément $a\in A$ tel que $a\cap \{A\} = \varnothing$, ce qui contredit $A\in A$.
+\end{proof}
+
+\begin{definition}[Complémentaire]
+	Soit $E$ un ensemble et $A\subseteq E$.  
+	On appelle \emph{complémentaire de $A$ dans $E$} l’ensemble des éléments de $E$ qui n’appartiennent pas à $A$, noté $\complement_E A$ ou $E\setminus A$ :
+	\[
+	\complement_E A = \{x\in E \mid x\notin A\}.
+	\]
+\end{definition}
+
+\begin{proposition}[Lois de De Morgan]
+	Soient $A,B\subseteq E$. On a les égalités suivantes :
+	\[
+	\complement_E (A\cup B) = (\complement_E A)\cap(\complement_E B)
+	\quad\text{et}\quad
+	\complement_E (A\cap B) = (\complement_E A)\cup(\complement_E B).
+	\]
+\end{proposition}
+
+\begin{proof}
+	Soit $x\in E$.  
+	\begin{align*}
+		x\in \complement_E (A\cup B)
+		&\Leftrightarrow x\notin A\cup B \\
+		&\Leftrightarrow (x\notin A)\land(x\notin B) \\
+		&\Leftrightarrow x\in (\complement_E A)\cap(\complement_E B),
+	\end{align*}
+	ce qui prouve la première égalité.  
+	La seconde s’obtient de façon analogue en remplaçant $\lor$ par $\land$ dans les équivalences logiques.
+\end{proof}
+
+\begin{remarque}
+	Ces lois traduisent en langage ensembliste les lois de De Morgan de la logique propositionnelle :
+	\[
+	\neg(P\lor Q)\equiv (\neg P)\land(\neg Q),
+	\quad
+	\neg(P\land Q)\equiv (\neg P)\lor(\neg Q).
+	\]
+	Elles illustrent le parallèle étroit entre logique et théorie des ensembles.
+    Lorsque le contexte est clair, on note $A^C$ le complémentaire de $A$ dans $E$
+\end{remarque}
+
+Dans ce chapitre, nous avons donc énoncé les axiomes qui constituent la théorie ZF et qui nous permettent, de plusieurs manière, de construire des ensembles de manière formelle. Par la suite nous avons établit les opérations ensemblistes basiques qui sont l'intersection, l'union, la complémentarité, l'appartenance et l'inclusion. A partir de cela nous allons maintenant entamer les constructions qui formeront des concepts fondamentaux en mathématique.

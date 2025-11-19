@@ -1,11 +1,13 @@
 \babel@toc {french}{}\relax 
-\contentsline {part}{\@mypartnumtocformat {I}{Théorie des ensembles}}{1}{part.1}%
-\contentsline {chapter}{\numberline {1}Axiomatisation de Zermolo-Fraenkel}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Logique élémentaire}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Paradoxe de Russel}{4}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Axiomes élémentaires}{5}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Les axiomes techniques}{6}{section.1.4}%
-\contentsline {chapter}{\textcolor {ocre}{Bibliography}}{9}{chapter*.2}%
-\contentsline {section}{Books}{9}{section*.3}%
-\contentsline {section}{Articles}{9}{section*.4}%
+\contentsline {part}{\@mypartnumtocformat {I}{Théorie des ensembles}}{iii}{part.1}%
+\contentsline {chapter}{\numberline {1}Axiomatisation de Zermolo-Fraenkel}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Paradoxe de Russel}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Logique élémentaire}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Le langage de la théorie ZF}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Axiomes élémentaires}{6}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Les axiomes techniques}{8}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Conséquences}{8}{section.1.6}%
+\contentsline {chapter}{\textcolor {ocre}{Bibliography}}{11}{chapter*.2}%
+\contentsline {section}{Livres}{11}{section*.3}%
+\contentsline {section}{Documents}{11}{section*.4}%
 \contentsfinish 
